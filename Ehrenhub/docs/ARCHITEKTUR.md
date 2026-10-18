@@ -2,6 +2,8 @@
 
 Technischer Stand: 18. Oktober 2026, Refactoring 0.2.0. Das sichtbare Design und der bisherige Demo-Datenbestand bleiben erhalten. Es gibt weiterhin keine Anmeldung, kein Backend und keine zusätzlichen npm-Abhängigkeiten.
 
+Ergänzung: Der Schichtplaner ist ein eigenständiges Feature unter `src/features/schichtplan/`. Die bestehende Aufteilung bleibt erhalten; komplexere Werkzeuge können ihre eigene Fachlogik, Darstellung, Bedienung und CSS zusammenhalten. Details stehen in [SCHICHTPLAN.md](SCHICHTPLAN.md).
+
 ## Die fünf Zuständigkeiten
 
 | Zuständigkeit | Ort | Beispiele |
@@ -12,13 +14,14 @@ Technischer Stand: 18. Oktober 2026, Refactoring 0.2.0. Das sichtbare Design und
 | Verhalten und Fachlogik | `src/core.js`, `src/app.js`, `src/services/` | Suche, Filter, Routing, Klicks, lokale Speicherung |
 | Veröffentlichung und Prüfungen | `scripts/`, `tests/` | Inhalt prüfen, HTML bauen, Regressionen testen |
 
-`src/styles.css` enthält weiterhin alle Farben, Abstände, Schrift-, Hover-, Mobil- und Druckregeln. `src/icons.js` enthält die bestehenden Icons, das Markenzeichen und Hubi. `src/template.html` bleibt das HTML-Grundgerüst. Diese drei Dateien wurden beim Refactoring bytegenau beibehalten.
+`src/styles.css` enthält die gemeinsamen Gestaltungsvorgaben und die bisherigen Seitenregeln. `src/features/schichtplan/styles.css` ergänzt nur das neue Werkzeug sowie den Platz für den zusätzlichen Navigationslink. Beide werden über `scripts/styles.json` eingebunden. `src/icons.js` enthält die bestehenden Icons, das Markenzeichen und Hubi. `src/template.html` bleibt das HTML-Grundgerüst. Die drei ursprünglichen Dateien wurden nicht verändert.
 
 ## Was passiert bei einem Build?
 
 1. `src/content.js` liest die JSON-Dateien und setzt daraus ein gemeinsames Datenobjekt zusammen.
 2. `scripts/validate-content.mjs` prüft Pflichtfelder, IDs, Verweise, Datumswerte, Quellen und Finder-Konfiguration.
 3. `scripts/build.mjs` bettet dieses Objekt und die in `scripts/modules.json` aufgelisteten Module in die HTML-Vorlage ein.
+   Die CSS-Dateien aus `scripts/styles.json` werden ebenfalls in dieser Reihenfolge eingebettet.
 4. Es entstehen `dist/index.html` für GitHub Pages und `Ehrenhub.html` für das lokale Öffnen.
 
 Beide Dateien enthalten dieselbe Website. Es gibt kein Nachladen der JSON-Dateien im Browser. Deshalb funktioniert die HTML-Datei weiterhin per Doppelklick und offline. Externe Anbieterlinks brauchen natürlich Internet.

@@ -10,6 +10,7 @@ function boot({ hash = '#/', blocked = false, initial = {} } = {}) {
   const script = html.match(/<script>([\s\S]*?)<\/script>/)[1];
   const documentEvents = {};
   const windowEvents = {};
+  const timers = [];
   const values = new Map(Object.entries(initial));
   class Element {
     constructor(selectors = []) {
@@ -44,12 +45,13 @@ function boot({ hash = '#/', blocked = false, initial = {} } = {}) {
   const location = { hash, replace(value) { this.hash = value; } };
   const window = {
     addEventListener: (name, handler) => { windowEvents[name] = handler; },
-    scrollTo() {}, print() {},
+    scrollTo() {}, print() {}, confirm() { return true; },
   };
   const ctx = {
     document, location, window, Element, URLSearchParams, URL, Blob,
     history: { replaceState(_state, _unused, hash) { location.hash = hash; } },
-    setTimeout: () => 1, clearTimeout() {}, requestAnimationFrame: () => 1,
+    setTimeout: fn => { timers.push(fn); return timers.length; }, clearTimeout() {}, requestAnimationFrame: () => 1,
+    FormData: class { constructor(form) { this.data = form.fields || {}; } entries() { return Object.entries(this.data); } },
   };
   Object.defineProperty(ctx, 'localStorage', { get() {
     if (blocked) throw new Error('Storage blocked');
@@ -65,7 +67,8 @@ function boot({ hash = '#/', blocked = false, initial = {} } = {}) {
   const send = (name, target, other = {}) => documentEvents[name]({ target, preventDefault() {}, ...other });
   const click = (selector, dataset) => { const target = new Element([selector]); target.dataset = dataset; send('click', target); };
   const navigate = hash => { location.hash = hash; windowEvents.hashchange(); };
-  return { ctx, nodes, values, send, click, navigate, Element };
+  const flushTimers = () => { const pending = timers.splice(0); pending.forEach(fn => fn()); };
+  return { ctx, nodes, values, send, click, navigate, Element, flushTimers };
 }
 
 test('actual HTML bundle boots with data and all presentation modules in order', () => {
@@ -120,4 +123,100 @@ test('actual bundle still works when the browser refuses all local storage', () 
   app.navigate('#/merkliste');
   assert.ok(app.nodes.get('main').innerHTML.includes('Juleica: dein Weg'));
   assert.equal(app.values.size, 0);
+});
+
+test('planner persists a demo without touching existing bookmarks and restores it', () => {
+  const app = boot({ hash: '#/schichtplan', initial: { 'ehrenhub.v1.bookmarks': '["wiki:juleica"]' } });
+  assert.match(app.nodes.get('main').innerHTML, /Was habt ihr vor/);
+  app.click('[data-sp-action]', { spAction: 'demo' });
+  const p = JSON.parse(app.values.get('ehrenhub.v1.shiftPlan'));
+  assert.equal(p.people.length, 16); assert.equal(p.areas.length, 3);
+  assert.equal(app.values.get('ehrenhub.v1.bookmarks'), '["wiki:juleica"]');
+  const again = boot({ hash: '#/schichtplan', initial: Object.fromEntries(app.values) });
+  assert.match(again.nodes.get('main').innerHTML, /Gleicher Einsatz/);
+  assert.match(again.nodes.get('main').innerHTML, /Sommerfest der Pfarrjugend/);
+  again.click('[data-sp-action]', { spAction: 'reset' });
+  assert.equal(JSON.parse(again.values.get('ehrenhub.v1.shiftPlan')).people.length, 0);
+  assert.equal(again.values.get('ehrenhub.v1.bookmarks'), '["wiki:juleica"]');
+});
+
+test('delegated planner forms and changes follow the complete setup path', () => {
+  const app = boot({ hash: '#/schichtplan' });
+  const submit = (type, fields) => { const form = new app.Element(); form.dataset.spForm = type; form.fields = fields; app.send('submit', form); };
+  const change = (dataset, value, checked) => { const input = new app.Element(); input.dataset = dataset; input.value = value; input.checked = checked; app.send('change', input); };
+  const read = () => JSON.parse(app.values.get('ehrenhub.v1.shiftPlan'));
+  submit('event', { name: 'Unser Fest', location: 'Garten', start: '2026-10-23T17:00', end: '2026-10-23T21:00', minutes: '60' });
+  assert.equal(read().step, 1);
+  submit('area', { name: 'Bar', start: '2026-10-23T17:00', end: '2026-10-23T21:00', minutes: '60', required: '1' });
+  assert.equal(read().shifts.length, 4);
+  app.click('[data-sp-action]', { spAction: 'next' }); assert.equal(read().step, 2);
+  submit('people', { names: 'Alex, Kim, Toni' }); assert.equal(read().people.length, 3);
+  const person = read().people[0], area = read().areas[0];
+  change({ spEligibility: person.id, area: area.id }, '', false); assert.equal(read().people[0].areaIds.length, 0);
+  change({ spEligibility: person.id, area: area.id }, '', true); assert.equal(read().people[0].areaIds.length, 1);
+  change({ spAvailability: person.id, start: '2026-10-23T17:00', end: '2026-10-23T19:00' }, '', false);
+  change({ spAvailability: person.id, start: '2026-10-23T18:00', end: '2026-10-23T19:00' }, '', true);
+  assert.deepEqual(read().people[0].unavailable, [{ start: '2026-10-23T17:00', end: '2026-10-23T18:00' }]);
+  change({ spPersonMode: person.id }, 'exact'); change({ spPersonLimit: person.id }, '1');
+  assert.equal(read().people[0].loadValue, 1);
+  app.click('[data-sp-action]', { spAction: 'next' }); assert.equal(read().step, 3);
+  change({ spRule: 'fairness' }, 'count'); assert.equal(read().rules.fairness, 'count');
+});
+
+test('manual edits reject collisions, retain locks, and allow free vacancies', () => {
+  const shell = boot(); const M = shell.ctx.EH.ShiftModel, p = M.demo();
+  p.assignments = shell.ctx.EH.ShiftSolver.solve(p).assignments; p.step = 4;
+  const app = boot({ hash: '#/schichtplan', initial: { 'ehrenhub.v1.shiftPlan': JSON.stringify(p) } });
+  const change = (dataset, value, checked) => { const input = new app.Element(); input.dataset = dataset; input.value = value; input.checked = checked; app.send('change', input); };
+  const first = p.shifts[0], personId = p.assignments[first.id][0];
+  change({ spLock: first.id, person: personId }, '', true);
+  change({ spAssign: first.id, index: '0' }, '');
+  assert.equal(JSON.parse(app.values.get('ehrenhub.v1.shiftPlan')).assignments[first.id][0], personId);
+  change({ spLock: first.id, person: personId }, '', false);
+  change({ spAssign: first.id, index: '0' }, '');
+  assert.equal(JSON.parse(app.values.get('ehrenhub.v1.shiftPlan')).assignments[first.id][0], '');
+  const other = p.shifts.find(s => s.start === first.start && s.areaId !== first.areaId);
+  const occupied = p.assignments[other.id][0];
+  change({ spAssign: first.id, index: '0' }, occupied);
+  assert.equal(JSON.parse(app.values.get('ehrenhub.v1.shiftPlan')).assignments[first.id][0], '');
+});
+
+test('global data reset clears the planner; blocked storage never prevents planning', () => {
+  const app = boot({ hash: '#/schichtplan' });
+  app.click('[data-sp-action]', { spAction: 'demo' });
+  app.click('[data-action]', { action: 'confirm-reset' });
+  assert.equal(app.values.has('ehrenhub.v1.shiftPlan'), false);
+  assert.match(app.nodes.get('main').innerHTML, /Was habt ihr vor/);
+  const blocked = boot({ hash: '#/schichtplan', blocked: true });
+  assert.doesNotThrow(() => blocked.click('[data-sp-action]', { spAction: 'demo' }));
+  blocked.navigate('#/schichtplan');
+  assert.match(blocked.nodes.get('main').innerHTML, /Sommerfest der Pfarrjugend/);
+  assert.match(blocked.nodes.get('main').innerHTML, /Speichern im Browser ist nicht möglich/);
+});
+
+test('Generate action actually computes and persists a checked result through the shell', () => {
+  const app = boot({ hash: '#/schichtplan' });
+  app.click('[data-sp-action]', { spAction: 'demo' });
+  app.click('[data-sp-action]', { spAction: 'generate' });
+  app.flushTimers();
+  const p = JSON.parse(app.values.get('ehrenhub.v1.shiftPlan'));
+  assert.equal(p.step, 4); assert.equal(app.ctx.EH.ShiftModel.assignmentIssues(p).length, 0);
+  app.navigate('#/schichtplan'); assert.match(app.nodes.get('main').innerHTML, /Euer Einsatz steht/);
+});
+
+test('file import replaces only after valid parsing and confirmation', async () => {
+  const app = boot({ hash: '#/schichtplan' });
+  app.click('[data-sp-action]', { spAction: 'demo' });
+  const p = app.ctx.EH.ShiftModel.demo(); p.event.name = 'Importiertes Fest';
+  const field = new app.Element(); field.dataset = { spImport: '' };
+  field.files = [{ size: 1000, text: async () => JSON.stringify(p) }];
+  app.send('change', field); await new Promise(resolve => setImmediate(resolve));
+  assert.equal(JSON.parse(app.values.get('ehrenhub.v1.shiftPlan')).event.name, 'Importiertes Fest');
+  field.files = [{ size: 50, text: async () => 'broken json' }];
+  app.send('change', field); await new Promise(resolve => setImmediate(resolve));
+  assert.equal(JSON.parse(app.values.get('ehrenhub.v1.shiftPlan')).event.name, 'Importiertes Fest');
+  p.event.name = 'Should not replace'; app.ctx.window.confirm = () => false;
+  field.files = [{ size: 1000, text: async () => JSON.stringify(p) }];
+  app.send('change', field); await new Promise(resolve => setImmediate(resolve));
+  assert.equal(JSON.parse(app.values.get('ehrenhub.v1.shiftPlan')).event.name, 'Importiertes Fest');
 });

@@ -39,6 +39,7 @@
     return false;
   }
   function titleFor(r){
+    if(r.page==='schichtplan'&&!r.id)return 'Schichtplaner';
     if(r.id){const collection=r.page==='wiki'?D.articles:r.page==='fortbildungen'?D.courses:r.page==='antraege'?D.grants:[];return collection.find(x=>x.id===r.id)?.title||'Seite nicht gefunden';}
     return {home:'Weniger suchen. Mehr bewegen.',wiki:'Wiki & How-tos',antraege:'Antragsfinder',fortbildungen:'Fortbildungsfinder',sos:'PSG & SOS – Unterstützung finden',merkliste:'Deine Merkliste',suche:'Suche'}[r.page]||'Seite nicht gefunden';
   }
@@ -166,6 +167,7 @@
   }
   function resetData(){
     const cleared=storage.clear();
+    planner.reset();
     state.bookmarks=[];state.checks={};state.feedback={};state.hubiHidden=false;state.petCount=0;
     closeDialog(infoDialog);render();toast(cleared?'Deine lokalen Ehrenhub-Daten wurden zurückgesetzt.':'Ansicht zurückgesetzt. Dein Browser erlaubt gerade keinen Zugriff auf gespeicherte Daten.');
   }
@@ -187,7 +189,10 @@
     pet,
     'quick-exit':()=>{state.sosTab='sorge';location.replace('#/');}
   };
+  const planner=globalThis.EH.ShiftController.create({storage,toast});
+  state.planner=planner;
   document.addEventListener('click',event=>{
+    if(planner.handleClick(event))return;
     const target=event.target instanceof Element?event.target:null;if(!target)return;
     if(target.closest('.skip-link')){event.preventDefault();main.focus({preventScroll:true});main.scrollIntoView({block:'start',behavior:'smooth'});return;}
     const bookmarkButton=target.closest('[data-bookmark]');if(bookmarkButton){event.preventDefault();toggleBookmark(bookmarkButton.dataset.bookmark);return;}
@@ -201,11 +206,13 @@
     const link=target.closest('a[href^="#/"]');if(link){closeDialog(searchDialog);closeDialog(infoDialog);const mobile=document.getElementById('mobile-nav');if(mobile)mobile.hidden=true;if(route.page==='sos')state.sosTab='sorge';}
   });
   document.addEventListener('submit',event=>{
+    if(planner.handleSubmit(event))return;
     const form=event.target;
     if(form.matches('[data-form="hero-search"]')){event.preventDefault();const q=new FormData(form).get('q').trim();if(q)location.hash='/suche?q='+encodeURIComponent(q);}
     else if(form.id==='quick-search-form'){event.preventDefault();const q=searchInput.value.trim();closeDialog(searchDialog);location.hash='/suche'+(q?'?q='+encodeURIComponent(q):'');}
   });
   document.addEventListener('input',event=>{
+    if(planner.handleInput(event))return;
     const el=event.target;
     if(el===searchInput){updateQuickSearch();return;}
     if(el.dataset.search==='wiki'){updateQuery({q:el.value});updateWiki();}
@@ -213,6 +220,7 @@
     if(el.dataset.search==='global'){updateQuery({q:el.value});updateSearchPage();}
   });
   document.addEventListener('change',event=>{
+    if(planner.handleChange(event))return;
     const el=event.target;
     if(el.dataset.check&&checkKeys.has(el.dataset.check)){if(el.checked)state.checks[el.dataset.check]=true;else delete state.checks[el.dataset.check];persist('checks',state.checks);el.closest('.checklist-item').classList.toggle('done',el.checked);updateChecklistProgress();}
     if(el.dataset.grantAnswer){const question=V.grantQuestions[state.wizardStep];if(el.dataset.grantAnswer===question.key&&question.options.some(o=>o[0]===el.value)){state.grantAnswers[question.key]=el.value;document.querySelectorAll('.wizard-option').forEach(label=>label.classList.toggle('selected',label.querySelector('input').checked));document.getElementById('wizard-next').disabled=false;}}

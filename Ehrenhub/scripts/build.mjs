@@ -10,9 +10,11 @@ const modules=JSON.parse(await fs.readFile(path.join(root,'scripts/modules.json'
 if (!Array.isArray(modules) || modules.length !== new Set(modules).size || modules.some(file=>typeof file!=='string'||file.includes('..')||path.isAbsolute(file))) {
   throw new Error('scripts/modules.json muss eindeutige relative Modulpfade enthalten.');
 }
+const styles=JSON.parse(await fs.readFile(path.join(root,'scripts/styles.json'),'utf8'));
+if (!Array.isArray(styles) || styles.some(file=>typeof file!=='string'||file.includes('..')||path.isAbsolute(file))) throw new Error('scripts/styles.json braucht relative CSS-Dateipfade.');
 const [template,css,...js]=await Promise.all([
   fs.readFile(path.join(root,'src/template.html'),'utf8'),
-  fs.readFile(path.join(root,'src/styles.css'),'utf8'),
+  Promise.all(styles.map(file=>fs.readFile(path.join(root,'src',file),'utf8'))).then(parts=>parts.join('\n\n')),
   ...modules.map(file=>fs.readFile(path.join(root,'src',file),'utf8'))
 ]);
 // JSON is embedded at build time. Opening the HTML offline never needs fetch().

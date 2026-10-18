@@ -2,6 +2,8 @@
 
 Wissen und Orientierung für die Kinder- und Jugendarbeit in München. Tiefgrünes Design, keine Anmeldung, keine externen Laufzeit-Abhängigkeiten. Diese Version räumt den vorhandenen Prototyp technisch auf, ohne seine Gestaltung und Beispielinhalte zu ersetzen.
 
+**Neu: Schichtplaner.** Unter `#/schichtplan` gibt es einen lokalen Planungsbereich für Veranstaltungen: Arbeitsbereiche und Schichten, Team-Verfügbarkeiten, automatische Verteilung, fixierbare Zuteilungen, Projektdateien, CSV und eine Druckansicht für PDF. Einstieg über die Navigation oder die neue Startseitenkarte. [Bedienung, Grenzen und Modulaufbau](docs/SCHICHTPLAN.md).
+
 ## Direkt ansehen
 
 Die erzeugte Datei **`Ehrenhub.html` im Browser öffnen**. Im Übergabepaket liegt sie bereits bei. Nach Änderungen an den Quelldateien muss sie neu gebaut werden.
@@ -32,11 +34,13 @@ npm test
 | Auswahl hervorgehobener Startseiten-Einträge | `data/site.json` |
 | Gemeinsame Karten, Navigation, Dialoge | `src/components/` |
 | Aufbau eines bestimmten Bereichs | `src/pages/` |
+| Schichtplan: Datenmodell, Berechnung, Oberfläche, Bedienung und eigenes CSS | `src/features/schichtplan/` |
 | Farben, Schriften, Abstände, Hover- und Mobilverhalten | `src/styles.css` |
 | Suche, Filter und Förderzuordnung | `src/core.js` |
 | Klicks, Dialoge und Navigation | `src/app.js` |
 | Lokale Browser-Speicherung | `src/services/storage.js` |
 | Build und Inhaltsprüfung | `scripts/` |
+| Reihenfolge der JavaScript- und CSS-Module | `scripts/modules.json`, `scripts/styles.json` |
 | Funktionstests | `tests/` |
 
 Daten werden beim Build eingebettet, nicht per `fetch` nachgeladen. Die modularen Quelldateien werden zur Veröffentlichung weiterhin zu einer einzigen HTML-Datei gebündelt. Bedienbeschriftungen bleiben in der Darstellung; redaktionelle Inhalte und Kataloge stehen separat in JSON.
@@ -67,6 +71,8 @@ Der neue Build enthält bereits die Inhaltsvalidierung. Optional kann später de
 
 Es gibt weiterhin keine Benutzerkonten, keine zentrale Datenbank, keinen Crawler und keine geteilten Daten. GitHub Pages stellt die erzeugten statischen Dateien bereit. Das Projekt bindet keine externen Fonts, Analyse-Skripte oder Bibliotheken ein.
 
+Der Schichtplan verwendet zusätzlich den lokalen Schlüssel `ehrenhub.v1.shiftPlan`. Das ist kein Online-Speicher: Nach Löschen der Browserdaten kann der Plan weg sein. Für Sicherung oder Gerätewechsel eine Projektdatei exportieren. Projekt- und CSV-Dateien enthalten die eingetragenen Namen; nicht ins öffentliche GitHub-Repository hochladen.
+
 ## Inhaltlicher Status
 
 Wiki-Texte sind nicht fachlich freigegeben. Kurstermine und Kursdetails sind Beispiele; der Antragsfinder zeigt illustrative Recherchewege, keine Förderberechtigungen. Die verlinkten Organisationen sind keine behaupteten Kooperationspartner.
@@ -80,4 +86,4 @@ Das Aufräumen ist keine fachliche, datenschutzrechtliche oder rechtliche Freiga
 - [Prüfprotokoll und verbleibende manuelle Tests](docs/PRUEFPROTOKOLL.md)
 - [Bisherige externe Quellen](SOURCES.md)
 
-Prüfstand: 40 automatisierte Tests erfolgreich. 282 gerenderte Ausgaben mit dem ursprünglichen Prototyp verglichen; CSS, Icons und HTML-Vorlage unverändert. Die Tests enthalten Logik-, Struktur- und Controller-Prüfungen mit DOM-Nachbildung, aber keinen echten Browser- oder Mobilgeräte-Test.
+Prüfstand des vorherigen Refactorings: 40 Tests, 282 verglichene Ausgaben. Beim Schichtplan-Update bleiben `src/styles.css`, Icons, HTML-Vorlage und die redaktionellen JSON-Inhalte unverändert; zusätzliche Gestaltung liegt im Feature-Ordner. Die erweiterten Tests prüfen auch Solver, Import/Export und Controller-Ereignisse. Sie ersetzen keinen echten Browser- oder Mobilgeräte-Test. Aktueller Prüfstand und verbleibender manueller Test: [Schichtplan](docs/SCHICHTPLAN.md).

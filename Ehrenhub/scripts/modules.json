@@ -12,6 +12,10 @@
   "pages/search.js",
   "pages/saved.js",
   "pages/not-found.js",
+  "features/schichtplan/model.js",
+  "features/schichtplan/solver.js",
+  "features/schichtplan/view.js",
+  "features/schichtplan/controller.js",
   "views.js",
   "services/storage.js",
   "app.js"

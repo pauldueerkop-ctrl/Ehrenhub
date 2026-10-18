@@ -21,6 +21,7 @@
       return item ? P.Grants.grantDetail(item, state) : P.NotFound.notFound();
     }
     if (route.id) return P.NotFound.notFound();
+    if (route.page === 'schichtplan') return state.planner ? state.planner.render() : root.EH.ShiftView.render();
     if (route.page === 'sos') return P.Sos.sos(state);
     if (route.page === 'merkliste') return P.Saved.saved(state, index);
     if (route.page === 'suche') return P.Search.searchPage(route, state, index);
