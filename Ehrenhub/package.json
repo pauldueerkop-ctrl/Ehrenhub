@@ -1,11 +1,14 @@
 {
   "name": "ehrenhub-local-prototype",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "Local, offline-capable Ehrenhub prototype with no login and no runtime dependencies.",
+  "description": "Modular Ehrenhub prototype: JSON content, reusable views, static GitHub Pages build. No login or dependencies.",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node --test tests/core.test.cjs tests/views.test.cjs"
+    "validate": "node scripts/validate-content.mjs",
+    "pretest": "npm run build",
+    "test": "node --test tests/*.test.cjs",
+    "check": "npm test"
   },
   "engines": {"node": ">=18"}
 }

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "einstieg",
+    "label": "Einstieg & Organisation",
+    "icon": "compass",
+    "color": "sage"
+  },
+  {
+    "id": "gruppenalltag",
+    "label": "Gruppenalltag",
+    "icon": "users",
+    "color": "lavender"
+  },
+  {
+    "id": "finanzen",
+    "label": "Finanzen & Anträge",
+    "icon": "coins",
+    "color": "sand"
+  },
+  {
+    "id": "schutz",
+    "label": "Schutz & Verantwortung",
+    "icon": "shield",
+    "color": "rose"
+  }
+]

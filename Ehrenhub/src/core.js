@@ -1,18 +1,16 @@
 /* Pure domain logic. No browser or framework dependency. */
 (function (root, factory) {
-  const core = factory();
+  const config = typeof module === 'object' && module.exports ? require('../data/finder.json') : root.EH.Data.finder;
+  const core = factory(config);
   if (typeof module === 'object' && module.exports) module.exports = core;
   else (root.EH = root.EH || {}).Core = core;
-})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (config) {
   'use strict';
   const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const normalize = value => String(value ?? '').toLowerCase().replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
   const tokens = value => normalize(value).split(/[^\p{L}\p{N}]+/u).filter(Boolean);
   const includes = (text, query) => tokens(query).every(word => normalize(text).includes(word));
-  const courseTopics = {leitung:'Gruppenleitung',praevention:'Prävention',erstehilfe:'Erste Hilfe',organisation:'Organisation'};
-  const regions = {stadt:'München-Stadt',land:'Landkreis München'};
-  const projectTypes = {freizeit:'Freizeit & Fahrt',aktion:'Aktion & Projekt',material:'Material & Ausstattung',bildung:'Aus- & Weiterbildung'};
-  const stages = {planung:'Wir planen noch',gestartet:'Es läuft bereits',abgeschlossen:'Schon abgeschlossen'};
+  const {courseTopics,regions,projectTypes,stages}=config;
 
   function parseRoute(hash) {
     const raw = String(hash || '#/').replace(/^#/, '');
@@ -37,7 +35,7 @@
     return [...matches].sort(filters.sort === 'titel' ? (a,b) => a.title.localeCompare(b.title,'de') : (a,b) => a.date.localeCompare(b.date));
   }
   function validGrantAnswers(answers) {
-    return !!(regions[answers.region] && projectTypes[answers.project] && stages[answers.stage]);
+    return !!answers && Object.hasOwn(regions,answers.region) && Object.hasOwn(projectTypes,answers.project) && Object.hasOwn(stages,answers.stage);
   }
   function matchGrants(grants, answers) {
     if (!validGrantAnswers(answers)) return [];

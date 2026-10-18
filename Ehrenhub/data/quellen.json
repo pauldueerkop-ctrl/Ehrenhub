@@ -1,0 +1,50 @@
+{
+  "kjrStadt": {
+    "label": "KJR München-Stadt · Förderung & Finanzen",
+    "url": "https://jugendverbaende-muenchen.de/foerderung-finanzen/"
+  },
+  "kjrLand": {
+    "label": "KJR München-Land · Zuschüsse",
+    "url": "https://kjr-ml.de/jugendverbaende/zuschuss/"
+  },
+  "kjg": {
+    "label": "KjG München und Freising · Kurswoche",
+    "url": "https://muenchen.kjg.de/kurswoche/"
+  },
+  "kjgFinder": {
+    "label": "KjG · Kursfinder",
+    "url": "https://muenchen.kjg.de/bildung/kursfinder/"
+  },
+  "kjgOrt": {
+    "label": "KjG · Fortbildungen vor Ort",
+    "url": "https://muenchen.kjg.de/fortbildungen-vor-ort/"
+  },
+  "bdkj": {
+    "label": "BDKJ München und Freising · Prävention",
+    "url": "https://www.bdkj.org/praevention/"
+  },
+  "bdkjKurs": {
+    "label": "BDKJ · Beispiel einer Grundlagenschulung",
+    "url": "https://www.bdkj.org/aktuelles/neuigkeiten/grundlagenschulung-praevention-sexualisierter-gewalt/"
+  },
+  "brk": {
+    "label": "BRK München · Erste-Hilfe-Kurse",
+    "url": "https://www.erste-hilfe.brk-muenchen.de/"
+  },
+  "help": {
+    "label": "Hilfe-Portal Sexueller Missbrauch",
+    "url": "https://www.hilfe-portal-missbrauch.de/startseite"
+  },
+  "advice": {
+    "label": "Hilfe-Telefon · Beratung und Online-Angebot",
+    "url": "https://www.hilfe-portal-missbrauch.de/hilfe-telefon"
+  },
+  "eja": {
+    "label": "EJA München und Freising · Beratung & Hilfe",
+    "url": "https://www.eja-muenchen.de/praevention/beratung-hilfe"
+  },
+  "police": {
+    "label": "Polizei Bayern · Notrufnummern",
+    "url": "https://www.polizei.bayern.de/schuetzen-und-vorbeugen/senioren/006701/index.html"
+  }
+}

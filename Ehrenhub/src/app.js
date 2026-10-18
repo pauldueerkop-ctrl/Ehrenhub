@@ -3,14 +3,10 @@
   'use strict';
   const {Data:D,Core:C,Views:V,Icons:{icon:I}}=globalThis.EH;
   const index=C.makeSearchIndex(D);
-  const PREFIX='ehrenhub.v1.';
-  let storageAvailable=true;
-  const read=(key,fallback)=>{try{return localStorage.getItem(PREFIX+key)??fallback;}catch{storageAvailable=false;return fallback;}};
-  const readObject=(key,validKeys,validValue)=>{
-    try{const data=JSON.parse(read(key,'{}'));if(!data||Array.isArray(data)||typeof data!=='object')return {};
-      return Object.fromEntries(Object.entries(data).filter(([k,v])=>validKeys.has(k)&&validValue(v)));
-    }catch{return {};}
-  };
+  const {createStore,PREFIX}=globalThis.EH.Storage;
+  const storage=createStore(()=>localStorage);
+  const {read,readObject}=storage;
+  const sosIds=D.sos.tabs.map(([id])=>id);
   const checkKeys=new Set(D.articles.flatMap(a=>a.sections.flatMap((s,si)=>(s.checklist||[]).map((_,ci)=>a.id+':'+si+':'+ci))));
   const state={
     bookmarks:C.readBookmarks(read('bookmarks','[]'),index),
@@ -38,8 +34,9 @@
     toastTimer=setTimeout(()=>toastElement.classList.remove('visible'),3600);
   }
   function persist(key,value){
-    try{localStorage.setItem(PREFIX+key,JSON.stringify(value));return true;}
-    catch{storageAvailable=false;if(!storageWarningShown){storageWarningShown=true;toast('Dein Browser blockiert die Speicherung. Die Auswahl bleibt nur bis zum Neuladen.');}return false;}
+    if(storage.write(key,value))return true;
+    if(!storageWarningShown){storageWarningShown=true;toast('Dein Browser blockiert die Speicherung. Die Auswahl bleibt nur bis zum Neuladen.');}
+    return false;
   }
   function titleFor(r){
     if(r.id){const collection=r.page==='wiki'?D.articles:r.page==='fortbildungen'?D.courses:r.page==='antraege'?D.grants:[];return collection.find(x=>x.id===r.id)?.title||'Seite nicht gefunden';}
@@ -88,7 +85,7 @@
     const q=searchInput.value.trim();
     if(q)searchBody.innerHTML=V.searchResults(q,index,'alle',true);
     else{
-      const popular=['wiki:erste-gruppenstunde','wiki:juleica','antrag:freizeit-stadt','sos'];
+      const popular=D.site.quickSearch;
       searchBody.innerHTML='<p class="eyebrow">Gute Ausgangspunkte</p>'+V.searchResults('',index.filter(item=>popular.includes(item.key)),'alle',true);
     }
   }
@@ -145,7 +142,7 @@
     }
   }
   function setSosTab(id,focus=false){
-    if(!['sorge','anvertraut','selbst'].includes(id))return;
+    if(!sosIds.includes(id))return;
     state.sosTab=id;
     document.querySelectorAll('[data-sos-tab]').forEach(el=>{const selected=el.dataset.sosTab===id;el.setAttribute('aria-selected',String(selected));el.tabIndex=selected?0:-1;el.classList.toggle('selected',selected);if(selected&&focus)el.focus();});
     const panel=document.getElementById('sos-panel');panel.innerHTML=V.sosSituation(id);panel.setAttribute('aria-labelledby','sos-tab-'+id);
@@ -168,8 +165,7 @@
     toast('Deine Merkliste wurde als Textdatei vorbereitet.');
   }
   function resetData(){
-    const keys=['bookmarks','checks','feedback','hubiHidden'];let cleared=true;
-    for(const key of keys){try{localStorage.removeItem(PREFIX+key);}catch{cleared=false;}}
+    const cleared=storage.clear();
     state.bookmarks=[];state.checks={};state.feedback={};state.hubiHidden=false;state.petCount=0;
     closeDialog(infoDialog);render();toast(cleared?'Deine lokalen Ehrenhub-Daten wurden zurückgesetzt.':'Ansicht zurückgesetzt. Dein Browser erlaubt gerade keinen Zugriff auf gespeicherte Daten.');
   }
@@ -234,7 +230,7 @@
       }
     }
     if(target instanceof Element&&target.matches('[data-sos-tab]')&&['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(event.key)){
-      event.preventDefault();const ids=['sorge','anvertraut','selbst'];const at=ids.indexOf(state.sosTab);const next=event.key==='Home'?0:event.key==='End'?2:(at+(['ArrowRight','ArrowDown'].includes(event.key)?1:2))%3;setSosTab(ids[next],true);
+      event.preventDefault();const at=sosIds.indexOf(state.sosTab);const next=event.key==='Home'?0:event.key==='End'?sosIds.length-1:(at+(['ArrowRight','ArrowDown'].includes(event.key)?1:sosIds.length-1))%sosIds.length;setSosTab(sosIds[next],true);
     }
     if(event.key==='Escape'){const menu=document.getElementById('mobile-nav');if(menu&&!menu.hidden){menu.hidden=true;const btn=document.querySelector('[data-action="menu"]');btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-label','Menü öffnen');btn.innerHTML=I('menu');btn.focus();}}
   });
@@ -249,5 +245,5 @@
   });
   render();
   setTimeout(()=>{if(!state.hubiHidden&&route.page!=='sos')bubble('Ich bin Hubi. Einmal streicheln?',5000);},1400);
-  if(!storageAvailable)setTimeout(()=>toast('Lokale Speicherung ist in diesem Browser nicht verfügbar. Du kannst trotzdem alles ausprobieren.'),800);
+  if(!storage.available)setTimeout(()=>toast('Lokale Speicherung ist in diesem Browser nicht verfügbar. Du kannst trotzdem alles ausprobieren.'),800);
 })();

@@ -1,81 +1,83 @@
-# Ehrenhub – lokaler Prototyp
+# Ehrenhub – modularer Web-Prototyp
 
-Eine erste, eigenständige Webanwendung für Wissen und Orientierung in der Kinder- und Jugendarbeit. Tiefgrünes, helles Design; keine Anmeldung; keine Veröffentlichung.
+Wissen und Orientierung für die Kinder- und Jugendarbeit in München. Tiefgrünes Design, keine Anmeldung, keine externen Laufzeit-Abhängigkeiten. Diese Version räumt den vorhandenen Prototyp technisch auf, ohne seine Gestaltung und Beispielinhalte zu ersetzen.
 
-## Direkt öffnen
+## Direkt ansehen
 
-**`Ehrenhub.html` herunterladen und per Doppelklick in einem aktuellen Browser öffnen.** Es ist keine Installation nötig. Die Datei enthält die komplette Oberfläche, Texte, Illustrationen und Logik.
+Die erzeugte Datei **`Ehrenhub.html` im Browser öffnen**. Im Übergabepaket liegt sie bereits bei. Nach Änderungen an den Quelldateien muss sie neu gebaut werden.
 
-Das Wiki, die Suchfunktionen, die Filter, die Detailseiten und Hubi funktionieren offline. Nur externe Informations- und Beratungslinks benötigen Internet. Auf manchen Mobilgeräten oder in Dateivorschauen wird JavaScript blockiert: Die Datei dann ausdrücklich in einem Browser öffnen.
+Die eigenständige HTML-Datei enthält Daten, Gestaltung und Logik. Suche, Filter, Detailseiten, Checklisten, Merkliste und Hubi funktionieren ohne Backend. Externe Anbieterlinks brauchen Internet.
 
-## Was funktioniert?
+## Entwickeln und prüfen
 
-- **Startseite:** vier Einstiege, direkte Suchfunktion, ausgewählte Artikel und Kursbeispiele.
-- **Wiki & How-tos:** zwölf Artikel, Themenfilter, Textsuche, Detailseiten, Inhaltsnavigation, Leseindikator, Druckansicht und abhakbare Checklisten.
-- **Antragsfinder:** drei Schritte für Region, Vorhaben und Stand; acht Beispielwege für vier Vorhaben in München-Stadt und im Landkreis München; unterschiedliche nächste Hinweise je Projektstand; Links zu offiziellen KJR-Informationen.
-- **Fortbildungsfinder:** sieben Beispielangebote mit Filtern für Thema, Dauer und Format, Suche nach Anbieter oder Begriff, Sortierung und Detailseiten.
-- **PSG & SOS:** drei auswählbare Situationen, reale Beratungslinks, Notruflinks, aufklappbare Fragen und eine Schaltfläche zum Verlassen der Seite. Kein Kontakt- oder Meldeformular.
-- **Globale Suche:** oben über die Lupe, mit Strg/⌘ + K oder mit `/` außerhalb eines Eingabefelds. Pfeiltasten navigieren im Suchdialog, Enter öffnet einen Treffer bzw. die gesamte Suche.
-- **Merkliste:** Artikel, Kursbeispiele und Förderwege lokal speichern und als Textdatei herunterladen.
-- **Hubi:** Hund unten rechts anklicken. Er wedelt, freut sich und reagiert auf mehrere Streicheleinheiten. Über das kleine Kreuz kann er pausieren; im Footer kommt er zurück. Auf der SOS-Seite bleibt er ausgeblendet.
-- **Lokale Daten:** Merkliste, Häkchen, Beispiel-Feedback und Hubis Ruhemodus bleiben im Browser. Unter „Lokale Daten“ lassen sie sich zurücksetzen.
+Node.js ab Version 18 und npm reichen. Es ist kein `npm install` nötig.
 
-## Was ist ein Beispiel?
-
-Die Wiki-Texte sind nicht fachlich freigegeben. Alle Kurstermine und die dargestellten Kursdetails sind Beispiele. Die Ergebnisse des Antragsfinders sind illustrative Recherchewege und keine Prüfung einer Förderberechtigung. Es gibt keine echten Anmeldungen, Anträge oder Zusagen.
-
-Die externen Links führen zu öffentlich zugänglichen Informationsseiten. Ihre Aufnahme behauptet keine Kooperation mit den genannten Organisationen. Auf der SOS-Seite werden keine erfundenen Telefonnummern oder Beratungsstellen verwendet. Die Zusammenstellung ersetzt keine Fachberatung.
-
-## Lokal gespeicherte Daten
-
-Es gibt keinen Backend-Server, keine Benutzerkonten, kein Tracking, keine Cookies und keine eingebetteten externen Fonts oder Bibliotheken. Die optionalen lokalen Einstellungen verwenden `localStorage` unter dem Präfix `ehrenhub.v1.`.
-
-Ob ein Browser `localStorage` für eine direkt geöffnete HTML-Datei dauerhaft zulässt, unterscheidet sich. Wird die Speicherung blockiert, bleiben die Interaktionen für die laufende Sitzung nutzbar und die Anwendung zeigt einen Hinweis. Im privaten Browsermodus können die Einstellungen beim Schließen verschwinden. Das Verschieben oder Umbenennen der HTML-Datei kann eine andere lokale Ablage bedeuten.
-
-Suchbegriffe können als Teil der lokalen URL im Browserverlauf stehen. „Seite verlassen“ führt zur Startseite; die Schaltfläche löscht keinen gesamten Browserverlauf. Externe Anbieter haben eigene Datenschutzbedingungen.
-
-## Weiterentwickeln
-
-Für die Entwicklung reicht **Node.js ab Version 18**. Es sind keine npm-Abhängigkeiten nötig.
+Im Projektordner mit der `package.json`:
 
 ```bash
-node scripts/build.mjs
-node --test tests/core.test.cjs tests/views.test.cjs
+npm run build
+npm test
 ```
 
-Der Build erstellt `Ehrenhub.html` und `dist/index.html`. Die Datei unter `src/template.html` ist die Vorlage, keine direkt lauffähige Version.
+- `npm run build` prüft Inhalte und erzeugt `Ehrenhub.html` sowie `dist/index.html`.
+- `npm test` baut zuerst neu und führt danach alle automatisierten Tests aus.
+- `npm run validate` prüft nur den Datenbestand.
+- `npm run check` ist eine Kurzform für Build und Tests.
 
-| Datei | Aufgabe |
+## Welche Datei ändern?
+
+| Gewünschte Änderung | Zuständiger Ort |
 | --- | --- |
-| `src/content.js` | Artikel, Kursbeispiele, Förderwege, Kategorien und Quellen |
-| `src/core.js` | Routing, Suche, Kursfilter, Förderzuordnung und Validierung |
-| `src/views.js` | Ansichten für die einzelnen Bereiche und wiederverwendbare Karten |
-| `src/app.js` | Navigation, Klicks, Tastaturbedienung, lokale Speicherung und Hubi |
-| `src/icons.js` | Kleine SVG-Icons, Markenform und Hund |
-| `src/styles.css` | Farben, Typografie, Komponenten, responsive Regeln und Druckansicht |
-| `src/template.html` | HTML-Grundgerüst und Dialoge |
-| `scripts/build.mjs` | Bündelt alles zu einer eigenständigen HTML-Datei |
-| `tests/` | Automatisierte Prüfungen ohne Browser |
+| Artikel, Kurse, Antragswege, Quellen oder SOS-Inhalte | `data/` |
+| Auswahl hervorgehobener Startseiten-Einträge | `data/site.json` |
+| Gemeinsame Karten, Navigation, Dialoge | `src/components/` |
+| Aufbau eines bestimmten Bereichs | `src/pages/` |
+| Farben, Schriften, Abstände, Hover- und Mobilverhalten | `src/styles.css` |
+| Suche, Filter und Förderzuordnung | `src/core.js` |
+| Klicks, Dialoge und Navigation | `src/app.js` |
+| Lokale Browser-Speicherung | `src/services/storage.js` |
+| Build und Inhaltsprüfung | `scripts/` |
+| Funktionstests | `tests/` |
 
-### Inhalte ersetzen
+Daten werden beim Build eingebettet, nicht per `fetch` nachgeladen. Die modularen Quelldateien werden zur Veröffentlichung weiterhin zu einer einzigen HTML-Datei gebündelt. Bedienbeschriftungen bleiben in der Darstellung; redaktionelle Inhalte und Kataloge stehen separat in JSON.
 
-Neue Artikel, Kursangebote und Förderwege können über die Datenobjekte in `src/content.js` ergänzt werden. Die Listen, Suche und bestehenden Filter verwenden diese Daten. IDs sollten stabil und eindeutig bleiben, damit Links und lokale Lesezeichen weiter funktionieren. Statische Startseitenzahlen und Kurztexte müssen bei größeren Inhaltsänderungen mit aktualisiert werden.
+## GitHub Pages: bisherige Konfiguration beibehalten
 
-### Einen weiteren Bereich ergänzen
+Im bestehenden Repository liegt dieses Projekt unter **`Ehrenhub/`**. Diesen Ordner nicht entfernen oder erneut ineinander verschachteln.
 
-Für ein neues Modul eine eigene Datenstruktur und Ansichts-Funktion anlegen, den Routennamen in `core.js` freigeben und in `views.js` Navigation, Startseitenkarte und Renderer ergänzen. Wenn es durchsuchbar sein soll, den Suchindex in `core.js` erweitern. Neue Interaktionen werden über `data-*`-Attribute an den zentralen Controller angebunden. Ein späteres Backend kann die Inhalte liefern, ohne dass Suchlogik und Gestaltung komplett neu entstehen müssen.
+Der bereits funktionierende Workflow bleibt unverändert:
 
-Die Architektur ist bewusst ein schlanker Prototyp. Redaktionsfreigaben, CMS, echte Zuschussregeln, Benutzerkonten, organisationsbezogene Rechte und gemeinsame Inhalte sind noch nicht implementiert.
+- Build-Arbeitsverzeichnis: `Ehrenhub`
+- Build-Befehl: `npm run build`
+- hochzuladender Pages-Ordner: `Ehrenhub/dist`
 
-## Prüfstand
+Der Build erzeugt dort die erforderliche `index.html`. Hash-Links wie `#/wiki/juleica` funktionieren weiterhin ohne zusätzliche Serverregeln.
 
-Stand: 18. Oktober 2026.
+Der neue Build enthält bereits die Inhaltsvalidierung. Optional kann später der Build-Schritt im bestehenden Workflow auf `npm test` geändert werden, um vor jeder Veröffentlichung zusätzlich alle Tests auszuführen. Nicht nötig, um dieses Update einzuspielen; keinen zweiten Deploy-Workflow anlegen.
 
-- 20 automatisierte Tests erfolgreich: Suchverhalten, kombinierte Filter, alle 24 Kombinationen aus Region/Vorhaben/Stand, ungültige URLs, gespeicherte Merkliste, sichere Darstellung von Suchbegriffen und Erreichbarkeit interner Links.
-- Alle JavaScript-Dateien auf Syntax geprüft.
-- 34 gerenderte Seitenstrukturen geprüft: keine doppelten IDs, unbeschrifteten Bedienelemente oder verschachtelten Links/Buttons; externe neue Tabs sind abgesichert.
-- Vollständig eigenständiger Build ohne externe Laufzeit-Assets.
+`.gitignore` schließt generierte Dateien, lokale Abhängigkeiten und typische Geheimnisdateien aus. Schon zuvor eingecheckte Dateien werden dadurch nicht automatisch aus Git entfernt. Auch bei privaten Projekten keine Passwörter oder API-Schlüssel in Quellcode oder JSON ablegen.
 
-**Noch nicht geprüft:** tatsächliche Browser-Klicks, Darstellung auf realen Geräten, Druckergebnis und Verhalten mit Screenreadern. Die vorgesehene Browser-Steuerung war in der Erstellungsumgebung nicht verfügbar. Die Prüfungen oben sind Logik- und Strukturtests, keine Browser-Tests.
+## Was bleibt erhalten?
 
-Ein guter gemeinsamer Probelauf: einen Artikel finden und abhaken; den Antragsfinder einmal für Stadt und einmal für Landkreis durchgehen; einen Online-Präventionskurs filtern; drei Inhalte merken; Datei neu öffnen; die SOS-Situationen wechseln; Hubi streicheln. Danach können wir gezielt Design und Abläufe überarbeiten.
+- Vier Hauptbereiche: Wiki & How-tos, Antragsfinder, Fortbildungen sowie PSG & SOS.
+- Bisherige Artikel-, Kurs- und Förderweg-IDs, Verknüpfungen und Beispielinhalte.
+- Globale Suche, Filter, Merkliste, Checklisten, lokale Rückmeldung, Druckfunktion und Hubi.
+- Design, Icons, Responsive-Regeln und HTML-Grundgerüst.
+- Das Speicherpräfix `ehrenhub.v1.`; vorhandene lokale Daten bleiben unter derselben Website-Adresse nutzbar.
+
+Es gibt weiterhin keine Benutzerkonten, keine zentrale Datenbank, keinen Crawler und keine geteilten Daten. GitHub Pages stellt die erzeugten statischen Dateien bereit. Das Projekt bindet keine externen Fonts, Analyse-Skripte oder Bibliotheken ein.
+
+## Inhaltlicher Status
+
+Wiki-Texte sind nicht fachlich freigegeben. Kurstermine und Kursdetails sind Beispiele; der Antragsfinder zeigt illustrative Recherchewege, keine Förderberechtigungen. Die verlinkten Organisationen sind keine behaupteten Kooperationspartner.
+
+Das Aufräumen ist keine fachliche, datenschutzrechtliche oder rechtliche Freigabe für einen regulären öffentlichen Betrieb. Die alten lokalen Demo-Texte wurden bewusst nicht inhaltlich überarbeitet.
+
+## Weitere Anleitungen
+
+- [Architektur und Erweiterungen](docs/ARCHITEKTUR.md)
+- [Inhalte pflegen](docs/INHALTE-PFLEGEN.md)
+- [Prüfprotokoll und verbleibende manuelle Tests](docs/PRUEFPROTOKOLL.md)
+- [Bisherige externe Quellen](SOURCES.md)
+
+Prüfstand: 40 automatisierte Tests erfolgreich. 282 gerenderte Ausgaben mit dem ursprünglichen Prototyp verglichen; CSS, Icons und HTML-Vorlage unverändert. Die Tests enthalten Logik-, Struktur- und Controller-Prüfungen mit DOM-Nachbildung, aber keinen echten Browser- oder Mobilgeräte-Test.

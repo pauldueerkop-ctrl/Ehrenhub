@@ -1,13 +1,10 @@
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
-const vm=require('node:vm');
 const path=require('node:path');
 const C=require('../src/core.js');const D=require('../src/content.js');
-const ctx={EH:{Core:C,Data:D}};ctx.globalThis=ctx;vm.createContext(ctx);
-for(const file of ['icons.js','views.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'../src',file),'utf8'),ctx);
-const V=ctx.EH.Views;const index=C.makeSearchIndex(D);
-const makeState=()=>({bookmarks:[],checks:{},feedback:{},wizardStep:0,grantAnswers:{region:'',project:'',stage:''},sosTab:'sorge'});
+const {loadViews,makeState}=require('./helpers.cjs');
+const V=loadViews().Views;const index=C.makeSearchIndex(D);
 const render=(hash,state=makeState())=>V.main(C.parseRoute(hash),state,index);
 const routes=['#/','#/wiki','#/antraege','#/fortbildungen','#/sos','#/merkliste','#/suche?q=Juleica',
   ...D.articles.map(a=>'#/wiki/'+a.id),...D.courses.map(c=>'#/fortbildungen/'+c.id),...D.grants.map(g=>'#/antraege/'+g.id),

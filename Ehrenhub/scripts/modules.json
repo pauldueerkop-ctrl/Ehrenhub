@@ -1,0 +1,18 @@
+[
+  "core.js",
+  "icons.js",
+  "components/ui.js",
+  "components/cards.js",
+  "components/layout.js",
+  "pages/home.js",
+  "pages/wiki.js",
+  "pages/training.js",
+  "pages/grants.js",
+  "pages/sos.js",
+  "pages/search.js",
+  "pages/saved.js",
+  "pages/not-found.js",
+  "views.js",
+  "services/storage.js",
+  "app.js"
+]
