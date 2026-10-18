@@ -2,7 +2,7 @@
 
 Wissen und Orientierung für die Kinder- und Jugendarbeit in München. Tiefgrünes Design, keine Anmeldung, keine externen Laufzeit-Abhängigkeiten. Diese Version räumt den vorhandenen Prototyp technisch auf, ohne seine Gestaltung und Beispielinhalte zu ersetzen.
 
-**Neu: Schichtplaner.** Unter `#/schichtplan` gibt es einen lokalen Planungsbereich für Veranstaltungen: Arbeitsbereiche und Schichten, Team-Verfügbarkeiten, automatische Verteilung, fixierbare Zuteilungen, Projektdateien, CSV und eine Druckansicht für PDF. Einstieg über die Navigation oder die neue Startseitenkarte. [Bedienung, Grenzen und Modulaufbau](docs/SCHICHTPLAN.md).
+**Neu: Schichtplaner.** Unter `#/schichtplan` gibt es einen lokalen Planungsbereich für Veranstaltungen: Arbeitsbereiche und Schichten, Team-Verfügbarkeiten, automatische Verteilung, fixierbare Zuteilungen, Projektdateien, CSV und einen grafischen PDF-Stundenplan mit Exportvorschau. Einstieg über die Navigation oder die neue Startseitenkarte. [Bedienung, Grenzen und Modulaufbau](docs/SCHICHTPLAN.md) · [Neuer Stundenplan-Export](docs/STUNDENPLAN-EXPORT.md).
 
 ## Direkt ansehen
 

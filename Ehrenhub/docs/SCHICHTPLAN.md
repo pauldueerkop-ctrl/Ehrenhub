@@ -9,7 +9,7 @@ Lokales Feature auf Basis des überarbeiteten Ehrenhub-Projekts, 18. Oktober 202
 3. **Beispiel ausprobieren** lädt ein fiktives Fest mit 16 Personen und drei Bereichen.
 4. **Schichtplan erstellen** anklicken.
 5. Einen Namen fixieren und neu berechnen; dann unter **Team** eine Verfügbarkeit ändern und erneut planen.
-6. **Projekt sichern**, **Projekt öffnen**, **CSV exportieren** und **Drucken / PDF** ausprobieren.
+6. **Projekt sichern**, **Projekt öffnen**, **CSV exportieren** und **PDF-Stundenplan** ausprobieren. Im letzten Fall öffnet sich zuerst eine blätterbare Exportvorschau.
 
 ## Die fünf Schritte
 
@@ -63,7 +63,7 @@ Es gibt **einen aktuellen Plan je Browserprofil und Website-Adresse**. Eingaben 
 - **Projekt sichern:** JSON-Datei mit Eingaben, Regeln, Zuteilungen und Fixierungen. Damit kann man später weiterarbeiten oder auf ein anderes Gerät wechseln.
 - **Projekt öffnen:** prüft Format, Größenlimits, Datumswerte und Verweise. Die bestehende Planung wird nach Rückfrage ersetzt. Maximal 2 MB.
 - **CSV:** vollständiger Plan mit allen Bereichen. Trennzeichen Semikolon und UTF-8-BOM für verbreitete Tabellenprogramme. Namen mit Formel-Präfixen werden neutralisiert; fehlende Besetzung steht als `OFFEN` darin.
-- **PDF:** verwendet die Druckfunktion des Browsers. Als Ziel „Als PDF speichern“ wählen; kein separater PDF-Dienst. Druckansicht enthält den vollständigen Plan und persönliche Übersichten, unabhängig vom Bildschirmfilter. Unvollständige Pläne tragen einen Entwurfshinweis.
+- **PDF-Stundenplan:** grafisches A4-Querformat mit Zeitachse, farbigen Bereichsspalten und Schichtblöcken. Die Vorschau lässt sich durchblättern. Bis zu 3/4/5 Spalten und höchstens 4/6/8 Stunden pro Seite wählbar; bei dichten Schichten entstehen weitere Seiten. Persönliche Übersichten sind abwählbar, vollständige Namenslisten großer Teams bleiben als notwendiger Anhang erhalten. „Drucken / PDF speichern“ öffnet die Druckfunktion des Browsers. Kein separater PDF-Dienst und keine Datenübertragung. Unabhängig vom Bildschirmfilter; unvollständige Pläne tragen einen Entwurfshinweis. [Details und Grenzen](STUNDENPLAN-EXPORT.md).
 
 Lokale Speicherung kann durch Browser-Einstellungen scheitern oder durch Löschen der Website-Daten verschwinden. In diesem Fall erscheint ein Hinweis; Projektdateien sind die zuverlässigere Sicherung. Bei Wechsel von einer lokalen HTML-Datei auf GitHub Pages entstehen getrennte Browser-Speicher – Projekt exportieren und wieder importieren.
 
@@ -75,22 +75,26 @@ Vornamen und Verfügbarkeiten können personenbezogene Daten sein. Sie werden hi
 | --- | --- |
 | `src/features/schichtplan/model.js` | Datenmodell, Zeitraum- und Eingabeprüfung, Import, JSON- und CSV-Erzeugung |
 | `src/features/schichtplan/solver.js` | Reine Planungslogik ohne Browserzugriff |
-| `src/features/schichtplan/view.js` | Formulare, Schritte, Ergebnis und Druckansicht |
+| `src/features/schichtplan/print.js` | Reine Seitenaufteilung und SVG-Zeichnung für Stundenplan, Teamdetails und persönliche Übersichten |
+| `src/features/schichtplan/view.js` | Formulare, Schritte, Ergebnis und Exportvorschau |
 | `src/features/schichtplan/controller.js` | Klicks und Eingaben, lokale Speicherung, Downloads, Anbindung der Berechnung |
 | `src/features/schichtplan/styles.css` | Eigenes, responsives CSS auf Basis der Ehrenhub-Farben und Komponenten |
 | `scripts/modules.json`, `scripts/styles.json` | Reihenfolge für die Einbettung beim Build |
 | `tests/schichtplan.test.cjs` | Fachlogik, Exporte, Sicherheit und Darstellungsprüfungen |
+| `tests/schichtplan-print.test.cjs` | Seitengeometrie, vollständige Schichtabdeckung, Mitternacht, große Teams und unveränderte CSV-Daten |
 | `tests/controller.test.cjs` | Ereignis- und Integrationsprüfungen des tatsächlichen HTML-Bundles mit DOM-Nachbildung |
 
 `src/app.js` delegiert lediglich die Ereignisse an das Feature. `src/views.js` verbindet die neue Route. Navigation und Startseite verlinken den Bereich. Redaktionelle Daten bleiben in `data/` und wurden nicht verändert. Die ursprüngliche CSS-Datei, Icons und Vorlage sind unverändert.
 
 ## Prüfstand und noch nötiger Gerätetest
 
-`npm test` baut neu und prüft sowohl die bisherigen Funktionen als auch den Schichtplaner. Zum Zeitpunkt dieser Übergabe: **71 Tests erfolgreich**, darunter 32 variierte Team-Szenarien innerhalb eines Solver-Tests. Es wurden keine echten Personenlisten verwendet.
+`npm test` baut neu und prüft sowohl die bisherigen Funktionen als auch den Schichtplaner. Zum Zeitpunkt dieser Übergabe: **90 Tests erfolgreich**, darunter 32 variierte Team-Szenarien innerhalb eines Solver-Tests und 16 zusätzliche variierte Drucklayouts innerhalb eines Exporttests. Es wurden keine echten Personenlisten verwendet.
 
 Geprüft: Überlappungen, knappe Besetzung, Sperrzeiten, ungleiche Schichtlängen, exakte und maximale Vorgaben, Fixierungen, fehlerhafte Imports, Text-Escaping, CSV-Formelpräfixe, Plan-/Merkliste-Speichertrennung, blockierter Browserspeicher, Routen und Build.
 
-**Noch nicht visuell auf einem echten Browser oder Smartphone geprüft.** In dieser Umgebung war kein unterstützter Browser-Testzugang verfügbar. Die DOM-Nachbildung prüft Ereignisse, aber keine reale Layoutberechnung, Pointer-/Touch-Interaktionen oder Druckpaginierung.
+Die vom Export erzeugten SVG-Seiten wurden zusätzlich mit denselben Zeichenkoordinaten als Referenz-PDF gerendert und visuell geprüft: Beispiel-Fest einschließlich beider persönlichen Übersichtsseiten, dichte Schichten, viele Bereiche über Mitternacht, große Teams und offener Entwurf. Das ist eine Prüfung der Seitengrafiken, **kein Test des Browser-Druckdialogs**.
+
+**Noch nicht visuell auf einem echten Browser oder Smartphone geprüft.** In dieser Umgebung war kein unterstützter Browser-Testzugang verfügbar. Die DOM-Nachbildung prüft Ereignisse, aber keine reale HTML-Layoutberechnung, Pointer-/Touch-Interaktionen oder Druckpaginierung des Browsers. A4-Format und Seitenumbrüche bitte vor dem ersten Einsatz im eigenen Druckdialog prüfen.
 
 Vor dem ersten Einsatz am Laptop prüfen:
 

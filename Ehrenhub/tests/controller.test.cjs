@@ -220,3 +220,23 @@ test('file import replaces only after valid parsing and confirmation', async () 
   app.send('change', field); await new Promise(resolve => setImmediate(resolve));
   assert.equal(JSON.parse(app.values.get('ehrenhub.v1.shiftPlan')).event.name, 'Importiertes Fest');
 });
+
+test('PDF preview, page controls and print settings work without changing stored plan', () => {
+  const app = boot({ hash: '#/schichtplan' });
+  app.click('[data-sp-action]', { spAction: 'demo' }); app.click('[data-sp-action]', { spAction: 'generate' }); app.flushTimers();
+  const stored = app.values.get('ehrenhub.v1.shiftPlan'); let prints = 0; app.ctx.window.print = () => { prints++; };
+  app.click('[data-sp-action]', { spAction: 'print-preview' }); app.navigate('#/schichtplan');
+  assert.match(app.nodes.get('main').innerHTML, /Euer Plan, druckfertig/);
+  app.click('[data-sp-action]', { spAction: 'print-next' }); app.navigate('#/schichtplan');
+  assert.match(app.nodes.get('main').innerHTML, /Seite <strong>2<\/strong>/);
+  app.click('[data-sp-action]', { spAction: 'print-prev' }); app.navigate('#/schichtplan');
+  assert.match(app.nodes.get('main').innerHTML, /Seite <strong>1<\/strong>/);
+  const input = new app.Element(); input.dataset = { spPrintOption: 'includePeople' }; input.checked = false; app.send('change', input);
+  app.navigate('#/schichtplan'); assert.match(app.nodes.get('main').innerHTML, /Seite <strong>1<\/strong> von 1/);
+  input.dataset = { spPrintOption: 'hoursPerPage' }; input.value = '4'; app.send('change', input);
+  app.navigate('#/schichtplan'); assert.match(app.nodes.get('main').innerHTML, /Seite <strong>1<\/strong> von 2/);
+  app.click('[data-sp-action]', { spAction: 'print' }); assert.equal(prints, 1);
+  assert.equal(app.values.get('ehrenhub.v1.shiftPlan'), stored);
+  app.click('[data-sp-action]', { spAction: 'print-preview' }); app.navigate('#/schichtplan');
+  assert.doesNotMatch(app.nodes.get('main').innerHTML, /Euer Plan, druckfertig/);
+});

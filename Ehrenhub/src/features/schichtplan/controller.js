@@ -5,7 +5,7 @@
   function create({ storage, toast = () => {} }) {
     const restored = M.restore(storage.read('shiftPlan', null));
     let p = restored.project;
-    const ui = { personId: null, openAreas: [], areaFilter: '', busy: false, notice: restored.recovered ? 'Ein gespeicherter Plan konnte nicht gelesen werden. Du kannst eine gesicherte Projektdatei öffnen.' : '', error: restored.recovered };
+    const ui = { personId: null, openAreas: [], areaFilter: '', busy: false, printOptions: root.EH.ShiftPrint.normalizeOptions(), printPreviewOpen: false, printPage: 0, notice: restored.recovered ? 'Ein gespeicherter Plan konnte nicht gelesen werden. Du kannst eine gesicherte Projektdatei öffnen.' : '', error: restored.recovered };
     function render() { return V.render(p, ui); }
     function persist() {
       if (!storage.write('shiftPlan', p)) {
@@ -106,7 +106,19 @@
         if (action === 'edit-person') { ui.personId = ui.personId === id ? null : id; repaint(); }
         if (action === 'save') { download(M.json(p), 'json', 'application/json'); notice('Projektdatei vorbereitet. Sie enthält die eingetragenen Namen – bitte nur gezielt weitergeben.'); repaint(); }
         if (action === 'csv') { download(M.csv(p), 'csv', 'text/csv;charset=utf-8'); notice('CSV für den gesamten Plan vorbereitet. Offene Plätze sind mit OFFEN markiert.'); repaint(); }
-        if (action === 'print') window.print();
+        if (action === 'print-preview') {
+          ui.printPreviewOpen = !ui.printPreviewOpen; ui.printPage = 0; repaint();
+          if (ui.printPreviewOpen) { const title = document.getElementById('sp-export-title'); title?.focus({ preventScroll: true }); title?.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+        }
+        if (action === 'print-prev' || action === 'print-next') {
+          const doc = root.EH.ShiftPrint.build(p, ui.printOptions);
+          ui.printPage = Math.max(0, Math.min(doc.pages.length - 1, ui.printPage + (action === 'print-next' ? 1 : -1))); repaint();
+        }
+        if (action === 'print') {
+          const doc = root.EH.ShiftPrint.build(p, ui.printOptions);
+          if (doc.error) throw new Error(doc.error);
+          window.print();
+        }
         if (action === 'import') document.getElementById('sp-import')?.click();
         if (action === 'demo' && confirmReplace('Beispiel laden und den aktuellen Plan ersetzen?')) { p = M.demo(); ui.personId = null; ui.areaFilter = ''; finish('Beispiel mit erfundenen Namen geladen. Du kannst es beliebig anpassen.', { focus: true }); }
         if (action === 'reset' && confirmReplace('Den aktuellen Schichtplan auf diesem Gerät löschen?')) { p = M.initial(); ui.personId = null; ui.areaFilter = ''; finish('Neuer Plan. Andere Ehrenhub-Daten bleiben erhalten.', { focus: true }); }
@@ -162,6 +174,13 @@
       try {
         if ('spImport' in d) { importFile(el.files?.[0]); return true; }
         notice('');
+        if ('spPrintOption' in d) {
+          if (['areasPerPage', 'hoursPerPage', 'includePeople'].includes(d.spPrintOption)) {
+            ui.printOptions = root.EH.ShiftPrint.normalizeOptions({ ...ui.printOptions, [d.spPrintOption]: d.spPrintOption === 'includePeople' ? el.checked : Number(el.value) });
+            ui.printPage = 0; repaint();
+          }
+          return true;
+        }
         if ('spEvent' in d) {
           if (!['name', 'location', 'start', 'end', 'minutes'].includes(d.spEvent)) return true;
           const previous = { ...p.event };
@@ -221,7 +240,7 @@
         finish('Projekt geladen. Zuteilungen werden beim Öffnen und Ändern erneut geprüft.', { focus: true, preserveAreas: false });
       } catch (error) { fail(error); }
     }
-    function reset() { p = M.initial(); ui.notice = ''; ui.error = false; ui.personId = null; ui.areaFilter = ''; }
+    function reset() { p = M.initial(); ui.notice = ''; ui.error = false; ui.personId = null; ui.areaFilter = ''; ui.printPreviewOpen = false; ui.printPage = 0; }
     return { render, reset, handleClick, handleSubmit, handleInput, handleChange };
   }
   root.EH.ShiftController = { create };
