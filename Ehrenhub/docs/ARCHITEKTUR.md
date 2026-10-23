@@ -1,6 +1,6 @@
 # Ehrenhub: Wo gehört welche Änderung hin?
 
-Technischer Stand: 18. Oktober 2026, Refactoring 0.2.0. Das sichtbare Design und der bisherige Demo-Datenbestand bleiben erhalten. Es gibt weiterhin keine Anmeldung, kein Backend und keine zusätzlichen npm-Abhängigkeiten.
+Technischer Stand: 22. Oktober 2026, Wiki-Update 0.3.0. Das sichtbare Design und der bisherige Demo-Datenbestand bleiben erhalten. Es gibt weiterhin keine Anmeldung, kein Backend und keine zusätzlichen npm-Abhängigkeiten.
 
 Ergänzung: Der Schichtplaner ist ein eigenständiges Feature unter `src/features/schichtplan/`. Die bestehende Aufteilung bleibt erhalten; komplexere Werkzeuge können ihre eigene Fachlogik, Darstellung, Bedienung und CSS zusammenhalten. Details stehen in [SCHICHTPLAN.md](SCHICHTPLAN.md).
 
@@ -8,7 +8,7 @@ Ergänzung: Der Schichtplaner ist ein eigenständiges Feature unter `src/feature
 
 | Zuständigkeit | Ort | Beispiele |
 | --- | --- | --- |
-| Redaktionelle Inhalte und Kataloge | `data/*.json` | Artikel, Kursdetails, Förderwege, Quellen, SOS-Texte |
+| Redaktionelle Inhalte und Kataloge | `data/wiki/**/*.json`, `data/*.json` | Einzelartikel, Kursdetails, Förderwege, Quellen, SOS-Texte |
 | Gemeinsame Darstellung | `src/components/` | Karten, Quellenlinks, Lesezeichen, Navigation, Dialoge |
 | Darstellung eines Bereichs | `src/pages/` | Wiki, Antragsfinder, Fortbildungen, SOS, Suche, Merkliste |
 | Verhalten und Fachlogik | `src/core.js`, `src/app.js`, `src/services/` | Suche, Filter, Routing, Klicks, lokale Speicherung |
@@ -18,8 +18,8 @@ Ergänzung: Der Schichtplaner ist ein eigenständiges Feature unter `src/feature
 
 ## Was passiert bei einem Build?
 
-1. `src/content.js` liest die JSON-Dateien und setzt daraus ein gemeinsames Datenobjekt zusammen.
-2. `scripts/validate-content.mjs` prüft Pflichtfelder, IDs, Verweise, Datumswerte, Quellen und Finder-Konfiguration.
+1. `src/content.js` liest die JSON-Dateien und setzt daraus ein gemeinsames Datenobjekt zusammen. `scripts/load-wiki.cjs` findet die Einzelartikel rekursiv in `data/wiki/`, lässt Vorlage und Entwürfe aus und berücksichtigt die Reihenfolge aus `data/wiki.json`.
+2. `scripts/validate-content.mjs` und `scripts/validate-wiki.cjs` prüfen Pflichtfelder, IDs, Verweise, Datumswerte, Quellen, Finder-Konfiguration, Hubi-Nachrichten und alle interaktiven Bausteine. Fehler stoppen den Build mit Datei/Feld als Hinweis.
 3. `scripts/build.mjs` bettet dieses Objekt und die in `scripts/modules.json` aufgelisteten Module in die HTML-Vorlage ein.
    Die CSS-Dateien aus `scripts/styles.json` werden ebenfalls in dieser Reihenfolge eingebettet.
 4. Es entstehen `dist/index.html` für GitHub Pages und `Ehrenhub.html` für das lokale Öffnen.
@@ -39,6 +39,10 @@ Die getrennten Quelldateien sind für die Menschen, die an Ehrenhub arbeiten. Da
 | `src/components/layout.js` | Navigation, Footer, Informationsdialoge und Hubis Darstellung |
 | `src/pages/home.js` | Startseite mit automatisch berechneten Inhaltszahlen |
 | `src/pages/wiki.js` | Wiki-Liste und Artikel-Detailansichten |
+| `src/features/wiki/model.js` | Reine Zustandsübergänge der sechs Bausteine und Hubi-Fallbacks |
+| `src/features/wiki/view.js` | Maskierte HTML-Ausgaben der Bausteine |
+| `src/features/wiki/controller.js` | Delegierte Klicks, Fokus und Zustand im aktuellen Tab |
+| `src/features/wiki/styles.css` | Ergänzungen im bisherigen Design, Mobil-, Druck- und Reduced-Motion-Regeln |
 | `src/pages/training.js` | Fortbildungsfinder und Kursdetails |
 | `src/pages/grants.js` | Dreistufiger Antragsfinder und Förderwegdetails |
 | `src/pages/sos.js` | Darstellung der SOS-Daten und Situationsauswahl |
@@ -53,7 +57,7 @@ Die Module sind bewusst einfache JavaScript-Dateien statt eines neuen Frameworks
 
 ## Erweiterungen ohne Umweg
 
-**Weiteren Artikel oder Kurs aufnehmen:** Nur den passenden JSON-Katalog ergänzen. Listen, Suche, Details und Zähler nutzen die Daten automatisch. Ausgewählte Startseitenkarten werden ausdrücklich über IDs in `data/site.json` bestimmt, nicht über eine zufällige Position im Array.
+**Weiteren Artikel aufnehmen:** Vorlage aus `data/wiki/` in einen Themenordner kopieren und anpassen. Aktive Artikel werden automatisch gefunden. **Weiteren Kurs aufnehmen:** den bisherigen Kurskatalog ergänzen. Listen, Suche, Details und Zähler nutzen die Daten automatisch. Ausgewählte Startseitenkarten werden ausdrücklich über IDs in `data/site.json` bestimmt, nicht über eine zufällige Position im Array.
 
 **Eine Kartenart anders gestalten:** Die entsprechende Funktion in `src/components/cards.js` und gegebenenfalls CSS anpassen. Alle Verwendungen teilen diese Komponente.
 
@@ -64,6 +68,8 @@ Die Module sind bewusst einfache JavaScript-Dateien statt eines neuen Frameworks
 **Später Benutzerkonten:** Authentifizierung, Rechte, serverseitige Datenhaltung und Datenschutz sind ein eigenes Vorhaben. Die aktuelle Merkliste ist ausschließlich lokal und kein Benutzerkonto.
 
 ## Bewusst unverändert
+
+Wiki-Aufgaben haben nur flüchtigen Tab-Zustand. Checklisten behalten die bisherigen Speicherkennungen; neue Abschnitte/Punkte können stabile IDs verwenden. Hubi nutzt redaktionelle Ereignistexte, keine KI-Schnittstelle. Das neue Feature-CSS wird zusätzlich über `scripts/styles.json` gebündelt. Grundlagen und Schichtplan-CSS bleiben unverändert.
 
 - Der Repository-Unterordner `Ehrenhub/` bleibt bestehen. Die lokale Arbeitskopie kann anders heißen; entscheidend ist der bestehende GitHub-Pfad.
 - Build-Befehl: `npm run build`; Pages-Uploadpfad: `Ehrenhub/dist`.

@@ -2,6 +2,7 @@
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import data from '../src/content.js';
+import wikiValidation from './validate-wiki.cjs';
 
 export function validateContent(D) {
   const errors = [];
@@ -24,6 +25,20 @@ export function validateContent(D) {
     if (item.color !== undefined && !['sage', 'sand', 'lavender', 'rose'].includes(item.color)) fail(`${where}.color`, 'unbekannte Designfarbe');
   };
   if (!object(D)) return ['data: Objekt erwartet'];
+  if (!object(D.hubi)) fail('data/hubi.json', 'Objekt mit Standardnachrichten erwartet');
+  else {
+    const allowed=['intro','pet','checklistComplete','start','success','retry','complete','change','pages'];
+    for(const key of Object.keys(D.hubi))if(!allowed.includes(key))fail('data/hubi.json.'+key,'unbekanntes Nachrichtenfeld');
+    for(const key of allowed.filter(k=>!['pet','pages'].includes(k)))text(D.hubi[key],'data/hubi.json.'+key);
+    const phrases=list(D.hubi.pet,'data/hubi.json.pet');
+    if(!phrases.length)fail('data/hubi.json.pet','mindestens einen Satz angeben');
+    texts(phrases,'data/hubi.json.pet');
+    if(!object(D.hubi.pages))fail('data/hubi.json.pages','Objekt erwartet');
+    else for(const [key,value] of Object.entries(D.hubi.pages)){
+      if(!['home','wiki','antraege','fortbildungen','merkliste','schichtplan','suche'].includes(key))fail('data/hubi.json.pages.'+key,'unbekannte Seite oder auf dieser Seite nicht vorgesehen');
+      text(value,'data/hubi.json.pages.'+key);
+    }
+  }
   const collections = {};
   for (const [key, file] of Object.entries({ articles: 'wiki', courses: 'fortbildungen', grants: 'antraege', categories: 'kategorien' })) {
     const items = list(D[key], `data/${file}.json`);
@@ -58,7 +73,7 @@ export function validateContent(D) {
     if (typeof href !== 'string' || !href.startsWith('#/')) { fail(where, 'internen Link mit #/ angeben'); return; }
     const parts = href.slice(2).split('?')[0].split('/').filter(Boolean);
     const pages = { wiki: 'articles', fortbildungen: 'courses', antraege: 'grants' };
-    if (parts.length > 2 || (parts[0] && !['wiki', 'fortbildungen', 'antraege', 'sos', 'merkliste', 'suche'].includes(parts[0]))) fail(where, 'unbekannte Unterseite');
+    if (parts.length > 2 || (parts[0] && !['wiki', 'fortbildungen', 'antraege', 'sos', 'merkliste', 'suche', 'schichtplan'].includes(parts[0]))) fail(where, 'unbekannte Unterseite');
     else if (parts[1]) {
       if (Object.hasOwn(pages, parts[0])) reference(parts[1], pages[parts[0]], where);
       else fail(where, 'diese Seite hat keine Detailansicht');
@@ -74,7 +89,8 @@ export function validateContent(D) {
   };
   for (const item of collections.categories.items) text(item.label, `data/kategorien.json.${item.id}.label`);
   for (const item of collections.articles.items) {
-    const p = `data/wiki.json.${item.id}`;
+    const p = D.articleFiles?.[item.id] || `data/wiki/${item.id}.json`;
+    wikiValidation.validateWiki(item,p,{fail,internalLink});
     for (const key of ['title', 'summary']) text(item[key], `${p}.${key}`);
     if (item.intro !== undefined) text(item.intro, `${p}.intro`);
     if (!Number.isInteger(item.minutes) || item.minutes < 1) fail(`${p}.minutes`, 'positive ganze Zahl erwartet');
@@ -87,7 +103,7 @@ export function validateContent(D) {
       if (!object(section)) { fail(q, 'Objekt erwartet'); return; }
       text(section.title, `${q}.title`);
       for (const key of ['text', 'tip']) if (section[key] !== undefined) text(section[key], `${q}.${key}`);
-      for (const key of ['bullets', 'checklist']) if (section[key] !== undefined) texts(section[key], `${q}.${key}`);
+      if (section.bullets !== undefined) texts(section.bullets, `${q}.bullets`);
       if (section.timeline !== undefined) for (const row of list(section.timeline, `${q}.timeline`)) {
         if (!Array.isArray(row) || row.length !== 2) fail(`${q}.timeline`, 'Paare aus Zeit und Text erwartet');
         else texts(row, `${q}.timeline`);

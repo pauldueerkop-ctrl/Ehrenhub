@@ -40,7 +40,7 @@ test('wiki topic and full-text search can be combined and reset',()=>{
   assert.equal(C.filterArticles(D.articles,{category:'finanzen'}).length,3);
   assert.equal(C.filterArticles(D.articles,{category:'finanzen',q:'Kostenplan'}).length,1);
   assert.equal(C.filterArticles(D.articles,{category:'schutz',q:'Zuschuss'}).length,0);
-  assert.equal(C.filterArticles(D.articles,{category:'alle',q:''}).length,12);
+  assert.equal(C.filterArticles(D.articles,{category:'alle',q:''}).length,D.articles.length);
 });
 test('course filters combine without mutating source data',()=>{
   const before=JSON.stringify(D.courses);

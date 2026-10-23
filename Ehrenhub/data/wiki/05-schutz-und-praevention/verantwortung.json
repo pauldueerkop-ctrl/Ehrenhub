@@ -1,0 +1,40 @@
+{
+  "id": "verantwortung",
+  "title": "Verantwortung übernehmen – Fragen vorher klären",
+  "summary": "Was ihr vor einer Aktion mit eurer Leitung und eurem Träger besprechen solltet.",
+  "category": "schutz",
+  "icon": "checkCircle",
+  "color": "rose",
+  "minutes": 4,
+  "tags": [
+    "Aufsicht",
+    "Verantwortung",
+    "Sicherheit",
+    "Planung",
+    "Schutz"
+  ],
+  "sections": [
+    {
+      "title": "Die eigene Rolle verstehen",
+      "text": "Welche Aufgabe übernimmst du? Wer ist für die Gesamtleitung zuständig? Besprecht die Rollen vorab und klärt, wie ihr euch während der Aktion erreicht."
+    },
+    {
+      "title": "Offene Fragen sichtbar machen",
+      "text": "Es ist sinnvoll, Fragen gemeinsam mit erfahrenen Verantwortlichen zu klären. Die folgenden Punkte sind Gesprächsanlässe und keine vollständige Auflistung rechtlicher Pflichten.",
+      "checklist": [
+        "Zuständigkeiten und Erreichbarkeit besprochen",
+        "Besonderheiten der Aktion geklärt",
+        "Einführung und nötige Schulungen abgestimmt",
+        "Schutz- und Notfallabläufe des Trägers kennengelernt"
+      ]
+    },
+    {
+      "title": "Unterstützung einfordern dürfen",
+      "text": "Verantwortung heißt auch, eigene Grenzen zu kennen. Wenn dir eine Aufgabe ohne Unterstützung zu groß erscheint, sprich das an."
+    }
+  ],
+  "related": [
+    "praevention-alltag",
+    "freizeit-planen"
+  ]
+}

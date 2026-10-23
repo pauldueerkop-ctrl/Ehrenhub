@@ -1,0 +1,330 @@
+{
+  "id": "mein-neuer-artikel",
+  "status": "draft",
+  "title": "Titel deines Artikels",
+  "summary": "In einem Satz: Was hilft dieser Artikel zu verstehen oder zu erledigen?",
+  "category": "veranstaltungen",
+  "icon": "calendar",
+  "color": "sage",
+  "minutes": 5,
+  "tags": [
+    "Planung",
+    "Veranstaltung"
+  ],
+  "intro": "Hier steht eure kurze Einleitung.",
+  "hubi": {
+    "intro": "Lass uns gemeinsam in diesen Artikel schauen.",
+    "pet": [
+      "Eine Denkpause ist immer drin."
+    ],
+    "checklistComplete": "Alle Punkte erledigt. Gut vorbereitet!"
+  },
+  "sections": [
+    {
+      "id": "vorbereitung",
+      "title": "Ein Abschnitt mit den bisherigen Bausteinen",
+      "text": "Hier steht euer Text.\nEin Zeilenumbruch ist ebenfalls möglich.",
+      "bullets": [
+        "Erster Stichpunkt",
+        "Zweiter Stichpunkt"
+      ],
+      "timeline": [
+        [
+          "15:00",
+          "Aufbau beginnt"
+        ],
+        [
+          "17:00",
+          "Teambriefing"
+        ]
+      ],
+      "checklist": [
+        {
+          "id": "raum",
+          "text": "Raum bestätigt"
+        },
+        {
+          "id": "team",
+          "text": "Team informiert"
+        }
+      ],
+      "tip": "Ein konkreter Tipp aus eurer Erfahrung.",
+      "action": {
+        "label": "Zum Schichtplaner",
+        "href": "#/schichtplan"
+      }
+    },
+    {
+      "id": "zusage",
+      "title": "Eine Aufgabe braucht eine Zusage",
+      "text": "Im Gruppenchat lesen viele mit. Damit daraus ein Plan wird, braucht es manchmal eine kurze, konkrete Rückfrage.",
+      "blocks": [
+        {
+          "id": "wer-holt-getraenke",
+          "type": "scenario",
+          "title": "Die Getränke stehen noch beim Händler",
+          "prompt": "Im Chat steht seit gestern: „Könnte jemand die Getränke holen?“ Der Aufbau beginnt in zwei Stunden. Was würdest du als Nächstes tun?",
+          "options": [
+            {
+              "id": "nachfragen",
+              "label": "Eine konkrete Person anfragen und Abholzeit sowie Fahrzeug klären.",
+              "result": "success",
+              "feedback": "Eine bestätigte Zuständigkeit macht den nächsten Schritt verlässlich. Klärt dabei auch, ob die Person Zeit und ein passendes Fahrzeug hat."
+            },
+            {
+              "id": "erinnern",
+              "label": "Die Nachricht noch einmal an alle schicken.",
+              "result": "reflect",
+              "feedback": "Eine Erinnerung kann helfen. Solange niemand zusagt, bleibt die Aufgabe aber offen. Ergänze eine klare Rückfrage nach einer bestätigten Übernahme."
+            },
+            {
+              "id": "selber",
+              "label": "Sofort selbst losfahren.",
+              "result": "reflect",
+              "feedback": "Das kann die Situation lösen. Prüfe vorher, ob dadurch deine eigene Aufgabe beim Aufbau liegen bleibt, und informiere das Team über die Übernahme."
+            }
+          ],
+          "hubi": {
+            "start": "Ich sehe eine Aufgabe, aber noch keine feste Zusage.",
+            "success": "Eine Zusage, eine Zeit, ein Fahrzeug – jetzt wird daraus ein Plan!",
+            "retry": "Schau in die Rückmeldung. Vielleicht fehlt nur noch eine klare Absprache."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ablauf",
+      "title": "Ein zweiter Blick auf den Abend",
+      "text": "Dieser Ablauf enthält zwei Stellen, an denen ihr vorab etwas klären solltet. Tippe die Karten an und entdecke die Erklärung.",
+      "blocks": [
+        {
+          "id": "ablauf-pruefen",
+          "type": "detective",
+          "title": "Wo braucht der Ablauf noch eine Absprache?",
+          "items": [
+            {
+              "id": "aufbau",
+              "label": "17:00 · Aufbau mit dem Technikteam",
+              "issue": false,
+              "feedback": "Für dieses Beispiel ist der Technikaufbau rechtzeitig angesetzt. Ob zwei Stunden reichen, hängt von eurem tatsächlichen Aufbau ab."
+            },
+            {
+              "id": "briefing",
+              "label": "19:00 · Helferbriefing für alle, gleichzeitig öffnet der Einlass",
+              "issue": true,
+              "feedback": "Wenn alle im Briefing sind, fehlt das Einlassteam an der Tür. Plant das Briefing früher oder in passenden Gruppen."
+            },
+            {
+              "id": "soundcheck",
+              "label": "19:30 · Soundcheck im Publikumsbereich, Einlass seit 19:00",
+              "issue": true,
+              "feedback": "Der Soundcheck liegt nach dem Einlass. Klärt mit der Technik, wie ihr ihn vor Öffnung abschließen oder vom Publikum trennen könnt."
+            },
+            {
+              "id": "konzert",
+              "label": "20:00 · Konzertbeginn, Team an den vereinbarten Positionen",
+              "issue": false,
+              "feedback": "Hier ist für dieses Beispiel keine weitere Stolperstelle versteckt. Die vereinbarten Positionen müssen natürlich vorher bekannt sein."
+            }
+          ],
+          "success": "Beide Stolperstellen entdeckt. Jetzt könnt ihr Einlass, Briefing und Technik gemeinsam abstimmen.",
+          "hubi": {
+            "start": "Meine Nase sagt: Zwei Zeiten verdienen einen zweiten Blick.",
+            "success": "Gesehen! Diese Absprache spart später Hektik.",
+            "retry": "Diese Stelle ist im Beispiel schon abgestimmt. Schau noch auf die anderen Karten.",
+            "complete": "Zwei Stolperstellen gefunden. Genau dafür lohnt sich die Generalprobe!"
+          }
+        }
+      ],
+      "action": {
+        "label": "Euer Team im Schichtplaner einteilen",
+        "href": "#/schichtplan"
+      }
+    },
+    {
+      "id": "vergleich",
+      "title": "Eine Absprache wird konkreter",
+      "blocks": [
+        {
+          "id": "nachricht-vergleichen",
+          "type": "comparison",
+          "title": "Wie würdest du die Nachricht ergänzen?",
+          "prompt": "Wechsle zwischen der Ausgangslage und einer möglichen Präzisierung.",
+          "variants": [
+            {
+              "label": "Ausgangslage",
+              "text": "Wir treffen uns am Samstag zum Aufbau. Bringt bitte etwas Zeit mit.",
+              "note": "Ein gemeinsamer Auftakt ist angekündigt. Uhrzeit, Treffpunkt und Dauer sind noch offen."
+            },
+            {
+              "label": "Konkretisiert",
+              "text": "Wir treffen uns am Samstag um 15 Uhr am Seiteneingang des Pfarrsaals. Der Aufbau dauert voraussichtlich bis 17 Uhr. Bitte antwortet bis Donnerstag, ob ihr dabei seid.",
+              "note": "Zeit, Ort, erwartete Dauer und die gewünschte Rückmeldung sind jetzt benannt."
+            }
+          ],
+          "hubi": {
+            "change": "Welche Information würde dir selbst beim Planen helfen?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "blickwinkel",
+      "title": "Was braucht die andere Person?",
+      "blocks": [
+        {
+          "id": "personen-verstehen",
+          "type": "perspectives",
+          "title": "Die gleiche Veranstaltung, andere Fragen",
+          "perspectives": [
+            {
+              "label": "Leitung",
+              "text": "Sind alle Aufgaben verteilt und haben wir eine bestätigte Zusage für jede wichtige Position?",
+              "note": "Hilfreich: Zuständigkeiten, Rückmeldefrist und eine gemeinsame Übersicht."
+            },
+            {
+              "label": "Helferteam",
+              "text": "Wann bin ich dran, wo melde ich mich und wen kann ich bei Fragen ansprechen?",
+              "note": "Hilfreich: eigene Schicht, Treffpunkt und konkrete Ansprechperson."
+            },
+            {
+              "label": "Gäste",
+              "text": "Wann beginnt es, wie komme ich hin und brauche ich vorher eine Anmeldung?",
+              "note": "Hilfreich: Beginn, Ort, Anreise und ein klarer nächster Schritt."
+            },
+            {
+              "label": "Eltern",
+              "text": "Wann und wo kann ich mein Kind bringen und wieder abholen? Wer ist erreichbar?",
+              "note": "Hilfreich: Übergabeort, Zeiten und Kontakt der verantwortlichen Leitung."
+            }
+          ],
+          "hubi": {
+            "change": "Ein Blickwechsel, eine neue Frage. Was ergänzt ihr in eurer Nachricht?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "orientierung",
+      "title": "Wo steht ihr gerade?",
+      "blocks": [
+        {
+          "id": "planungspfad",
+          "type": "decision",
+          "title": "Was hilft eurem Team jetzt?",
+          "prompt": "Zwei kurze Fragen führen zu einem Vorschlag. Du kannst jederzeit einen Schritt zurückgehen.",
+          "start": "rahmen",
+          "nodes": [
+            {
+              "id": "rahmen",
+              "question": "Sind Termin und Raum bereits bestätigt?",
+              "options": [
+                {
+                  "id": "ja",
+                  "label": "Ja, beides steht.",
+                  "next": "team"
+                },
+                {
+                  "id": "noch-nicht",
+                  "label": "Da ist noch etwas offen.",
+                  "next": "klaeren"
+                }
+              ]
+            },
+            {
+              "id": "team",
+              "question": "Kennt ihr Arbeitsbereiche und benötigte Besetzungen?",
+              "options": [
+                {
+                  "id": "steht",
+                  "label": "Ja, wir können das Team einteilen.",
+                  "next": "einteilen"
+                },
+                {
+                  "id": "sammeln",
+                  "label": "Das müssen wir noch zusammenstellen.",
+                  "next": "aufgaben"
+                }
+              ]
+            },
+            {
+              "id": "klaeren",
+              "title": "Zuerst den Rahmen bestätigen",
+              "result": "Kläre mit Raumverantwortlichen und Team, welche Termine möglich sind. Eine bestätigte Grundlage erleichtert alle weiteren Absprachen."
+            },
+            {
+              "id": "aufgaben",
+              "title": "Arbeitsbereiche gemeinsam sammeln",
+              "result": "Geht eure Veranstaltung einmal vom Aufbau bis zum Abbau durch. Notiert für jeden Bereich, wann und wie viele Personen gebraucht werden.",
+              "action": {
+                "label": "Aufgabenverteilung nachlesen",
+                "href": "#/wiki/teamaufgaben"
+              }
+            },
+            {
+              "id": "einteilen",
+              "title": "Jetzt die Verfügbarkeiten einplanen",
+              "result": "Mit Bereichen, Besetzungsbedarf und Verfügbarkeiten könnt ihr die Schichtverteilung vorbereiten. Prüft den fertigen Plan anschließend gemeinsam.",
+              "action": {
+                "label": "Schichtplaner öffnen",
+                "href": "#/schichtplan"
+              }
+            }
+          ],
+          "hubi": {
+            "start": "Wo steht ihr gerade? Jede Antwort ist ein guter Ausgangspunkt.",
+            "change": "Eine Frage weniger, ein bisschen mehr Klarheit.",
+            "complete": "Ein nächster Schritt statt einer langen Liste. Wuff!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "reihenfolge",
+      "title": "Eine kleine Generalprobe",
+      "text": "Für dieses Beispiel gilt: Erst Aufgaben sammeln, dann Verfügbarkeiten abfragen, anschließend einteilen und am Ende bestätigen lassen.",
+      "blocks": [
+        {
+          "id": "schritte-sortieren",
+          "type": "challenge",
+          "title": "Was kommt zuerst?",
+          "prompt": "Sortiere die vier Karten in die beschriebene Reihenfolge. Es gibt keinen Countdown – nimm dir die Zeit, die du brauchst.",
+          "items": [
+            {
+              "id": "bestaetigen",
+              "label": "Fertigen Plan vom Team bestätigen lassen"
+            },
+            {
+              "id": "sammeln",
+              "label": "Arbeitsbereiche und Besetzungsbedarf sammeln"
+            },
+            {
+              "id": "verteilen",
+              "label": "Schichten unter Berücksichtigung der Verfügbarkeiten verteilen"
+            },
+            {
+              "id": "abfragen",
+              "label": "Verfügbarkeiten des Teams abfragen"
+            }
+          ],
+          "solution": [
+            "sammeln",
+            "abfragen",
+            "verteilen",
+            "bestaetigen"
+          ],
+          "success": "Die Reihenfolge passt zu diesem Beispiel. Die bestätigten Aufgaben und Verfügbarkeiten bilden die Grundlage für den Plan; die Rückmeldung des Teams schließt die Runde.",
+          "retry": "Schau noch einmal auf die Abhängigkeiten: Was musst du wissen, bevor du die Schichten verteilst? Die Bestätigung gehört an das Ende.",
+          "hubi": {
+            "start": "Vier Schritte, ein gemeinsamer Plan. Sortier sie mit den Pfeilen.",
+            "retry": "Fast ein Plan. Schau noch einmal, was vor der Einteilung gebraucht wird.",
+            "complete": "Alles an seinem Platz. So bleibt mehr Zeit fürs eigentliche Fest!"
+          }
+        }
+      ]
+    }
+  ],
+  "related": [
+    "teamaufgaben"
+  ]
+}

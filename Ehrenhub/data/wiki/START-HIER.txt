@@ -1,0 +1,430 @@
+EHRENHUB – EUER WIKI-REDAKTIONSBEREICH
+Version 0.3.0 · technische Anleitung vom 22.10.2026
+
+Hier schreibt ihr Inhalte, ohne HTML, CSS oder die Website-Logik zu ändern.
+Eine JSON-Datei ist ein Artikel. JSON ist strukturierter Klartext.
+Ihr braucht dafür keinen Server, kein CMS-Abo und keinen Nutzerlogin.
+Es ist ein dateibasierter Redaktionsbereich, kein visueller Texteditor.
+
+SCHNELLSTART: EINEN ARTIKEL ERSTELLEN
+
+1. ARTIKEL-VORLAGE.json kopieren – das Original als Vorlage behalten.
+2. Die Kopie in einen passenden Themenordner legen, beispielsweise
+   03-veranstaltungen/material-checkliste.json.
+3. In der Kopie die id auf "material-checkliste" setzen. Dateiname und id
+   müssen zusammenpassen. Kleinbuchstaben, Ziffern und Bindestriche;
+   mit einem Buchstaben beginnen, keine Leerzeichen oder Umlaute in IDs.
+4. Titel, Kurzbeschreibung, Kategorie und Texte anpassen. Die Vorlage zeigt
+   absichtlich ALLE Bausteine. Ganze Abschnitte, die ihr nicht braucht,
+   entfernen. Ein kurzer Artikel muss keine interaktive Aufgabe enthalten.
+5. Während der Arbeit status: "draft" lassen. Zum Ausprobieren "example",
+   für einen redaktionell freigegebenen Artikel "published" eintragen.
+6. Speichern. Im Ehrenhub-Ordner (dort liegt package.json) ausführen:
+      npm test
+   Das prüft die Inhalte, baut die Website und testet die Funktionen.
+7. Die NEU erzeugte Ehrenhub.html im Browser öffnen: Wiki, Suche, Artikel
+   und eventuelle Aufgaben selbst ausprobieren. Auch am Handy prüfen.
+8. Die geänderte Artikeldatei nach GitHub hochladen und committen.
+   Euer bestehender Build erstellt dann die aktuelle Website.
+
+Nur JSON geändert, aber immer noch die alten Inhalte zu sehen?
+Ehrenhub.html und dist/index.html sind erzeugte Dateien. Sie aktualisieren
+sich nicht beim bloßen Speichern eines Artikels, sondern erst beim Build.
+Ohne Node.js auf eurem Rechner könnt ihr Änderungen direkt auf GitHub
+vornehmen; dann auf den erfolgreichen bestehenden Pages-Build warten.
+Für dieses Update liegt eine fertige HTML-Vorschau schon im ZIP.
+
+WAS LIEGT WO?
+
+01-einstieg                 Einstieg, Juleica, Team, Übergabe
+02-gruppenalltag            Gruppenstunden, Freizeiten, Feedback
+03-veranstaltungen         Platz für euer Veranstaltungswissen
+04-finanzen-und-antraege    Kostenpläne, Belege, Anträge
+05-schutz-und-praevention   Schutz, Verantwortung, Prävention
+99-funktionsbeispiele      Drei klickbare Demoartikel
+ARTIKEL-VORLAGE.json        Kopierbare vollständige Vorlage
+START-HIER.txt             Diese Anleitung
+
+Weitere Unterordner sind erlaubt. Alle .json-Artikel darunter werden beim
+Build automatisch gefunden. Keine Artikelliste im JavaScript ergänzen!
+Ordnernamen helfen EUCH; die Kategorie auf der Website bestimmt das Feld
+"category". Das Verschieben allein ändert die Website-Kategorie nicht.
+Versteckte Dateien/Ordner, .txt-Dateien und ARTIKEL-VORLAGE.json werden
+ignoriert. Die Vorlagendatei selbst erscheint also nie auf der Website.
+Verknüpfungen/Symlinks sind nicht erlaubt.
+
+Eine Ebene höher, data/wiki.json, ist jetzt nur noch eine Reihenfolgeliste.
+Sie enthält keine Artikeltexte mehr. Die zwölf bestehenden Artikel behalten
+damit ihre Reihenfolge. Neue Artikel kommen automatisch danach (sortiert
+nach Ordner/Dateiname). Für eine Wunschreihenfolge könnt ihr deren IDs in
+"order" aufnehmen; nötig ist das nicht.
+
+ENTWURF, BEISPIEL ODER FREIGEGEBEN?
+
+"status": "draft"
+  Nicht in der erzeugten Website, Suche oder Merkliste enthalten.
+  Die Datei muss trotzdem gültiges JSON sein. Die inhaltliche Feldprüfung
+  greift erst, wenn ihr auf example oder published wechselt.
+"status": "example"
+  Sichtbar, ausdrücklich als Beispielartikel gekennzeichnet.
+"status": "published"
+  Sichtbar ohne Beispielartikel-Hinweis im Artikel. Damit erklärt IHR
+  eure redaktionelle Freigabe; die Software prüft keine fachliche Richtigkeit.
+Ohne status gilt ein bestehender Artikel weiterhin als Beispiel.
+
+WICHTIG: draft ist KEIN Geheimnisschutz! In einem öffentlichen Repository
+ist auch die Entwurfsdatei einsehbar. Keine persönlichen Fälle, Namen von
+Schutzbefohlenen, Passwörter oder vertraulichen Informationen eintragen.
+Nur der erzeugte dist-Ordner gehört auf den öffentlichen Webserver.
+Die allgemeinen Prototyp-/Beispielhinweise der Website bleiben erhalten,
+solange die übrigen Bereiche noch Demo-Inhalte sind.
+
+FELDER EINES ARTIKELS
+
+Pflichtfelder:
+  id        Eindeutige Kennung; zugleich Dateiname ohne .json und URL-Ende.
+  title     Überschrift auf Karte und Artikelseite.
+  summary   Kurze Beschreibung für Karte und Suche.
+  category  Eine bestehende Kategorie (siehe unten).
+  icon      Icon-Kennung (siehe unten).
+  minutes   Geschätzte Lesezeit, positive ganze Zahl, ohne Anführungszeichen.
+  tags      Liste von Suchwörtern, etwa ["Material", "Gruppenstunde"].
+  sections  Liste mit mindestens einem Abschnitt.
+  related   Liste verwandter Artikel-IDs, auch [] ist möglich.
+
+Optionale Felder:
+  status    draft / example / published; oben erklärt.
+  color     sage / sand / lavender / rose; z. B. "sage".
+  intro     Einleitung; ohne intro wird summary als Einleitung angezeigt.
+  source    Quellen-Kennung aus data/quellen.json, z. B. "kjg".
+  author    Redaktion/Autor, sichtbar bei published.
+  reviewed  Tatsächlicher Prüfstand als Text, sichtbar bei published.
+  hubi      Eigene Nachrichten; weiter unten ausführlich erklärt.
+  featured  Altes, weiterhin verträgliches Feld. Für die Auswahl auf der
+            Startseite stattdessen data/site.json > featuredArticles nutzen.
+
+Kategorien in data/kategorien.json:
+  einstieg        Einstieg & Organisation
+  gruppenalltag   Gruppenalltag
+  veranstaltungen Veranstaltungen
+  finanzen        Finanzen & Anträge
+  schutz          Schutz & Verantwortung
+  werkstatt       Interaktive Beispiele
+Eine neue Kategorie braucht einen Eintrag in dieser Datei: id, label, icon,
+color. Erst dann kann ein Artikel darauf verweisen. Kategorien sind flach;
+Unterordner erzeugen keine zusätzliche Navigationsebene.
+
+Geeignete vorhandene Icons:
+  book, compass, users, calendar, tent, flag, layers, coins, graduation,
+  shield, heart, star, spark, pin, clock, checkCircle, info, laptop, leaf,
+  mug, phone, file, message, sun, paw, bookmark, link
+Die vier Designfarben heißen sage (Grün), sand, lavender und rose.
+Keine eigenen CSS-Farbcodes in color verwenden.
+
+EIN KLEINER VOLLSTÄNDIGER ARTIKEL
+
+Als 03-veranstaltungen/material-checkliste.json speichern:
+
+{
+  "id": "material-checkliste",
+  "status": "example",
+  "title": "Material gemeinsam vorbereiten",
+  "summary": "Eine kurze Checkliste für euer nächstes Treffen.",
+  "category": "veranstaltungen",
+  "icon": "layers",
+  "color": "sage",
+  "minutes": 2,
+  "tags": ["Material", "Vorbereitung"],
+  "sections": [
+    {
+      "id": "vorbereitung",
+      "title": "Vor dem Treffen",
+      "text": "Sammelt gemeinsam, was ihr braucht.",
+      "checklist": [
+        {"id": "liste", "text": "Materialliste zusammengestellt"},
+        {"id": "transport", "text": "Transport geklärt"}
+      ]
+    }
+  ],
+  "related": ["teamaufgaben"]
+}
+
+ABSCHNITTE UND DIE BISHERIGEN BAUSTEINE
+
+Jeder Eintrag in sections hat eine title und idealerweise eine stabile id.
+Abschnitte erscheinen in der Reihenfolge in sections. Die Inhaltsnavigation
+und der Lesefortschritt entstehen automatisch.
+
+Innerhalb eines Abschnitts wird in dieser Reihenfolge dargestellt:
+  title -> text -> bullets -> timeline -> checklist -> tip -> blocks -> action
+Ihr könnt alle optionalen Felder weglassen. Für eine andere Abfolge mehrere
+Abschnitte verwenden. Keine künstlichen leeren Strings eintragen.
+
+text: Fließtext als Klartext. Zeilenumbruch als \n im Text schreiben.
+  "text": "Erster Absatz.\n\nEin weiterer Absatz."
+
+bullets: Liste von Stichpunkten.
+  "bullets": ["Raum abstimmen", "Material zusammentragen"]
+
+timeline: Liste von Paaren [Zeit/Phase, Beschreibung]. Keine Terminfunktion.
+  "timeline": [["Vorher", "Zuständigkeiten klären"], ["Danach", "Kurz reflektieren"]]
+
+checklist: Anklickbare Punkte mit lokalem Fortschritt.
+  "checklist": [{"id": "raum", "text": "Raum bestätigt"}]
+  Empfehlung: Abschnitt UND jeden Punkt mit einer stabilen id versehen.
+  Dann bleibt ein gesetztes Häkchen beim Umsortieren am richtigen Punkt.
+  Alte Listen aus einfachen Texten funktionieren weiterhin. Sie verwenden
+  die Abschnitts- und Zeilenposition als Kennung. Beim Umordnen alter Listen
+  können vorhandene Häkchen auf andere Punkte rutschen. Die zwölf alten
+  Artikel wurden deshalb unverändert übernommen. Der spätere Umstieg auf
+  IDs startet die Häkchen dieser konkreten Liste neu.
+  Fortschritt gilt pro Liste, nicht pauschal für alle Listen eines Artikels.
+
+tip: Abgesetzter Praxistipp im vorhandenen Design.
+  "tip": "Eine feste Kontaktperson erleichtert Rückfragen."
+
+action: Ein hervorgehobener interner Link.
+  "action": {"label": "Zum Schichtplaner", "href": "#/schichtplan"}
+  Auch #/wiki/teamaufgaben, #/antraege, #/fortbildungen, #/sos, #/merkliste,
+  #/suche oder #/ sind möglich. Externe Quellen stehen separat in source.
+
+related: Verwandte Artikel als Karten am Ende, über gültige Artikel-IDs.
+source: Quellenkarte/Quellenverweis aus data/quellen.json. Aktuell eine
+  primäre Quelle pro Artikel. Zusätzliche Links im Fließtext werden nicht
+  automatisch zu klickbaren Links. HTML/Markdown wird nicht ausgeführt.
+
+NEUE INTERAKTIVE BAUSTEINE: GEMEINSAME REGELN
+
+In einem Abschnitt unter "blocks": [ ... ] einfügen. Mehrere Bausteine
+sind möglich, die Reihenfolge ist eure Listenreihenfolge. Die vollständigen
+kopierbaren Objekte stehen in ARTIKEL-VORLAGE.json und den drei Demos.
+
+Jeder Baustein braucht:
+  id       Innerhalb des Abschnitts eindeutig und dauerhaft stabil.
+  type     Einer der sechs unten beschriebenen technischen Namen.
+  title    Sichtbare Überschrift.
+Optional:
+  prompt   Kurze Aufgabenbeschreibung.
+  hubi     Eigene Nachrichten für Ereignisse dieses Bausteins.
+  celebrate false schaltet die kurze Erfolgsanimation dieses Bausteins aus.
+
+Die Aufgaben sind Orientierung/Übung, keine Prüfung oder Zertifizierung.
+Niemand muss sie lösen, um den restlichen Artikel zu lesen. Antworten
+werden nicht an einen Server geschickt. Der aktuelle Stand bleibt beim
+Wechsel zwischen Artikeln in diesem geöffneten Tab erhalten, aber nicht
+nach Neuladen. "Neu starten" setzt nur die jeweilige Aufgabe zurück.
+Vergleiche und Perspektiven sind sofort umschaltbar; die vier Aufgabenarten
+beginnen mit "Ausprobieren". Alle sind auch per Tastatur bedienbar.
+
+1. WAS WÜRDEST DU TUN? – type: "scenario"
+
+Eine Situation mit mindestens zwei Antwortmöglichkeiten und Erklärungen.
+Feld options ist eine Liste. Jede Antwort enthält:
+  id, label (Antworttext), feedback (Erklärung), result
+result ist "success" für eine hilfreiche Vorgehensweise oder "reflect"
+für einen weiteren Denkanstoß. Mindestens eine success-Antwort angeben;
+mehrere sind erlaubt. Es erscheint keine Beschämung und kein Punktabzug.
+Eine neue Antwort kann jederzeit ausprobiert werden.
+Hubi-Ereignisse: start, success, retry.
+Beispiel: 99-funktionsbeispiele/demo-eventteam.json > zusage
+
+2. FEHLERDETEKTIV – type: "detective"
+
+Ein Ablauf oder eine Nachricht, in einzelne anklickbare Karten aufgeteilt.
+Kein freies Markieren beliebiger Wörter; jede Karte ist ein definierter Punkt.
+Feld items ist eine Liste mit mindestens zwei Karten, jeweils:
+  id, label (Kartentext), issue (true oder false), feedback (Erklärung).
+Mindestens eine Karte braucht issue: true. Bei Klick auf eine solche Karte
+wird sie als entdeckt markiert. Andere Karten erklären, was daran passt.
+Zusätzlich success: Text für den Abschluss, wenn alle Stolperstellen
+entdeckt wurden. Mehrfachklicks zählen einen Fund nicht doppelt.
+Hubi-Ereignisse: start, success (Fund), retry (andere Karte), complete.
+Beispiel: demo-eventteam.json > ablauf
+
+3. VORHER–NACHHER – type: "comparison"
+
+Zwei Varianten einer Formulierung/Planung, per Schalter vergleichbar.
+Feld variants enthält GENAU zwei Objekte mit:
+  label (Beschriftung), text (Inhalt), optional note (Einordnung).
+Neutrale labels verwenden, etwa "Ausgangslage" und "Konkretisiert" oder
+"Kurzfassung" und "Mit Details". Niemals Menschen oder eine Variante als
+"schlecht" abwerten. Es ist kein Bewertungsquiz.
+Hubi-Ereignis: change.
+Beispiel: demo-perspektiven.json > vergleich
+
+4. PERSPEKTIVENWECHSEL – type: "perspectives"
+
+Eine Situation aus mindestens zwei Blickwinkeln betrachten.
+Feld perspectives ist eine Liste mit:
+  label (Rolle), text (Blickwinkel), optional note (praktische Folgerung).
+Etwa Teamleitung, Helferteam und Gäste. Keine Perspektive ist automatisch
+die einzig richtige. Das aktive Panel wechselt ohne Seitenneuladen.
+Hubi-Ereignis: change.
+Beispiel: demo-perspektiven.json > blickwinkel
+
+5. ENTSCHEIDUNGSWEG – type: "decision"
+
+Kurze Fragen verzweigen zu unterschiedlichen Orientierungstexten.
+start enthält die ID der ersten Frage. nodes enthält alle Fragen/Ergebnisse.
+Ein Frageknoten enthält:
+  id, question, options (mindestens zwei Antworten).
+  Jede Antwort: id, label, next (ID der nächsten Frage/des Ergebnisses).
+Ein Ergebnisknoten enthält:
+  id, title, result (Ergebnistext), optional action (label und href).
+  Ein Ergebnis enthält KEINE question oder options.
+Alle next-Ziele müssen existieren; alle Knoten müssen vom Start erreichbar
+sein. Keine Kreise/Endlosschleifen – der Build prüft das. Ein Zurück-Knopf
+ist bereits eingebaut; dafür keinen eigenen Rücksprung in nodes definieren.
+Hubi-Ereignisse: start, change (Zwischenschritt/zurück), complete (Ergebnis).
+Beispiel: demo-entscheidungsweg.json > orientierung
+
+6. MINI-CHALLENGE – type: "challenge"
+
+Eine kleine Reihenfolgeaufgabe ohne Zeitdruck und ohne Drag-and-drop-Zwang.
+items: mindestens zwei Objekte mit id und label, in ihrer Startreihenfolge.
+solution: Liste ALLER Item-IDs, jede genau einmal, in der Zielreihenfolge.
+success: Erklärung bei passender Reihenfolge.
+retry: hilfreicher Hinweis, wenn noch etwas umsortiert werden kann.
+Lesende verschieben Karten mit Auf-/Ab-Pfeilen und klicken auf Prüfen.
+Diese erste Variante prüft EINE redaktionell festgelegte Reihenfolge.
+Für Situationen mit mehreren gleichwertigen Reihenfolgen besser einen
+Perspektivenwechsel oder ein Szenario verwenden und keine Eindeutigkeit
+vortäuschen. Die Reihenfolge wird nicht zufällig gemischt.
+Hubi-Ereignisse: start, retry, complete.
+Beispiel: demo-entscheidungsweg.json > reihenfolge
+
+7. REAKTIONEN UND HUBI – QUERSCHNITTSFUNKTION
+
+Reaktionen sind kein siebter type. Sie begleiten die sechs Bausteine:
+Erklärfelder, gefundene Karten, Abschlussnachricht, Hubis Sprechblase und
+ein kurzer, dezenter Konfetti-/Pfotenmoment bei erfolgreich beendeten
+Aufgaben. Perspektiven/Variantenwechsel lösen keine Erfolgsfeier aus.
+Die vorhandenen "Ja, hilfreich" / "Eher nicht" am Artikelende bleiben.
+Diese Rückmeldung wird NUR auf dem jeweiligen Gerät gespeichert. Sie ist
+keine zentrale Besucherstatistik und wird der Redaktion nicht übermittelt.
+
+Hubi spricht passend zur Aktion, OHNE KI-API und ohne laufende API-Kosten.
+Ihr schreibt die Sätze selbst. Reihenfolge der Textauswahl:
+  Nachricht am Baustein > Nachricht am Artikel > data/hubi.json
+Fehlt ein optionaler eigener Satz, greift automatisch die nächste Ebene.
+
+Beispiel direkt im Artikel (auf derselben Ebene wie title und sections):
+  "hubi": {
+    "intro": "Lass uns die Teamnachricht gemeinsam ansehen.",
+    "pet": ["Für eine Denkpause bin ich da.", "Gute Absprachen helfen allen."],
+    "start": "Was würdest du als Erstes klären?",
+    "success": "Guter Ansatz. Lies auch die Erklärung zur Antwort.",
+    "retry": "Ein weiterer Blick kann helfen.",
+    "complete": "Das ist ein guter nächster Schritt.",
+    "change": "Wie sieht das aus der anderen Perspektive aus?",
+    "checklistComplete": "Alles auf der Liste abgehakt."
+  }
+
+intro: Begrüßung beim ersten Besuch dieses Artikels im aktuellen Tab.
+pet: Liste der Texte beim Streicheln; sie werden nacheinander verwendet.
+checklistComplete: Satz beim vollständigen Abhaken einer Checkliste.
+start, success, retry, complete, change: Ereignisse wie oben beschrieben.
+Der Hubi-Block innerhalb eines Bausteins erlaubt nur diese fünf Ereignisse.
+Haltet Sprechblasen kurz (ungefähr ein bis zwei Sätze). Die eigentliche
+Erklärung gehört ins feedback bzw. result, nicht nur in eine Sprechblase.
+
+"hubi": {"enabled": false} am Artikel blendet Hubi dort ganz aus.
+Die Aufgabe funktioniert weiterhin. Für sensible Inhalte zusätzlich
+"celebrate": false am Baustein setzen. In Kategorie "schutz" sind die
+Erfolgsanimationen automatisch aus; auf PSG & SOS bleibt Hubi verborgen.
+Hubi lässt sich weiterhin von Lesenden ausblenden und im Footer wecken.
+Bei reduzierter Bewegung im Betriebssystem gibt es keine neuen Animationen.
+Es werden keine sensiblen Fälle als Spiel empfohlen. Präventions-/SOS-Texte
+und dazugehörige Übungen nur mit fachlicher Prüfung veröffentlichen.
+
+SUCHE, LINKS, MERKLISTE UND SPEICHERN
+
+Neue aktive Artikel erscheinen automatisch in Wiki, Kategorie, globaler
+Suche und Merkliste. Auch Texte der neuen Bausteine werden durchsucht.
+Hubis Nachrichten und technische IDs sind kein Suchinhalt.
+Der stabile Link lautet immer #/wiki/ARTIKEL-ID, unabhängig vom Unterordner.
+Artikel-IDs nicht ohne Grund ändern: vorhandene Links und Lesezeichen
+zeigen sonst ins Leere. related und Startseiten-Verweise ggf. mitändern.
+
+Checklisten, Lesezeichen und Artikel-Feedback werden wie bisher lokal im
+Browser gespeichert, sofern dieser es zulässt. Keine Gerätesynchronisation.
+Auf derselben Website-Adresse bleiben vorhandene Daten nutzbar. Andere
+Domains, andere Browser und lokal geöffnete Dateien haben andere Speicher.
+Lokale Browserdaten sind kein Backup. Schichtpläne weiterhin als JSON
+exportieren, wenn ihr sie sichern oder übertragen möchtet.
+Neue Übungsantworten werden bewusst NICHT dauerhaft gespeichert.
+"Lokale Daten" > Zurücksetzen entfernt Ehrenhub-Daten inkl. Schichtplan;
+vorher wichtige Projekte exportieren. Daten anderer Websites bleiben davon
+unberührt. Nur mit eigenen Testdaten ausprobieren.
+
+DRUCKEN UND OFFLINE
+
+"Drucken" öffnet weiterhin den Browser-Druckdialog. Dort kann – sofern der
+Browser es anbietet – als PDF gespeichert werden. Sichtbare Erklärungen
+werden gedruckt; Bedienknöpfe und Animationen sind ausgeblendet. Die
+Aufgaben bleiben Website-Funktionen, kein interaktives PDF. Ausgewählte
+Vergleichs-/Perspektiventexte entsprechen dem aktuellen Zustand; für andere
+Varianten vor dem Drucken umschalten.
+Ehrenhub.html ist komplett eigenständig. Auch die neuen Module benötigen
+kein Internet. Nur externe Links zu Anbietern brauchen eine Verbindung.
+Der vorhandene grafische Schichtplan-Export und CSV-Export sind unverändert.
+
+BEISPIELE FINDET IHR HIER
+
+Website: Wiki & How-tos > Interaktive Beispiele.
+  Ein Abend, viele Entscheidungen      Szenario + Fehlerdetektiv
+  Eine Nachricht, mehrere Blickwinkel  Vergleich + Perspektiven + Checkliste
+  Findet euren nächsten Planungsschritt Entscheidungsweg + Mini-Challenge
+Alle zeigen auch ereignisabhängige Hubi-Nachrichten und Reaktionen.
+Die vollständige Vorlage zeigt zusätzlich Text, Stichpunkte, Zeitablauf,
+Tipp, interne Aktion und Checkliste gemeinsam mit allen neuen Bausteinen.
+
+Demos später ausblenden: Bei ALLEN drei Demoartikeln status auf draft setzen.
+Der Hinweislink zur Werkstatt verschwindet automatisch, wenn keine aktiven
+Artikel in werkstatt mehr vorhanden sind. Die Kategorie kann zusätzlich
+aus data/kategorien.json entfernt werden. Wenn nur ein Demo verschwindet,
+related-Verweise aus den anderen Artikeln auf diesen Entwurf entfernen.
+
+JSON: DIE HÄUFIGSTEN STOLPERSTELLEN
+
+- Text braucht gerade doppelte Anführungszeichen: "Text".
+  Deutsche „Anführungszeichen“ IN einem Text sind unproblematisch.
+  Ein gerades Anführungszeichen im Text als \" schreiben.
+- Zwischen Feldern/Listeneinträgen steht ein Komma; nach dem letzten nicht.
+- true, false und Zahlen stehen ohne Anführungszeichen.
+- Keine Kommentare // oder /* ... */ in JSON schreiben.
+- Dateien als UTF-8 und wirklich .json speichern, nicht .json.txt.
+- Eine Datei enthält EIN Objekt { ... }, nicht eine Artikelliste [ ... ].
+- Nur die dokumentierten Felder verwenden; Tippfehler werden gemeldet.
+- Textfelder sind Klartext. Kein HTML, Skript, Markdown oder eigener Code.
+- Leere optionale Felder ganz weglassen; related und tags dürfen [] sein.
+- Ein veröffentlichter Artikel darf nicht auf einen Entwurf verweisen.
+- Doppelte Artikel-/Abschnitts-/Baustein-IDs vermeiden.
+
+BEI EINEM BUILD-FEHLER
+
+Die Meldung nennt Datei und Feld, beispielsweise:
+  data/wiki/03-veranstaltungen/material-checkliste.json.sections[0].blocks[0]
+[0] heißt erster Eintrag, [1] zweiter Eintrag. Bei ungültigem JSON nennt
+Node zusätzlich eine Textposition bzw. Zeile. Zuerst diese Datei korrigieren.
+Die Prüfung meldet u. a. fehlende Pflichttexte, ungültige Kategorien/Quellen,
+doppelte IDs, fehlende Zielknoten, Kreise, falsche Lösungsreihenfolgen und
+unbekannte Bausteine. Der Build stoppt, statt eine kaputte Seite auszugeben.
+Ein bestandener Build bestätigt die Struktur, nicht die inhaltliche Wahrheit.
+Er prüft auch nicht, ob externe Websites derzeit erreichbar sind.
+
+TECHNIK NUR FÜR DIEJENIGEN, DIE SIE BRAUCHEN
+
+src/features/wiki/     Logik, Anzeige, Bedienung und ergänzendes CSS
+src/pages/wiki.js     Bestehende Wiki-Liste und Artikelrahmen
+scripts/load-wiki.cjs Automatisches Einsammeln der Artikeldateien
+scripts/validate-wiki.cjs Feldprüfung der Artikel und interaktiven Bausteine
+data/hubi.json        Allgemeine Hubi- und Seitennachrichten
+data/quellen.json     Quellen mit Kennung, label und HTTPS-url
+data/site.json        IDs der auf der Startseite hervorgehobenen Artikel
+
+Für normale Redaktionsarbeit braucht ihr diese Programmdateien NICHT zu
+ändern. Für weitere BausteinARTEN dagegen schon – neue type-Werte werden
+nicht magisch verstanden. Das Wiki ist modular, aber kein Plugin-Marktplatz.
+Anträge, Fortbildungen und SOS bleiben in ihren bisherigen JSON-Katalogen.
+Es wurden keine Logins, Backend-Dienste oder kostenpflichtigen Abos ergänzt.

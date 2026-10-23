@@ -1,0 +1,40 @@
+{
+  "id": "kostenplan",
+  "title": "Ein einfacher Kostenplan für eure Aktion",
+  "summary": "Ausgaben, Einnahmen und einen Puffer übersichtlich zusammentragen.",
+  "category": "finanzen",
+  "icon": "coins",
+  "color": "sand",
+  "minutes": 4,
+  "tags": [
+    "Kosten",
+    "Budget",
+    "Finanzen",
+    "Zuschuss",
+    "Kalkulation"
+  ],
+  "sections": [
+    {
+      "title": "Die Ausgaben aufschreiben",
+      "text": "Sammelt erwartete Kosten für Material, Raum, Anreise und Verpflegung. Kennzeichnet, welche Zahlen schon feststehen und welche noch Schätzungen sind."
+    },
+    {
+      "title": "Einnahmen danebenstellen",
+      "text": "Welche Beiträge oder Eigenmittel sind geplant? Welche Förderung ist bereits zugesagt? Führt unsichere Zuschüsse getrennt auf, damit ihr nicht mit unbestätigtem Geld plant.",
+      "checklist": [
+        "Ausgaben nach Bereichen gesammelt",
+        "Gesicherte Einnahmen erfasst",
+        "Noch offene Einnahmen klar markiert",
+        "Puffer und verbleibende Finanzierungslücke besprochen"
+      ]
+    },
+    {
+      "title": "Den Plan aktuell halten",
+      "text": "Bestimmt eine Person, die Änderungen einträgt. Besprecht größere Abweichungen im Team, bevor weitere Ausgaben entstehen."
+    }
+  ],
+  "related": [
+    "foerderantrag-vorbereiten",
+    "belege"
+  ]
+}

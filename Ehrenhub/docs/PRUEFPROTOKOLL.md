@@ -1,5 +1,7 @@
 # Prüfprotokoll – Struktur-Refactoring
 
+Historisches Protokoll des ersten Refactorings. Der aktuelle Prüfstand für die Wiki-Redaktion steht in [WIKI-UPDATE-PRUEFUNG.md](WIKI-UPDATE-PRUEFUNG.md).
+
 Stand: 18. Oktober 2026. Bezugsstand ist der vorhandene lokale Ehrenhub-Prototyp 0.1.0. Die technische Projektversion ist jetzt 0.2.0; sichtbare Demo-Texte und ihre Versionsangabe wurden nicht redaktionell überarbeitet.
 
 ## Automatisierte Prüfungen

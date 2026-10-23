@@ -1,0 +1,40 @@
+{
+  "id": "feedbackrunde",
+  "title": "Eine Feedbackrunde, bei der alle mitreden können",
+  "summary": "Drei einfache Fragen für einen guten gemeinsamen Abschluss.",
+  "category": "gruppenalltag",
+  "icon": "message",
+  "color": "lavender",
+  "minutes": 3,
+  "tags": [
+    "Feedback",
+    "Reflexion",
+    "Gruppenstunde",
+    "Methode",
+    "Runde"
+  ],
+  "sections": [
+    {
+      "title": "Einen ruhigen Rahmen schaffen",
+      "text": "Plant die Runde als Teil eurer gemeinsamen Zeit ein. Erklärt, dass niemand etwas erzählen muss und unterschiedliche Meinungen willkommen sind."
+    },
+    {
+      "title": "Drei Fragen reichen",
+      "text": "Gebt genug Zeit zum Überlegen. Antworten können gesprochen, aufgeschrieben oder durch ein Symbol gezeigt werden.",
+      "bullets": [
+        "Was hat dir heute Freude gemacht?",
+        "Was war schwierig oder hat dir gefehlt?",
+        "Was wünschst du dir beim nächsten Mal?"
+      ]
+    },
+    {
+      "title": "Mit dem Feedback weiterarbeiten",
+      "text": "Fasst zusammen, was ihr gehört habt. Wählt gemeinsam eine konkrete Sache, die ihr beim nächsten Treffen ausprobieren möchtet.",
+      "tip": "Bedankt euch auch für kritische Rückmeldungen. Sie helfen euch, die Gruppe besser zu verstehen."
+    }
+  ],
+  "related": [
+    "erste-gruppenstunde",
+    "teamaufgaben"
+  ]
+}

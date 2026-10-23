@@ -1,0 +1,42 @@
+{
+  "id": "uebergabe",
+  "title": "Wissen weitergeben statt neu erfinden",
+  "summary": "So wird aus eurem privaten Sammelordner eine brauchbare Übergabe.",
+  "category": "einstieg",
+  "icon": "book",
+  "color": "sage",
+  "minutes": 3,
+  "tags": [
+    "Wissen",
+    "Übergabe",
+    "Team",
+    "Ordner",
+    "Organisation",
+    "Know-how"
+  ],
+  "sections": [
+    {
+      "title": "Die nächsten Menschen mitdenken",
+      "text": "Was hättet ihr zu Beginn gerne gewusst? Haltet die wichtigsten Abläufe, Ansprechpartnerrollen und Materialorte verständlich fest."
+    },
+    {
+      "title": "Weniger, aber gut sortiert",
+      "text": "Trennt aktuelle Unterlagen von alten Entwürfen. Eine kurze Übersicht hilft mehr als viele unkommentierte Dateien.",
+      "checklist": [
+        "Die wichtigsten Abläufe kurz beschrieben",
+        "Aktuelle Unterlagen von alten Versionen getrennt",
+        "Offene Aufgaben gekennzeichnet",
+        "Persönliche Daten und Zugriffsrechte mit dem Träger geprüft"
+      ]
+    },
+    {
+      "title": "Eine gemeinsame Übergabe planen",
+      "text": "Geht die Sammlung mit den Nachfolger*innen durch. Wo Fragen entstehen, könnt ihr die Erklärung direkt verbessern.",
+      "tip": "Notiert zu jeder Sammlung, wer sie zuletzt geprüft hat und wann eine Aktualisierung sinnvoll ist."
+    }
+  ],
+  "related": [
+    "teamaufgaben",
+    "ehrenamt-start"
+  ]
+}

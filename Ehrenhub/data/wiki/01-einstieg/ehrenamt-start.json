@@ -1,0 +1,41 @@
+{
+  "id": "ehrenamt-start",
+  "title": "Neu im Ehrenamt? Hier fängst du an.",
+  "summary": "Finde eine Aufgabe, die zu dir passt – und die Menschen, die dich dabei unterstützen.",
+  "category": "einstieg",
+  "icon": "compass",
+  "color": "sage",
+  "minutes": 4,
+  "tags": [
+    "Einstieg",
+    "Anfang",
+    "Mitmachen",
+    "Orientierung"
+  ],
+  "intro": "Du musst nicht alles können, bevor du mitmachst. Ein überschaubarer Einstieg hilft dir und deinem neuen Team.",
+  "sections": [
+    {
+      "title": "Überlege, was dir Freude macht",
+      "text": "Magst du organisieren, draußen sein oder kreativ mit einer Gruppe arbeiten? Überlege auch, wie viel Zeit du regelmäßig geben möchtest. Das ist ein guter Gesprächseinstieg."
+    },
+    {
+      "title": "Lerne das Team kennen",
+      "text": "Frage nach einem Kennenlernen oder einer begleiteten Schnuppermöglichkeit. Klärt gemeinsam, welche Einführung und Qualifikation für deine Aufgabe erforderlich sind.",
+      "checklist": [
+        "Eine passende Gruppe gefunden",
+        "Erwartungen und zeitlichen Rahmen besprochen",
+        "Feste Ansprechperson kennengelernt",
+        "Nächsten kleinen Schritt vereinbart"
+      ]
+    },
+    {
+      "title": "Klein anfangen ist völlig okay",
+      "text": "Vielleicht hilfst du zuerst bei einer einzelnen Aktion. Verantwortung darf wachsen. Hole dir Rückmeldung und sage frühzeitig, wenn dir etwas zu viel wird.",
+      "tip": "Ein fester Kontakt im Team macht den Einstieg oft leichter als eine lange Infomappe."
+    }
+  ],
+  "related": [
+    "juleica",
+    "teamaufgaben"
+  ]
+}

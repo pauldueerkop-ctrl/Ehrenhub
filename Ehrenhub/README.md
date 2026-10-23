@@ -2,6 +2,8 @@
 
 Wissen und Orientierung für die Kinder- und Jugendarbeit in München. Tiefgrünes Design, keine Anmeldung, keine externen Laufzeit-Abhängigkeiten. Diese Version räumt den vorhandenen Prototyp technisch auf, ohne seine Gestaltung und Beispielinhalte zu ersetzen.
 
+**Neu in 0.3.0: Wiki-Redaktion und interaktive Artikel.** Unter `data/wiki/` liegt jeder Artikel in einer eigenen Datei, thematisch sortiert. [START-HIER.txt](data/wiki/START-HIER.txt) erklärt alle Felder und Bausteine; die [Artikelvorlage](data/wiki/ARTIKEL-VORLAGE.json) lässt sich kopieren. In der Website: **Wiki & How-tos → Interaktive Beispiele**. Drei Demos zeigen Szenarien, Fehlerdetektiv, neutralen Vergleich, Perspektivenwechsel, Entscheidungsweg, Sortier-Challenge und passende Hubi-Reaktionen. [Upload-Anleitung](UPLOAD-ANLEITUNG.txt) · [Prüfung dieses Updates](docs/WIKI-UPDATE-PRUEFUNG.md).
+
 **Neu: Schichtplaner.** Unter `#/schichtplan` gibt es einen lokalen Planungsbereich für Veranstaltungen: Arbeitsbereiche und Schichten, Team-Verfügbarkeiten, automatische Verteilung, fixierbare Zuteilungen, Projektdateien, CSV und einen grafischen PDF-Stundenplan mit Exportvorschau. Einstieg über die Navigation oder die neue Startseitenkarte. [Bedienung, Grenzen und Modulaufbau](docs/SCHICHTPLAN.md) · [Neuer Stundenplan-Export](docs/STUNDENPLAN-EXPORT.md).
 
 ## Direkt ansehen
@@ -30,11 +32,14 @@ npm test
 
 | Gewünschte Änderung | Zuständiger Ort |
 | --- | --- |
-| Artikel, Kurse, Antragswege, Quellen oder SOS-Inhalte | `data/` |
+| Wiki-Artikel, Vorlage, Anleitung und Demos | `data/wiki/` mit Themenunterordnern |
+| Kurse, Antragswege, Quellen oder SOS-Inhalte | `data/` |
+| Allgemeine Hubi-Texte | `data/hubi.json`; eigene Sätze im Artikel |
 | Auswahl hervorgehobener Startseiten-Einträge | `data/site.json` |
 | Gemeinsame Karten, Navigation, Dialoge | `src/components/` |
 | Aufbau eines bestimmten Bereichs | `src/pages/` |
 | Schichtplan: Datenmodell, Berechnung, Oberfläche, Bedienung und eigenes CSS | `src/features/schichtplan/` |
+| Interaktive Wiki-Bausteine: Modell, Darstellung, Bedienung und ergänzendes CSS | `src/features/wiki/` |
 | Farben, Schriften, Abstände, Hover- und Mobilverhalten | `src/styles.css` |
 | Suche, Filter und Förderzuordnung | `src/core.js` |
 | Klicks, Dialoge und Navigation | `src/app.js` |
@@ -86,4 +91,4 @@ Das Aufräumen ist keine fachliche, datenschutzrechtliche oder rechtliche Freiga
 - [Prüfprotokoll und verbleibende manuelle Tests](docs/PRUEFPROTOKOLL.md)
 - [Bisherige externe Quellen](SOURCES.md)
 
-Prüfstand des vorherigen Refactorings: 40 Tests, 282 verglichene Ausgaben. Beim Schichtplan-Update bleiben `src/styles.css`, Icons, HTML-Vorlage und die redaktionellen JSON-Inhalte unverändert; zusätzliche Gestaltung liegt im Feature-Ordner. Die erweiterten Tests prüfen auch Solver, Import/Export und Controller-Ereignisse. Sie ersetzen keinen echten Browser- oder Mobilgeräte-Test. Aktueller Prüfstand und verbleibender manueller Test: [Schichtplan](docs/SCHICHTPLAN.md).
+Aktueller Prüfstand: [Wiki-Update-Prüfung](docs/WIKI-UPDATE-PRUEFUNG.md). Die alten Refactoring- und Schichtplanprotokolle bleiben als historische Dokumentation enthalten. Neue redaktionelle Metadaten ersetzen keine fachliche Freigabe. Browserchecks dieses Updates sind keine vollständige Barrierefreiheits- oder geräteübergreifende Prüfung.

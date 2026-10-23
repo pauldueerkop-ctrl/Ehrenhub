@@ -1,0 +1,50 @@
+{
+  "id": "freizeit-planen",
+  "title": "Die Freizeitplanung: vom Gedanken zum Plan",
+  "summary": "Die wichtigsten Fragen für eure nächste Fahrt – frühzeitig und gemeinsam sortiert.",
+  "category": "gruppenalltag",
+  "icon": "tent",
+  "color": "lavender",
+  "minutes": 6,
+  "tags": [
+    "Zeltlager",
+    "Freizeit",
+    "Fahrt",
+    "Planen",
+    "Camp",
+    "Budget"
+  ],
+  "sections": [
+    {
+      "title": "Den Rahmen gemeinsam abstecken",
+      "text": "Bevor ihr ins Programm einsteigt: Für wen ist die Freizeit? Wann soll sie stattfinden? Welche Unterstützung braucht ihr? Sammelt offene Fragen und verteilt die Recherche."
+    },
+    {
+      "title": "Die Grundlagen vorbereiten",
+      "text": "Diese Liste ist ein erster Organisationsimpuls, keine vollständige Sicherheits- oder Rechtscheckliste.",
+      "checklist": [
+        "Zeitraum und Zielgruppe vereinbart",
+        "Unterkunft und Anreise angefragt",
+        "Leitungsteam und Verantwortlichkeiten geklärt",
+        "Kostenplan und mögliche Förderung vorbereitet",
+        "Schutzkonzept, Zugänglichkeit und Notfallplanung mit dem Träger besprochen"
+      ]
+    },
+    {
+      "title": "Förderung früh mitdenken",
+      "text": "Sammelt mögliche Förderwege schon während der Planung. Welche Fristen und Voraussetzungen gelten, müsst ihr beim zuständigen Träger prüfen.",
+      "action": {
+        "label": "Antragsfinder öffnen",
+        "href": "#/antraege"
+      }
+    },
+    {
+      "title": "Wissen fürs nächste Mal behalten",
+      "text": "Sammelt nach der Freizeit, welche Abläufe euch geholfen haben und was ihr verändern möchtet. Eine kurze, gut sortierte Übergabe ist wertvoller als ein unkommentierter Ordner."
+    }
+  ],
+  "related": [
+    "foerderantrag-vorbereiten",
+    "uebergabe"
+  ]
+}

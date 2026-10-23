@@ -1,0 +1,46 @@
+{
+  "id": "juleica",
+  "title": "Juleica: dein Weg zur Jugendleitung",
+  "summary": "Was du für deinen Einstieg klären solltest und wo du passende Ausbildungen findest.",
+  "category": "einstieg",
+  "icon": "graduation",
+  "color": "sage",
+  "minutes": 4,
+  "tags": [
+    "Juleica",
+    "Jugendleitercard",
+    "Ausbildung",
+    "Kurswoche",
+    "Jugendleitung"
+  ],
+  "intro": "Du möchtest Verantwortung in der Jugendarbeit übernehmen? Nutze diese Beispielübersicht, um die nächsten Fragen mit deinem Verband zu klären.",
+  "sections": [
+    {
+      "title": "Deinen Ausbildungsweg finden",
+      "text": "Welche Grundausbildung passt zu deiner Aufgabe? Wer bietet sie in deiner Region an? Dein Verband hilft dir, den richtigen Kurs und die aktuell geltenden Voraussetzungen zu klären."
+    },
+    {
+      "title": "Bausteine gemeinsam klären",
+      "text": "Frage gezielt nach den benötigten Nachweisen, ergänzenden Schulungen und dem Ablauf der Beantragung. Diese Demo nennt bewusst keine verbindlichen Stunden- oder Altersgrenzen.",
+      "checklist": [
+        "Grundausbildung mit dem Verband abgestimmt",
+        "Anforderungen an Erste Hilfe geprüft",
+        "Präventionsschulung und weitere Bausteine geklärt",
+        "Beantragung und zuständige Ansprechperson geklärt"
+      ]
+    },
+    {
+      "title": "Von der Info zum passenden Kurs",
+      "text": "Im Fortbildungsfinder kannst du beispielhaft nach Gruppenleitung, Prävention und Erste Hilfe filtern. Verbindliche Informationen bekommst du direkt beim jeweiligen Anbieter.",
+      "action": {
+        "label": "Fortbildungen entdecken",
+        "href": "#/fortbildungen?topic=leitung"
+      }
+    }
+  ],
+  "source": "kjg",
+  "related": [
+    "ehrenamt-start",
+    "praevention-alltag"
+  ]
+}

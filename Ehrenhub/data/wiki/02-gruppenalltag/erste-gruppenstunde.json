@@ -1,0 +1,75 @@
+{
+  "id": "erste-gruppenstunde",
+  "title": "Deine erste Gruppenstunde",
+  "summary": "Von der ersten Idee bis zur Abschlussrunde: ein einfacher Ablauf, der dir Sicherheit gibt.",
+  "category": "gruppenalltag",
+  "icon": "users",
+  "color": "lavender",
+  "minutes": 5,
+  "tags": [
+    "Gruppenstunde",
+    "Anfang",
+    "Spiele",
+    "Planen",
+    "Kennenlernen"
+  ],
+  "featured": true,
+  "intro": "Du brauchst keinen perfekten Plan. Ein klarer Rahmen, etwas Vorbereitung und Raum für die Ideen der Kinder sind ein guter Anfang.",
+  "sections": [
+    {
+      "title": "Erst die Gruppe, dann das Programm",
+      "text": "Wie alt sind die Kinder? Kennen sie sich schon? Wie viel Platz habt ihr? Stimmt eure Idee auf die Gruppe ab und plant Zeit für Ankommen und spontane Wünsche ein.",
+      "bullets": [
+        "Ein einfaches Ziel festlegen: etwa sich kennenlernen oder etwas gemeinsam gestalten.",
+        "Im Leitungsteam besprechen, wer Material, Begrüßung und Abschluss übernimmt.",
+        "Eine ruhige Alternative bereithalten, falls die Gruppe eine Pause braucht."
+      ]
+    },
+    {
+      "title": "Ein Beispiel für 60 Minuten",
+      "text": "Die Zeiten sind ein Vorschlag. Orientiere dich an der Stimmung und den Bedürfnissen deiner Gruppe.",
+      "timeline": [
+        [
+          "10 Min.",
+          "Ankommen & kurze Kennenlernrunde"
+        ],
+        [
+          "10 Min.",
+          "Gemeinsam ein Bewegungsspiel auswählen"
+        ],
+        [
+          "25 Min.",
+          "Eure Hauptaktion mit Raum zum Ausprobieren"
+        ],
+        [
+          "10 Min.",
+          "Gemeinsam aufräumen & Feedback"
+        ],
+        [
+          "5 Min.",
+          "Ausblick auf das nächste Treffen"
+        ]
+      ]
+    },
+    {
+      "title": "Kurz vorher checken",
+      "text": "Diese kleine Liste kannst du direkt abhaken. Sie bleibt auf diesem Gerät gespeichert.",
+      "checklist": [
+        "Raum und Zugang sind geklärt",
+        "Material und Plan B liegen bereit",
+        "Aufgaben im Leitungsteam sind verteilt",
+        "Ansprechperson und wichtige Kontakte sind geklärt",
+        "Ein gemeinsamer Abschluss ist eingeplant"
+      ]
+    },
+    {
+      "title": "Nach der Stunde ist vor der nächsten",
+      "text": "Nehmt euch als Team fünf Minuten: Was hat gut funktioniert? Wo hattet ihr Stress? Was wünschen sich die Kinder? Drei kurze Notizen reichen für den Anfang.",
+      "tip": "Lieber eine gute Aktion mit Zeit zum Mitmachen als fünf Programmpunkte im Schnelldurchlauf."
+    }
+  ],
+  "related": [
+    "teamaufgaben",
+    "feedbackrunde"
+  ]
+}

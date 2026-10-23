@@ -7,7 +7,7 @@
   const storage=createStore(()=>localStorage);
   const {read,readObject}=storage;
   const sosIds=D.sos.tabs.map(([id])=>id);
-  const checkKeys=new Set(D.articles.flatMap(a=>a.sections.flatMap((s,si)=>(s.checklist||[]).map((_,ci)=>a.id+':'+si+':'+ci))));
+  const checkKeys=new Set(D.articles.flatMap(a=>a.sections.flatMap((s,si)=>(s.checklist||[]).map((item,ci)=>C.checklistKey(a,s,si,item,ci)))));
   const state={
     bookmarks:C.readBookmarks(read('bookmarks','[]'),index),
     checks:readObject('checks',checkKeys,v=>v===true),
@@ -24,7 +24,8 @@
   const searchBody=document.getElementById('quick-search-results');
   const infoDialog=document.getElementById('info-dialog');
   const toastElement=document.getElementById('toast');
-  let toastTimer,bubbleTimer,petTimer,scrollFrame;
+  let toastTimer,bubbleTimer,petTimer,scrollFrame,introTimer;
+  const greetedArticles=new Set();
   let route=C.parseRoute(location.hash);
   let initialRender=true;
   let storageWarningShown=false;
@@ -45,6 +46,10 @@
   }
   function closeDialog(dialog){if(dialog.open)dialog.close();}
   function render(){
+    clearTimeout(introTimer);
+    clearTimeout(bubbleTimer);
+    const previousBubble=document.getElementById('hubi-bubble');
+    if(previousBubble){previousBubble.classList.remove('visible');previousBubble.textContent='';}
     route=C.parseRoute(location.hash);
     closeDialog(searchDialog);closeDialog(infoDialog);
     main.innerHTML=V.main(route,state,index);
@@ -59,6 +64,11 @@
     if(!initialRender)main.focus({preventScroll:true});
     initialRender=false;
     updateReadingProgress();
+    const article=currentArticle();
+    if(article?.hubi?.intro&&!greetedArticles.has(article.id)&&!hubi.hidden){
+      greetedArticles.add(article.id);
+      introTimer=setTimeout(()=>bubble(article.hubi.intro,5000),1100);
+    }
   }
   function queryValues(){return Object.fromEntries(route.query.entries());}
   function updateQuery(changes){
@@ -120,7 +130,8 @@
   }
   function updateChecklistProgress(){
     document.querySelectorAll('[data-progress-for]').forEach(el=>{
-      const keys=[...checkKeys].filter(key=>key.startsWith(el.dataset.progressFor+':'));
+      const prefix=el.dataset.progressFor+':'+(el.dataset.progressSection!==undefined?el.dataset.progressSection+':':'');
+      const keys=[...checkKeys].filter(key=>key.startsWith(prefix));
       el.textContent=keys.filter(key=>state.checks[key]).length+' von '+keys.length+' erledigt';
     });
   }
@@ -148,12 +159,14 @@
     document.querySelectorAll('[data-sos-tab]').forEach(el=>{const selected=el.dataset.sosTab===id;el.setAttribute('aria-selected',String(selected));el.tabIndex=selected?0:-1;el.classList.toggle('selected',selected);if(selected&&focus)el.focus();});
     const panel=document.getElementById('sos-panel');panel.innerHTML=V.sosSituation(id);panel.setAttribute('aria-labelledby','sos-tab-'+id);
   }
-  function syncHubi(){hubi.hidden=state.hubiHidden||route.page==='sos';}
-  function bubble(text,duration=3500){const el=document.getElementById('hubi-bubble');if(!el||hubi.hidden)return;clearTimeout(bubbleTimer);el.textContent=text;el.classList.add('visible');bubbleTimer=setTimeout(()=>el.classList.remove('visible'),duration);}
+  function currentArticle(){return route.page==='wiki'?D.articles.find(a=>a.id===route.id):null;}
+  function syncHubi(){hubi.hidden=state.hubiHidden||route.page==='sos'||currentArticle()?.hubi?.enabled===false;}
+  function bubble(text,duration=3500){clearTimeout(introTimer);const el=document.getElementById('hubi-bubble');if(!el||hubi.hidden)return;clearTimeout(bubbleTimer);el.textContent=text;el.classList.add('visible');bubbleTimer=setTimeout(()=>el.classList.remove('visible'),duration);}
   function pet(){
     state.petCount++;clearTimeout(petTimer);
     hubi.classList.remove('is-petted');void hubi.offsetWidth;hubi.classList.add('is-petted');
-    const phrases=['Das ist genau meine Art von Ehrenamt. ♡','Ein gutes Team braucht auch Streicheleinheiten.','Wuff. Du machst das gut.','Okay, noch einmal. Nur einmal.','Fünf Streicheleinheiten! Du bist jetzt offiziell mein Lieblingsmensch.'];
+    const article=currentArticle();
+    const phrases=article?.hubi?.pet||(D.hubi.pages?.[route.page]?[D.hubi.pages[route.page],...D.hubi.pet]:D.hubi.pet);
     bubble(phrases[(state.petCount-1)%phrases.length],4000);
     petTimer=setTimeout(()=>hubi.classList.remove('is-petted'),1900);
   }
@@ -165,9 +178,25 @@
     const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='Ehrenhub-Merkliste.txt';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
     toast('Deine Merkliste wurde als Textdatei vorbereitet.');
   }
+  function react(message,celebrate=false,container=null,allowHubi=true){
+    if(allowHubi&&message)bubble(message,5000);
+    if(!celebrate)return;
+    const reduced=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    if(allowHubi&&!hubi.hidden&&!reduced){
+      clearTimeout(petTimer);hubi.classList.remove('is-petted');void hubi.offsetWidth;hubi.classList.add('is-petted');
+      petTimer=setTimeout(()=>hubi.classList.remove('is-petted'),1900);
+    }
+    if(!container||reduced)return;
+    container.classList.add('wb-celebrate');
+    container.querySelector('.wb-confetti')?.remove();
+    const confetti=document.createElement('div');confetti.className='wb-confetti';confetti.setAttribute('aria-hidden','true');
+    for(let i=0;i<12;i++){const bit=document.createElement('span');bit.style.setProperty('--x',(8+i*7)+'%');bit.style.setProperty('--c',['#729766','#d9b66c','#a6bcb0'][i%3]);bit.style.setProperty('--d',(i%4*.045)+'s');confetti.append(bit);}
+    container.append(confetti);setTimeout(()=>{confetti.remove();container.classList.remove('wb-celebrate');},1500);
+  }
   function resetData(){
     const cleared=storage.clear();
     planner.reset();
+    activities.reset();
     state.bookmarks=[];state.checks={};state.feedback={};state.hubiHidden=false;state.petCount=0;
     closeDialog(infoDialog);render();toast(cleared?'Deine lokalen Ehrenhub-Daten wurden zurückgesetzt.':'Ansicht zurückgesetzt. Dein Browser erlaubt gerade keinen Zugriff auf gespeicherte Daten.');
   }
@@ -190,9 +219,12 @@
     'quick-exit':()=>{state.sosTab='sorge';location.replace('#/');}
   };
   const planner=globalThis.EH.ShiftController.create({storage,toast});
+  const activities=globalThis.EH.WikiBlockController.create({react});
+  state.activities=activities;
   state.planner=planner;
   document.addEventListener('click',event=>{
     if(planner.handleClick(event))return;
+    if(activities.handleClick(event))return;
     const target=event.target instanceof Element?event.target:null;if(!target)return;
     if(target.closest('.skip-link')){event.preventDefault();main.focus({preventScroll:true});main.scrollIntoView({block:'start',behavior:'smooth'});return;}
     const bookmarkButton=target.closest('[data-bookmark]');if(bookmarkButton){event.preventDefault();toggleBookmark(bookmarkButton.dataset.bookmark);return;}
@@ -222,7 +254,12 @@
   document.addEventListener('change',event=>{
     if(planner.handleChange(event))return;
     const el=event.target;
-    if(el.dataset.check&&checkKeys.has(el.dataset.check)){if(el.checked)state.checks[el.dataset.check]=true;else delete state.checks[el.dataset.check];persist('checks',state.checks);el.closest('.checklist-item').classList.toggle('done',el.checked);updateChecklistProgress();}
+    if(el.dataset.check&&checkKeys.has(el.dataset.check)){
+      if(el.checked)state.checks[el.dataset.check]=true;else delete state.checks[el.dataset.check];persist('checks',state.checks);el.closest('.checklist-item').classList.toggle('done',el.checked);updateChecklistProgress();
+      const article=currentArticle(),prefix=el.dataset.check.slice(0,el.dataset.check.lastIndexOf(':')+1);
+      const complete=el.checked&&[...checkKeys].filter(k=>k.startsWith(prefix)).every(k=>state.checks[k]);
+      if(complete&&article)react(article.hubi?.checklistComplete||D.hubi.checklistComplete,article.category!=='schutz',null,article.hubi?.enabled!==false);
+    }
     if(el.dataset.grantAnswer){const question=V.grantQuestions[state.wizardStep];if(el.dataset.grantAnswer===question.key&&question.options.some(o=>o[0]===el.value)){state.grantAnswers[question.key]=el.value;document.querySelectorAll('.wizard-option').forEach(label=>label.classList.toggle('selected',label.querySelector('input').checked));document.getElementById('wizard-next').disabled=false;}}
     if(el.dataset.courseFilter){updateQuery({[el.dataset.courseFilter]:el.value});updateCourses();if(el.dataset.courseFilter==='sort')document.getElementById('course-sort').focus();}
   });
@@ -252,6 +289,6 @@
     if(event.key===PREFIX+'bookmarks'){state.bookmarks=C.readBookmarks(event.newValue,index);if(route.page==='merkliste')main.innerHTML=V.main(route,state,index);updateBookmarkButtons();}
   });
   render();
-  setTimeout(()=>{if(!state.hubiHidden&&route.page!=='sos')bubble('Ich bin Hubi. Einmal streicheln?',5000);},1400);
+  if(!currentArticle()?.hubi?.intro)introTimer=setTimeout(()=>{if(!state.hubiHidden&&route.page!=='sos')bubble(D.hubi.pages?.[route.page]||D.hubi.intro,5000);},1400);
   if(!storage.available)setTimeout(()=>toast('Lokale Speicherung ist in diesem Browser nicht verfügbar. Du kannst trotzdem alles ausprobieren.'),800);
 })();

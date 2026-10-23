@@ -1,0 +1,6 @@
+Hier ist Platz für eure eigenen Artikel zu Partys, Konzerten und Veranstaltungen.
+
+Kopiere ARTIKEL-VORLAGE.json aus dem übergeordneten Wikiordner hierher.
+Benenne die Kopie um, zum Beispiel party-planen.json.
+Setze im Artikel id auf party-planen und category auf veranstaltungen.
+Die vollständige Anleitung steht in ../START-HIER.txt.

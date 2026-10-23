@@ -22,5 +22,17 @@
     "label": "Schutz & Verantwortung",
     "icon": "shield",
     "color": "rose"
+  },
+  {
+    "id": "veranstaltungen",
+    "label": "Veranstaltungen",
+    "icon": "calendar",
+    "color": "sage"
+  },
+  {
+    "id": "werkstatt",
+    "label": "Interaktive Beispiele",
+    "icon": "spark",
+    "color": "sand"
   }
 ]

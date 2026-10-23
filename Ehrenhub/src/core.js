@@ -23,8 +23,19 @@
     return {page:parts[0] || 'home', id:parts[1] || null, query:new URLSearchParams(query)};
   }
   function filterArticles(articles, filters={}) {
-    return articles.filter(a => (!filters.category || filters.category === 'alle' || a.category === filters.category) && includes([a.title,a.summary,...a.tags].join(' '), filters.q || ''));
+    return articles.filter(a => (!filters.category || filters.category === 'alle' || a.category === filters.category) && includes([a.title,a.summary,...a.tags,articleText(a)].join(' '), filters.q || ''));
   }
+  function articleText(a) {
+    const parts=[];
+    function visit(value,key){
+      if(['id','href','source','icon','color','type','next','start','status','solution','hubi'].includes(key))return;
+      if(typeof value==='string'&&!(key==='result'&&['success','reflect'].includes(value)))parts.push(value);
+      else if(Array.isArray(value))value.forEach(x=>visit(x,''));
+      else if(value&&typeof value==='object')Object.entries(value).forEach(([k,v])=>{if(k!=='hubi')visit(v,k);});
+    }
+    visit(a.sections,'');return parts.join(' ');
+  }
+  function checklistKey(a,s,si,item,ci){return a.id+':'+(s.id||si)+':'+(typeof item==='object'?item.id:ci);}
   function filterCourses(courses, filters={}) {
     const matches = courses.filter(c =>
       (!filters.topic || filters.topic === 'alle' || c.topic === filters.topic) &&
@@ -43,7 +54,7 @@
   }
   function makeSearchIndex(data) {
     return [
-      ...data.articles.map(a => ({key:'wiki:'+a.id,kind:'wiki',label:'Wiki & How-tos',icon:a.icon,title:a.title,summary:a.summary,href:'#/wiki/'+a.id,text:[...a.tags, ...a.sections.map(s=>s.title+' '+(s.text||''))].join(' ')})),
+      ...data.articles.map(a => ({key:'wiki:'+a.id,kind:'wiki',label:'Wiki & How-tos',icon:a.icon,title:a.title,summary:a.summary,href:'#/wiki/'+a.id,text:[...a.tags,articleText(a)].join(' ')})),
       ...data.courses.map(c => ({key:'kurs:'+c.id,kind:'kurs',label:'Fortbildung · Beispiel',icon:'graduation',title:c.title,summary:c.provider+' · '+c.length,href:'#/fortbildungen/'+c.id,text:[c.summary,courseTopics[c.topic],...c.tags].join(' ')})),
       ...data.grants.map(g => ({key:'antrag:'+g.id,kind:'antrag',label:'Antragsweg · Beispiel',icon:'coins',title:g.title,summary:g.owner,href:'#/antraege/'+g.id,text:[g.summary,'Zuschüsse Förderung KJR Geld Antrag Finanzantrag Bezuschussung',regions[g.region]].join(' ')})),
       {key:'sos',kind:'sos',label:'PSG & SOS',icon:'shield',title:'Du musst das nicht allein klären.',summary:'Orientierung und Anlaufstellen bei sexualisierter Gewalt.',href:'#/sos',text:'Hilfe Notfall Schutz Prävention PSG Verdacht Beratungsstelle Sorge Gewalt Kinderschutz'},
@@ -69,5 +80,5 @@
     const d = new Date(date+'T12:00:00');
     return {day:d.toLocaleDateString('de-DE',{day:'2-digit'}),month:d.toLocaleDateString('de-DE',{month:'short'}).replace('.',''),full:d.toLocaleDateString('de-DE',{day:'numeric',month:'long',year:'numeric'})};
   }
-  return {escapeHTML,normalize,includes,courseTopics,regions,projectTypes,stages,parseRoute,filterArticles,filterCourses,validGrantAnswers,matchGrants,makeSearchIndex,search,readBookmarks,toggleBookmark,dateParts};
+  return {escapeHTML,normalize,includes,articleText,checklistKey,courseTopics,regions,projectTypes,stages,parseRoute,filterArticles,filterCourses,validGrantAnswers,matchGrants,makeSearchIndex,search,readBookmarks,toggleBookmark,dateParts};
 });
