@@ -1,0 +1,50 @@
+{
+  "id": "foerderantrag-vorbereiten",
+  "title": "Förderanträge entspannt vorbereiten",
+  "summary": "Bring eure Idee, die Zahlen und die offenen Fragen in eine klare Reihenfolge.",
+  "category": "finanzen",
+  "icon": "file",
+  "color": "sand",
+  "minutes": 5,
+  "tags": [
+    "Zuschuss",
+    "Zuschüsse",
+    "Förderung",
+    "Antrag",
+    "Geld",
+    "Finanzantrag",
+    "Budget"
+  ],
+  "featured": true,
+  "sections": [
+    {
+      "title": "Erst die passende Stelle finden",
+      "text": "Beschreibt euer Vorhaben in wenigen Sätzen. Klärt mit dem zuständigen Jugendring oder Verband, welche Förderung grundsätzlich infrage kommen könnte.",
+      "action": {
+        "label": "Zum Antragsfinder",
+        "href": "#/antraege"
+      }
+    },
+    {
+      "title": "Die wichtigsten Angaben sammeln",
+      "text": "Welche Unterlagen tatsächlich nötig sind, steht in der jeweiligen Richtlinie. Die folgende Liste dient nur als Beispiel für eure Vorbereitung.",
+      "checklist": [
+        "Kurze Beschreibung und Ziel des Vorhabens",
+        "Zeitraum und geplanter Ort",
+        "Zielgruppe und erwartete Gruppengröße",
+        "Übersicht der geplanten Einnahmen und Ausgaben",
+        "Zuständigkeit, Fristen und erforderliche Nachweise geprüft"
+      ]
+    },
+    {
+      "title": "Unklarheiten vor dem Absenden klären",
+      "text": "Bei offenen Fragen lohnt sich eine Rückfrage. Notiert, mit wem ihr gesprochen habt und welche Punkte ihr noch prüfen müsst. Die Entscheidung über Förderung trifft die zuständige Stelle.",
+      "tip": "Diese Demo berechnet keinen Förderanspruch. Maßgeblich sind die aktuellen Richtlinien des zuständigen Zuschussgebers."
+    }
+  ],
+  "source": "kjrStadt",
+  "related": [
+    "kostenplan",
+    "belege"
+  ]
+}

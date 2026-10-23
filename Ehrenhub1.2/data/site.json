@@ -1,0 +1,59 @@
+{
+  "version": "0.1",
+  "reviewed": "18.10.2026",
+  "featuredArticles": [
+    "erste-gruppenstunde",
+    "foerderantrag-vorbereiten"
+  ],
+  "featuredCourses": [
+    "kjg-kurswoche",
+    "bdkj-praevention",
+    "erste-hilfe"
+  ],
+  "quickSearch": [
+    "wiki:erste-gruppenstunde",
+    "wiki:juleica",
+    "antrag:freizeit-stadt",
+    "sos"
+  ],
+  "sections": [
+    {
+      "icon": "book",
+      "color": "sage",
+      "number": "01",
+      "title": "Wiki & How-tos",
+      "description": "Antworten finden. Dinge einfach angehen.",
+      "href": "#/wiki",
+      "count": "articles",
+      "label": "Beispielartikel"
+    },
+    {
+      "icon": "coins",
+      "color": "sand",
+      "number": "02",
+      "title": "Antragsfinder",
+      "description": "Den passenden Förderweg entdecken.",
+      "href": "#/antraege",
+      "meta": "In 3 kleinen Schritten"
+    },
+    {
+      "icon": "graduation",
+      "color": "lavender",
+      "number": "03",
+      "title": "Fortbildungen",
+      "description": "Neues lernen. Sicherer werden.",
+      "href": "#/fortbildungen",
+      "count": "courses",
+      "label": "Beispielangebote"
+    },
+    {
+      "icon": "shield",
+      "color": "rose",
+      "number": "04",
+      "title": "PSG & SOS",
+      "description": "Orientierung und Unterstützung finden.",
+      "href": "#/sos",
+      "meta": "Du bist nicht allein"
+    }
+  ]
+}

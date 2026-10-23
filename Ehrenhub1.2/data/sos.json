@@ -1,0 +1,88 @@
+{
+  "situations": {
+    "sorge": {
+      "title": "Du machst dir Sorgen um ein Kind?",
+      "text": "Du musst einen Verdacht nicht erst beweisen, um Beratung zu suchen. Eine spezialisierte Fachberatungsstelle kann mit dir einordnen, was du wahrgenommen hast und welche nächsten Schritte sinnvoll sind.",
+      "steps": [
+        "Nimm deine Sorge ernst.",
+        "Suche qualifizierte Beratung.",
+        "Kläre weitere Schritte mit fachlicher Unterstützung."
+      ]
+    },
+    "anvertraut": {
+      "title": "Dir wurde etwas anvertraut?",
+      "text": "Nimm die Schilderung ernst. Du musst die Situation nicht allein lösen. Hole dir Unterstützung bei einer qualifizierten Fachstelle und orientiere dich am geltenden Handlungsleitfaden deines Trägers.",
+      "steps": [
+        "Höre zu und nimm die Person ernst.",
+        "Hole dir fachliche Unterstützung.",
+        "Besprich das weitere Vorgehen und die Zuständigkeiten."
+      ]
+    },
+    "selbst": {
+      "title": "Du suchst Unterstützung für dich?",
+      "text": "Du kannst dich an eine spezialisierte Beratungsstelle wenden. Das Hilfe-Portal zeigt verschiedene Wege zu Unterstützung – vor Ort, telefonisch oder online.",
+      "steps": [
+        "Wähle einen Kontaktweg, der für dich passt.",
+        "Du darfst dir Unterstützung holen.",
+        "Du musst diesen Schritt nicht allein machen."
+      ]
+    }
+  },
+  "tabs": [
+    [
+      "sorge",
+      "Ich mache mir Sorgen",
+      "shield"
+    ],
+    [
+      "anvertraut",
+      "Mir wurde etwas anvertraut",
+      "message"
+    ],
+    [
+      "selbst",
+      "Ich brauche selbst Hilfe",
+      "heart"
+    ]
+  ],
+  "support": [
+    {
+      "icon": "compass",
+      "color": "sage",
+      "title": "Hilfe in deiner Nähe",
+      "text": "Im Hilfe-Portal Sexueller Missbrauch findest du Beratungsangebote und verschiedene Wege zu Unterstützung.",
+      "source": "help",
+      "label": "Hilfe-Portal öffnen"
+    },
+    {
+      "icon": "message",
+      "color": "lavender",
+      "title": "Mit jemandem sprechen",
+      "text": "Das Hilfe-Telefon bietet Beratung für Betroffene und Menschen, die sich um ein Kind sorgen. Dort findest du auch das Online-Angebot.",
+      "source": "advice",
+      "label": "Beratungsmöglichkeiten"
+    },
+    {
+      "icon": "pin",
+      "color": "sand",
+      "title": "Orientierung in der Jugendarbeit",
+      "text": "Das Erzbischöfliche Jugendamt München und Freising bündelt weitere Kontakte und Hilfsangebote.",
+      "source": "eja",
+      "label": "Kontakte beim EJA"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Was bedeutet PSG?",
+      "answer": "Hier steht PSG für Prävention sexualisierter Gewalt. Dazu gehören unter anderem Schutzkonzepte, klare Ansprechpersonen und Qualifizierung."
+    },
+    {
+      "question": "Muss ich sicher sein, bevor ich Beratung suche?",
+      "answer": "Du kannst dich auch bei Unsicherheit und Fragen an eine Fachberatungsstelle wenden. Die Beratungsangebote des Hilfe-Portals sind auch für Menschen da, die sich Sorgen um ein Kind machen."
+    },
+    {
+      "question": "Werden hier Angaben über meine Situation gespeichert?",
+      "answer": "Diese Seite hat kein Kontakt- oder Meldeformular. Deine Auswahl hier wird nur für die aktuelle Ansicht verwendet. Externe Beratungsangebote haben eigene Datenschutzinformationen. „Seite verlassen“ öffnet die Ehrenhub-Startseite; der Browserverlauf bleibt bestehen."
+    }
+  ]
+}

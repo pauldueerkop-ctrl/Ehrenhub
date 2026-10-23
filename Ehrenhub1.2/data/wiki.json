@@ -1,0 +1,18 @@
+{
+  "format": "articles-in-folders",
+  "description": "Artikel liegen in data/wiki/. Neue Dateien werden automatisch erkannt. Diese Liste erhält nur die bisherige Reihenfolge; neue IDs müssen hier nicht eingetragen werden.",
+  "order": [
+    "erste-gruppenstunde",
+    "ehrenamt-start",
+    "juleica",
+    "teamaufgaben",
+    "freizeit-planen",
+    "foerderantrag-vorbereiten",
+    "kostenplan",
+    "belege",
+    "feedbackrunde",
+    "praevention-alltag",
+    "verantwortung",
+    "uebergabe"
+  ]
+}

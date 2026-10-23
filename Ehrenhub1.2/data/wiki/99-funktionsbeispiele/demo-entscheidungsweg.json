@@ -1,0 +1,150 @@
+{
+  "id": "demo-entscheidungsweg",
+  "status": "example",
+  "title": "Findet euren nächsten Planungsschritt",
+  "summary": "Ein kurzer Entscheidungsweg und eine Sortier-Challenge helfen, die nächsten Schritte zu ordnen.",
+  "intro": "Manchmal braucht es keine längere Aufgabenliste, sondern eine klare Reihenfolge. Probiere aus, welcher Schritt zu einer Beispielsituation passt.",
+  "category": "werkstatt",
+  "icon": "compass",
+  "color": "sand",
+  "minutes": 4,
+  "tags": [
+    "Demo",
+    "Entscheidungsweg",
+    "Mini Challenge",
+    "Reihenfolge",
+    "Planung"
+  ],
+  "hubi": {
+    "intro": "Wir finden zusammen den nächsten Schritt.",
+    "pet": [
+      "Auch ein großer Plan beginnt mit einem kleinen Schritt.",
+      "Für Denkpausen bin ich immer zu haben."
+    ]
+  },
+  "sections": [
+    {
+      "id": "orientierung",
+      "title": "Wo steht ihr gerade?",
+      "blocks": [
+        {
+          "id": "planungspfad",
+          "type": "decision",
+          "title": "Was hilft eurem Team jetzt?",
+          "prompt": "Zwei kurze Fragen führen zu einem Vorschlag. Du kannst jederzeit einen Schritt zurückgehen.",
+          "start": "rahmen",
+          "nodes": [
+            {
+              "id": "rahmen",
+              "question": "Sind Termin und Raum bereits bestätigt?",
+              "options": [
+                {
+                  "id": "ja",
+                  "label": "Ja, beides steht.",
+                  "next": "team"
+                },
+                {
+                  "id": "noch-nicht",
+                  "label": "Da ist noch etwas offen.",
+                  "next": "klaeren"
+                }
+              ]
+            },
+            {
+              "id": "team",
+              "question": "Kennt ihr Arbeitsbereiche und benötigte Besetzungen?",
+              "options": [
+                {
+                  "id": "steht",
+                  "label": "Ja, wir können das Team einteilen.",
+                  "next": "einteilen"
+                },
+                {
+                  "id": "sammeln",
+                  "label": "Das müssen wir noch zusammenstellen.",
+                  "next": "aufgaben"
+                }
+              ]
+            },
+            {
+              "id": "klaeren",
+              "title": "Zuerst den Rahmen bestätigen",
+              "result": "Kläre mit Raumverantwortlichen und Team, welche Termine möglich sind. Eine bestätigte Grundlage erleichtert alle weiteren Absprachen."
+            },
+            {
+              "id": "aufgaben",
+              "title": "Arbeitsbereiche gemeinsam sammeln",
+              "result": "Geht eure Veranstaltung einmal vom Aufbau bis zum Abbau durch. Notiert für jeden Bereich, wann und wie viele Personen gebraucht werden.",
+              "action": {
+                "label": "Aufgabenverteilung nachlesen",
+                "href": "#/wiki/teamaufgaben"
+              }
+            },
+            {
+              "id": "einteilen",
+              "title": "Jetzt die Verfügbarkeiten einplanen",
+              "result": "Mit Bereichen, Besetzungsbedarf und Verfügbarkeiten könnt ihr die Schichtverteilung vorbereiten. Prüft den fertigen Plan anschließend gemeinsam.",
+              "action": {
+                "label": "Schichtplaner öffnen",
+                "href": "#/schichtplan"
+              }
+            }
+          ],
+          "hubi": {
+            "start": "Wo steht ihr gerade? Jede Antwort ist ein guter Ausgangspunkt.",
+            "change": "Eine Frage weniger, ein bisschen mehr Klarheit.",
+            "complete": "Ein nächster Schritt statt einer langen Liste. Wuff!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "reihenfolge",
+      "title": "Eine kleine Generalprobe",
+      "text": "Für dieses Beispiel gilt: Erst Aufgaben sammeln, dann Verfügbarkeiten abfragen, anschließend einteilen und am Ende bestätigen lassen.",
+      "blocks": [
+        {
+          "id": "schritte-sortieren",
+          "type": "challenge",
+          "title": "Was kommt zuerst?",
+          "prompt": "Sortiere die vier Karten in die beschriebene Reihenfolge. Es gibt keinen Countdown – nimm dir die Zeit, die du brauchst.",
+          "items": [
+            {
+              "id": "bestaetigen",
+              "label": "Fertigen Plan vom Team bestätigen lassen"
+            },
+            {
+              "id": "sammeln",
+              "label": "Arbeitsbereiche und Besetzungsbedarf sammeln"
+            },
+            {
+              "id": "verteilen",
+              "label": "Schichten unter Berücksichtigung der Verfügbarkeiten verteilen"
+            },
+            {
+              "id": "abfragen",
+              "label": "Verfügbarkeiten des Teams abfragen"
+            }
+          ],
+          "solution": [
+            "sammeln",
+            "abfragen",
+            "verteilen",
+            "bestaetigen"
+          ],
+          "success": "Die Reihenfolge passt zu diesem Beispiel. Die bestätigten Aufgaben und Verfügbarkeiten bilden die Grundlage für den Plan; die Rückmeldung des Teams schließt die Runde.",
+          "retry": "Schau noch einmal auf die Abhängigkeiten: Was musst du wissen, bevor du die Schichten verteilst? Die Bestätigung gehört an das Ende.",
+          "hubi": {
+            "start": "Vier Schritte, ein gemeinsamer Plan. Sortier sie mit den Pfeilen.",
+            "retry": "Fast ein Plan. Schau noch einmal, was vor der Einteilung gebraucht wird.",
+            "complete": "Alles an seinem Platz. So bleibt mehr Zeit fürs eigentliche Fest!"
+          }
+        }
+      ]
+    }
+  ],
+  "related": [
+    "demo-eventteam",
+    "demo-perspektiven"
+  ]
+}

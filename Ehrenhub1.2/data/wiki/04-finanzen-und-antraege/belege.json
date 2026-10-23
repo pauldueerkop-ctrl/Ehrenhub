@@ -1,0 +1,40 @@
+{
+  "id": "belege",
+  "title": "Belege sammeln, die ihr später wiederfindet",
+  "summary": "Eine kleine Ablage spart euch bei der Abrechnung viel Sucherei.",
+  "category": "finanzen",
+  "icon": "file",
+  "color": "sand",
+  "minutes": 3,
+  "tags": [
+    "Abrechnung",
+    "Belege",
+    "Rechnung",
+    "Finanzen",
+    "Zuschuss"
+  ],
+  "sections": [
+    {
+      "title": "Eine gemeinsame Struktur vereinbaren",
+      "text": "Ordnet Belege nach eurer Aktion und einem einheitlichen Schema. Zum Beispiel: Datum, Kostenbereich und kurze Beschreibung. Klärt vorher, wie der Träger Originale und digitale Kopien benötigt."
+    },
+    {
+      "title": "Zeitnah statt alles am Ende",
+      "text": "Sammelt Belege direkt nach dem Einkauf. Haltet fest, wem eine Erstattung zusteht und wer den Vorgang prüft.",
+      "checklist": [
+        "Ablage und zuständige Person geklärt",
+        "Belege der passenden Aktion zugeordnet",
+        "Offene Erstattungen festgehalten",
+        "Vorgaben des Trägers zur Aufbewahrung geprüft"
+      ]
+    },
+    {
+      "title": "Mit einer kurzen Übersicht übergeben",
+      "text": "Eine Tabelle mit Datum, Betrag, Zweck und Belegnummer kann die Übergabe erleichtern. Verbindliche Anforderungen erfragt ihr bei eurem Verband."
+    }
+  ],
+  "related": [
+    "kostenplan",
+    "foerderantrag-vorbereiten"
+  ]
+}

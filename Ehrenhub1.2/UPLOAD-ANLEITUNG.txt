@@ -1,0 +1,61 @@
+EHRENHUB – DIESES UPDATE AUF GITHUB ÜBERNEHMEN
+
+Das ZIP enthält den vollständigen Ordner Ehrenhub. Es ist kein Patch,
+der nur aus den geänderten Dateien besteht. Es wurde nichts automatisch
+auf GitHub oder eure öffentliche Website hochgeladen.
+
+1. ZIP entpacken. Zuerst Ehrenhub/Ehrenhub.html öffnen und ausprobieren.
+   Die Demos findet ihr unter Wiki & How-tos > Interaktive Beispiele.
+2. Euren bisherigen Stand sichern, insbesondere eigene neue Inhalte oder
+   Änderungen seit dem letzten übergebenen Paket. Gleichnamige Dateien
+   werden beim Hochladen ersetzt – GitHub führt sie nicht inhaltlich zusammen.
+3. Die bestehende Ordnerstruktur im Repository ansehen:
+
+   FALL A: Im Repository liegt bereits ein Ordner Ehrenhub, darin package.json.
+   Auf der OBERSTEN Repository-Ebene Add file > Upload files öffnen und den
+   entpackten Ehrenhub-Ordner hineinziehen. Die Vorschau muss etwa
+   Ehrenhub/package.json und Ehrenhub/data/wiki/START-HIER.txt anzeigen.
+   Nicht im bestehenden Ehrenhub-Ordner nochmals Ehrenhub hochladen!
+   Ehrenhub/Ehrenhub/package.json wäre falsch.
+
+   FALL B: package.json liegt direkt auf der obersten Repository-Ebene.
+   Dann die INHALTE des entpackten Ehrenhub-Ordners auf dieser Ebene
+   hochladen, ohne eine zusätzliche Ebene Ehrenhub anzulegen.
+
+4. Die Änderungen kontrollieren. Commit-Nachricht ist nur eine Beschreibung,
+   zum Beispiel: Wiki-Redaktion und interaktive Artikel ergänzen.
+5. Committen, den bestehenden Pages-Workflow abwarten und seinen grünen
+   Abschluss prüfen. Der bekannte Build-Befehl bleibt npm run build.
+   Das Ausgabeziel bleibt dist relativ zur package.json – in Fall A also
+   Ehrenhub/dist. Keinen zweiten Workflow anlegen, Hosting nicht wechseln.
+6. Website neu laden. Wenn nötig mit Strg+Umschalt+R bzw. Cmd+Umschalt+R.
+   In den Wiki-Beispielen alle drei neuen Artikel kurz öffnen.
+
+WICHTIG ZUM ERSETZEN
+
+- Dateien mit identischem Pfad werden aktualisiert; neue werden ergänzt.
+- Dateien, die im ZIP NICHT vorkommen, werden durch einen normalen Upload
+  nicht automatisch gelöscht. Dieses Update benötigt keine Löschaktion:
+  data/wiki.json wird bewusst durch die kleine Reihenfolgeliste ersetzt.
+- Bereits selbst angelegte Artikel/Änderungen vorher vergleichen. Dieses
+  Paket basiert auf dem hier verfügbaren Stand mit dem Stundenplan-Export,
+  nicht auf einer live abgerufenen Kopie eures aktuellen GitHub-Repositorys.
+- .github/workflows und eigene Domain-/Hosting-Einstellungen außerhalb des
+  Projektordners unverändert lassen. Bei abweichenden Pfaden nicht raten.
+- Niemals eure ausgefüllten Schichtplan-Projekte, Teilnehmerlisten oder
+  Zugangsdaten ins öffentliche Repository hochladen.
+- Für laufende Redaktionsarbeit genügt künftig meist die einzelne geänderte
+  Artikeldatei. Ihr müsst nicht jedes Mal den ganzen Projektordner ersetzen.
+
+WO IHR LOSLEGT
+
+data/wiki/START-HIER.txt erklärt Schritt für Schritt alle Felder und Module.
+data/wiki/ARTIKEL-VORLAGE.json ist die Kopiervorlage (standardmäßig Entwurf).
+data/wiki/99-funktionsbeispiele/ enthält die drei vollständig klickbaren Demos.
+docs/WIKI-UPDATE-PRUEFUNG.md dokumentiert Tests und bekannte Grenzen.
+
+Falls der Browser den gesamten Ordner nicht auf einmal annimmt: nichts
+umstrukturieren. Dateien/Unterordner in mehreren Uploads an dieselben Pfade
+übernehmen oder GitHub Desktop nutzen. Beim Hochladen in mehreren Schritten
+können Zwischen-Builds vorübergehend fehlschlagen, solange Dateien fehlen.
+Entscheidend ist der erfolgreiche Build des vollständigen finalen Commits.

@@ -1,0 +1,204 @@
+[
+  {
+    "id": "kjg-kurswoche",
+    "title": "Kurswoche: Gruppen leiten lernen",
+    "provider": "KjG München und Freising",
+    "topic": "leitung",
+    "duration": "woche",
+    "length": "6 Tage",
+    "format": "praesenz",
+    "location": "Münchner Umland",
+    "date": "2027-03-29",
+    "color": "sage",
+    "icon": "tent",
+    "summary": "Eine Woche zum Ausprobieren, Kennenlernen und Hineinwachsen in deine Rolle als Gruppenleitung.",
+    "tags": [
+      "KjG",
+      "Juleica",
+      "Grundkurs",
+      "Ausbildung",
+      "Kurswoche"
+    ],
+    "source": "kjg",
+    "level": "Für Einsteiger*innen",
+    "contents": [
+      "Die Rolle als Gruppenleitung kennenlernen",
+      "Gruppenstunden planen und Methoden ausprobieren",
+      "Als Team zusammenarbeiten"
+    ],
+    "note": "Fiktiver Termin und beispielhafte Dauer. Verbindliche Termine, Voraussetzungen und Kurszuordnung findest du bei der KjG."
+  },
+  {
+    "id": "bdkj-praevention",
+    "title": "Prävention: hinschauen & handeln",
+    "provider": "BDKJ München und Freising",
+    "topic": "praevention",
+    "duration": "tag",
+    "length": "1 Abend",
+    "format": "praesenz",
+    "location": "München",
+    "date": "2026-11-19",
+    "color": "rose",
+    "icon": "shield",
+    "summary": "Ein beispielhafter Einstieg in den Schutz von Kindern und Jugendlichen und den Umgang mit Unsicherheit.",
+    "tags": [
+      "BDKJ",
+      "PSG",
+      "Schulung",
+      "Prävention",
+      "Grenzen"
+    ],
+    "source": "bdkjKurs",
+    "level": "Grundlagen",
+    "contents": [
+      "Für Grenzen und Grenzverletzungen sensibilisieren",
+      "Ansprechpersonen und Unterstützung kennenlernen",
+      "Prävention im Gruppenalltag mitdenken"
+    ],
+    "note": "Der Termin ist erfunden. Der Anbieterlink zeigt eine echte, bereits veröffentlichte Ausschreibung; aktuelle Termine bitte dort erfragen."
+  },
+  {
+    "id": "erste-hilfe",
+    "title": "Erste Hilfe für deinen Ehrenamtsalltag",
+    "provider": "BRK München",
+    "topic": "erstehilfe",
+    "duration": "tag",
+    "length": "1 Tag",
+    "format": "praesenz",
+    "location": "München",
+    "date": "2026-11-28",
+    "color": "sand",
+    "icon": "heart",
+    "summary": "Praktische Grundlagen auffrischen und für Situationen im Gruppenalltag besser vorbereitet sein.",
+    "tags": [
+      "Erste Hilfe",
+      "Notfall",
+      "Juleica",
+      "Tageskurs"
+    ],
+    "source": "brk",
+    "level": "Grundlagen",
+    "contents": [
+      "Notfallsituationen erkennen",
+      "Grundlegende Maßnahmen praktisch üben",
+      "Sicherheit durch angeleitete Übungen gewinnen"
+    ],
+    "note": "Fiktiver Beispieltermin. Ob ein konkreter Kurs für deinen benötigten Nachweis anerkannt wird, klärst du mit Anbieter und Träger."
+  },
+  {
+    "id": "kjg-aufbau",
+    "title": "Dein nächster Schritt als Gruppenleitung",
+    "provider": "KjG · Beispiel für ein Aufbauformat",
+    "topic": "leitung",
+    "duration": "wochenende",
+    "length": "2 Tage",
+    "format": "praesenz",
+    "location": "Münchner Umland",
+    "date": "2027-01-23",
+    "color": "lavender",
+    "icon": "users",
+    "summary": "Erfahrungen austauschen, neue Methoden entdecken und die eigene Leitungspraxis reflektieren.",
+    "tags": [
+      "KjG",
+      "Aufbaukurs",
+      "Juleica",
+      "Wochenende",
+      "Reflexion"
+    ],
+    "source": "kjgOrt",
+    "level": "Mit ersten Erfahrungen",
+    "contents": [
+      "Eigene Erfahrungen reflektieren",
+      "Methoden für herausfordernde Gruppensituationen sammeln",
+      "Im Team voneinander lernen"
+    ],
+    "note": "Dieses Format, der Titel und der Termin sind Demo-Inhalte. Der Link führt zur realen KjG-Bildungsübersicht."
+  },
+  {
+    "id": "foerdermittel-workshop",
+    "title": "Vom Projekt zur Förderung",
+    "provider": "Beispielangebot · KJR-Kontext",
+    "topic": "organisation",
+    "duration": "tag",
+    "length": "1 Nachmittag",
+    "format": "online",
+    "location": "Online",
+    "date": "2026-12-03",
+    "color": "sand",
+    "icon": "coins",
+    "summary": "Ein beispielhafter Workshop zu Projektbeschreibung, Kostenplan und den richtigen Fragen an Förderstellen.",
+    "tags": [
+      "Zuschuss",
+      "KJR",
+      "Geld",
+      "Antrag",
+      "Finanzen",
+      "Webinar"
+    ],
+    "source": "kjrStadt",
+    "level": "Für Organisationsteams",
+    "contents": [
+      "Eine Idee verständlich beschreiben",
+      "Einen einfachen Kostenplan aufstellen",
+      "Offene Förderfragen sammeln"
+    ],
+    "note": "Fiktiver Kurs – kein tatsächliches Veranstaltungsangebot des KJR. Der Link führt zu dessen Informationen über Förderung."
+  },
+  {
+    "id": "psg-vertiefung",
+    "title": "Schutz im Alltag verankern",
+    "provider": "Beispielangebot · Prävention",
+    "topic": "praevention",
+    "duration": "tag",
+    "length": "1 Nachmittag",
+    "format": "online",
+    "location": "Online",
+    "date": "2027-02-06",
+    "color": "rose",
+    "icon": "shield",
+    "summary": "Ein beispielhaftes Vertiefungsformat: Beteiligung, Grenzen und ansprechbare Vertrauenspersonen.",
+    "tags": [
+      "PSG",
+      "BDKJ",
+      "Prävention",
+      "Schutzkonzept",
+      "Vertiefung"
+    ],
+    "source": "bdkj",
+    "level": "Mit Grundkenntnissen",
+    "contents": [
+      "Beteiligung im Alltag ermöglichen",
+      "Beschwerdewege verständlich machen",
+      "Die eigene Praxis im Team reflektieren"
+    ],
+    "note": "Fiktiver Kurs mit erfundenem Termin. Der Link führt zu allgemeinen Präventionsinformationen."
+  },
+  {
+    "id": "teamwochenende",
+    "title": "Gemeinsam ein gutes Leitungsteam werden",
+    "provider": "Beispielangebot · Jugendarbeit",
+    "topic": "organisation",
+    "duration": "wochenende",
+    "length": "2 Tage",
+    "format": "praesenz",
+    "location": "Münchner Umland",
+    "date": "2027-02-20",
+    "color": "lavender",
+    "icon": "layers",
+    "summary": "Zeit für Rollen, gute Absprachen und das, was euch als ehrenamtliches Team zusammenhält.",
+    "tags": [
+      "Team",
+      "Leitung",
+      "Organisation",
+      "Wochenende"
+    ],
+    "source": "kjgOrt",
+    "level": "Für Teams",
+    "contents": [
+      "Aufgaben fair verteilen",
+      "Verlässliche Absprachen treffen",
+      "Feedback und Übergaben verbessern"
+    ],
+    "note": "Fiktives Angebot. Der Anbieterlink ist ein Rechercheeinstieg und keine Anmeldung für diesen Termin."
+  }
+]

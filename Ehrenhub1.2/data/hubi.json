@@ -1,0 +1,22 @@
+{
+  "intro": "Ich bin Hubi. Einmal streicheln?",
+  "pet": [
+    "Das ist genau meine Art von Ehrenamt. ♡",
+    "Ein gutes Team braucht auch Streicheleinheiten.",
+    "Wuff. Schön, dass du da bist.",
+    "Noch eine kleine Denkpause? Ich bin dabei."
+  ],
+  "checklistComplete": "Alle Punkte abgehakt. Zeit für eine kleine Pause!",
+  "start": "Lass uns das zusammen ausprobieren.",
+  "success": "Entdeckt! Die Erklärung findest du direkt bei der Aufgabe.",
+  "retry": "Ein weiterer Blick lohnt sich. Du kannst es noch einmal versuchen.",
+  "complete": "Geschafft. Was nimmst du davon in eure Planung mit?",
+  "change": "Ein anderer Blick kann neue Fragen aufmachen.",
+  "pages": {
+    "wiki": "Hier gibt es Wissen zum Lesen und kleine Dinge zum Ausprobieren.",
+    "schichtplan": "Du planst die Schichten, ich übernehme die Denkpausen.",
+    "antraege": "Ein Schritt nach dem anderen. Die verbindlichen Infos stehen beim Anbieter.",
+    "fortbildungen": "Was möchtest du als Nächstes lernen?",
+    "merkliste": "Deine Fundstücke warten schon auf dich."
+  }
+}

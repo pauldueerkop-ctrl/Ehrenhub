@@ -1,0 +1,48 @@
+{
+  "id": "praevention-alltag",
+  "title": "Prävention beginnt im Gruppenalltag",
+  "summary": "Wie ihr Grenzen, Mitsprache und Ansprechpersonen im Team zum Thema macht.",
+  "category": "schutz",
+  "icon": "shield",
+  "color": "rose",
+  "minutes": 4,
+  "tags": [
+    "PSG",
+    "Prävention",
+    "Schutz",
+    "Grenzen",
+    "Verhaltenskodex",
+    "Kinderschutz"
+  ],
+  "sections": [
+    {
+      "title": "Den Schutzrahmen eures Trägers kennen",
+      "text": "Besprecht im Team, welches Schutzkonzept für eure Arbeit gilt und wo ihr Unterstützung bekommt. Dieser Beispielartikel ersetzt weder eine Schulung noch den geltenden Handlungsleitfaden."
+    },
+    {
+      "title": "Mitsprache im Alltag ermöglichen",
+      "text": "Nehmt Wünsche und Grenzen ernst. Überlegt gemeinsam, wie Kinder und Jugendliche Kritik äußern und Unterstützung finden können, ohne sich vor der ganzen Gruppe erklären zu müssen."
+    },
+    {
+      "title": "Ansprechpersonen sichtbar machen",
+      "text": "Kennt die zuständigen Fach- und Vertrauenspersonen eures Trägers. Bei Unsicherheit oder einer konkreten Sorge könnt ihr euch fachliche Beratung holen.",
+      "action": {
+        "label": "Zu PSG & SOS",
+        "href": "#/sos"
+      }
+    },
+    {
+      "title": "Wissen gemeinsam vertiefen",
+      "text": "Nutzt passende Schulungen, um euch mit Prävention und euren Zuständigkeiten auseinanderzusetzen.",
+      "action": {
+        "label": "Präventionskurse ansehen",
+        "href": "#/fortbildungen?topic=praevention"
+      }
+    }
+  ],
+  "source": "bdkj",
+  "related": [
+    "verantwortung",
+    "juleica"
+  ]
+}

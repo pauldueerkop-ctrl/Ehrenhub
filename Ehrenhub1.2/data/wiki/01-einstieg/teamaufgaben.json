@@ -1,0 +1,41 @@
+{
+  "id": "teamaufgaben",
+  "title": "Aufgaben verteilen, ohne den Überblick zu verlieren",
+  "summary": "Eine einfache Teamrunde schafft Klarheit: Wer macht was – und bis wann?",
+  "category": "einstieg",
+  "icon": "layers",
+  "color": "sage",
+  "minutes": 3,
+  "tags": [
+    "Team",
+    "Organisation",
+    "Leitung",
+    "Aufgaben",
+    "Planung"
+  ],
+  "sections": [
+    {
+      "title": "Alle Aufgaben sichtbar machen",
+      "text": "Sammelt zunächst gemeinsam, was ansteht. Auch unsichtbare Arbeit wie Nachfragen, Schlüssel holen oder Material zurückbringen gehört auf die Liste."
+    },
+    {
+      "title": "Verantwortung klar vereinbaren",
+      "text": "Haltet pro Aufgabe eine zuständige Person und einen realistischen Zeitpunkt fest. Trennt die Verantwortung von den Menschen, die dabei helfen.",
+      "checklist": [
+        "Aufgaben vollständig gesammelt",
+        "Pro Aufgabe eine verantwortliche Person benannt",
+        "Zeitpunkt und nötige Unterstützung geklärt",
+        "Kurzen gemeinsamen Check-in vereinbart"
+      ]
+    },
+    {
+      "title": "Platz für Rückfragen lassen",
+      "text": "Eine Aufgabe zurückzugeben ist besser, als still daran festzuhängen. Vereinbart, wie ihr rechtzeitig Bescheid sagt, wenn sich etwas ändert.",
+      "tip": "Fragt am Ende: Weiß jede Person, was ihr nächster Schritt ist?"
+    }
+  ],
+  "related": [
+    "erste-gruppenstunde",
+    "uebergabe"
+  ]
+}

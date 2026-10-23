@@ -1,0 +1,112 @@
+{
+  "id": "demo-perspektiven",
+  "status": "example",
+  "title": "Eine Nachricht, mehrere Blickwinkel",
+  "summary": "Wechsle zwischen zwei Formulierungen und entdecke, was Team, Gäste und Eltern jeweils wissen möchten.",
+  "intro": "Gute Kommunikation entsteht oft durch kleine Ergänzungen. Schau dir eine Nachricht aus unterschiedlichen Blickwinkeln an.",
+  "category": "werkstatt",
+  "icon": "message",
+  "color": "lavender",
+  "minutes": 3,
+  "tags": [
+    "Demo",
+    "Vorher Nachher",
+    "Perspektivenwechsel",
+    "Kommunikation"
+  ],
+  "hubi": {
+    "intro": "Heute wechseln wir den Blickwinkel. Ich komme mit.",
+    "pet": [
+      "Eine kleine Ergänzung kann viele Rückfragen sparen.",
+      "Ich höre gern beiden Seiten zu."
+    ]
+  },
+  "sections": [
+    {
+      "id": "vergleich",
+      "title": "Eine Absprache wird konkreter",
+      "blocks": [
+        {
+          "id": "nachricht-vergleichen",
+          "type": "comparison",
+          "title": "Wie würdest du die Nachricht ergänzen?",
+          "prompt": "Wechsle zwischen der Ausgangslage und einer möglichen Präzisierung.",
+          "variants": [
+            {
+              "label": "Ausgangslage",
+              "text": "Wir treffen uns am Samstag zum Aufbau. Bringt bitte etwas Zeit mit.",
+              "note": "Ein gemeinsamer Auftakt ist angekündigt. Uhrzeit, Treffpunkt und Dauer sind noch offen."
+            },
+            {
+              "label": "Konkretisiert",
+              "text": "Wir treffen uns am Samstag um 15 Uhr am Seiteneingang des Pfarrsaals. Der Aufbau dauert voraussichtlich bis 17 Uhr. Bitte antwortet bis Donnerstag, ob ihr dabei seid.",
+              "note": "Zeit, Ort, erwartete Dauer und die gewünschte Rückmeldung sind jetzt benannt."
+            }
+          ],
+          "hubi": {
+            "change": "Welche Information würde dir selbst beim Planen helfen?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "blickwinkel",
+      "title": "Was braucht die andere Person?",
+      "blocks": [
+        {
+          "id": "personen-verstehen",
+          "type": "perspectives",
+          "title": "Die gleiche Veranstaltung, andere Fragen",
+          "perspectives": [
+            {
+              "label": "Leitung",
+              "text": "Sind alle Aufgaben verteilt und haben wir eine bestätigte Zusage für jede wichtige Position?",
+              "note": "Hilfreich: Zuständigkeiten, Rückmeldefrist und eine gemeinsame Übersicht."
+            },
+            {
+              "label": "Helferteam",
+              "text": "Wann bin ich dran, wo melde ich mich und wen kann ich bei Fragen ansprechen?",
+              "note": "Hilfreich: eigene Schicht, Treffpunkt und konkrete Ansprechperson."
+            },
+            {
+              "label": "Gäste",
+              "text": "Wann beginnt es, wie komme ich hin und brauche ich vorher eine Anmeldung?",
+              "note": "Hilfreich: Beginn, Ort, Anreise und ein klarer nächster Schritt."
+            },
+            {
+              "label": "Eltern",
+              "text": "Wann und wo kann ich mein Kind bringen und wieder abholen? Wer ist erreichbar?",
+              "note": "Hilfreich: Übergabeort, Zeiten und Kontakt der verantwortlichen Leitung."
+            }
+          ],
+          "hubi": {
+            "change": "Ein Blickwechsel, eine neue Frage. Was ergänzt ihr in eurer Nachricht?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "nachrichtencheck",
+      "title": "Euer kurzer Nachrichtencheck",
+      "checklist": [
+        {
+          "id": "zeit",
+          "text": "Zeit und Treffpunkt genannt"
+        },
+        {
+          "id": "kontakt",
+          "text": "Ansprechperson benannt"
+        },
+        {
+          "id": "antwort",
+          "text": "Klar gesagt, welche Rückmeldung wir brauchen"
+        }
+      ],
+      "tip": "Lass eine Person gegenlesen, die nicht an der Planung beteiligt war. Ihre Rückfragen zeigen oft, was noch fehlt."
+    }
+  ],
+  "related": [
+    "demo-eventteam",
+    "demo-entscheidungsweg"
+  ]
+}

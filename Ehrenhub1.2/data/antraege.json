@@ -1,0 +1,154 @@
+[
+  {
+    "type": "freizeit",
+    "title": "Förderweg für Fahrten & Freizeiten",
+    "summary": "Ein erster Rechercheweg für eure Gruppenfahrt, das Zeltlager oder eine gemeinsame Freizeit.",
+    "icon": "tent",
+    "documents": [
+      "Projektbeschreibung und Zeitraum",
+      "Geplante Teilnehmendenzahlen",
+      "Kosten- und Finanzierungsübersicht",
+      "Zuständigkeit und aktuelle Richtlinie"
+    ],
+    "id": "freizeit-stadt",
+    "region": "stadt",
+    "projects": [
+      "freizeit"
+    ],
+    "owner": "KJR München-Stadt",
+    "source": "kjrStadt"
+  },
+  {
+    "type": "aktion",
+    "title": "Förderweg für eure Jugendaktion",
+    "summary": "Eine Orientierung für selbst organisierte Aktionen und Projekte in der Jugendarbeit.",
+    "icon": "flag",
+    "documents": [
+      "Ziel und Beschreibung der Aktion",
+      "Zeitplan und Zielgruppe",
+      "Geplante Einnahmen und Ausgaben",
+      "Aktuelle Vorgaben der Förderstelle"
+    ],
+    "id": "aktion-stadt",
+    "region": "stadt",
+    "projects": [
+      "aktion"
+    ],
+    "owner": "KJR München-Stadt",
+    "source": "kjrStadt"
+  },
+  {
+    "type": "material",
+    "title": "Förderweg für Material & Ausstattung",
+    "summary": "Prüfen, welche Unterstützung für benötigtes Gruppenmaterial infrage kommen könnte.",
+    "icon": "layers",
+    "documents": [
+      "Beschreibung der Anschaffung und ihres Zwecks",
+      "Kostenübersicht oder Angebote",
+      "Angaben zur nutzenden Jugendgruppe",
+      "Rücksprache zu Voraussetzungen und Fristen"
+    ],
+    "id": "material-stadt",
+    "region": "stadt",
+    "projects": [
+      "material"
+    ],
+    "owner": "KJR München-Stadt",
+    "source": "kjrStadt"
+  },
+  {
+    "type": "bildung",
+    "title": "Förderweg für Aus- & Weiterbildung",
+    "summary": "Eine mögliche Anlaufstelle für Fragen zur Finanzierung eurer Qualifizierung.",
+    "icon": "graduation",
+    "documents": [
+      "Beschreibung der geplanten Qualifizierung",
+      "Informationen zu Anbieter und Umfang",
+      "Übersicht der erwarteten Kosten",
+      "Klärung der geltenden Förderrichtlinie"
+    ],
+    "id": "bildung-stadt",
+    "region": "stadt",
+    "projects": [
+      "bildung"
+    ],
+    "owner": "KJR München-Stadt",
+    "source": "kjrStadt"
+  },
+  {
+    "type": "freizeit",
+    "title": "Förderweg für Fahrten & Freizeiten",
+    "summary": "Ein erster Rechercheweg für eure Gruppenfahrt, das Zeltlager oder eine gemeinsame Freizeit.",
+    "icon": "tent",
+    "documents": [
+      "Projektbeschreibung und Zeitraum",
+      "Geplante Teilnehmendenzahlen",
+      "Kosten- und Finanzierungsübersicht",
+      "Zuständigkeit und aktuelle Richtlinie"
+    ],
+    "id": "freizeit-land",
+    "region": "land",
+    "projects": [
+      "freizeit"
+    ],
+    "owner": "KJR München-Land",
+    "source": "kjrLand"
+  },
+  {
+    "type": "aktion",
+    "title": "Förderweg für eure Jugendaktion",
+    "summary": "Eine Orientierung für selbst organisierte Aktionen und Projekte in der Jugendarbeit.",
+    "icon": "flag",
+    "documents": [
+      "Ziel und Beschreibung der Aktion",
+      "Zeitplan und Zielgruppe",
+      "Geplante Einnahmen und Ausgaben",
+      "Aktuelle Vorgaben der Förderstelle"
+    ],
+    "id": "aktion-land",
+    "region": "land",
+    "projects": [
+      "aktion"
+    ],
+    "owner": "KJR München-Land",
+    "source": "kjrLand"
+  },
+  {
+    "type": "material",
+    "title": "Förderweg für Material & Ausstattung",
+    "summary": "Prüfen, welche Unterstützung für benötigtes Gruppenmaterial infrage kommen könnte.",
+    "icon": "layers",
+    "documents": [
+      "Beschreibung der Anschaffung und ihres Zwecks",
+      "Kostenübersicht oder Angebote",
+      "Angaben zur nutzenden Jugendgruppe",
+      "Rücksprache zu Voraussetzungen und Fristen"
+    ],
+    "id": "material-land",
+    "region": "land",
+    "projects": [
+      "material"
+    ],
+    "owner": "KJR München-Land",
+    "source": "kjrLand"
+  },
+  {
+    "type": "bildung",
+    "title": "Förderweg für Aus- & Weiterbildung",
+    "summary": "Eine mögliche Anlaufstelle für Fragen zur Finanzierung eurer Qualifizierung.",
+    "icon": "graduation",
+    "documents": [
+      "Beschreibung der geplanten Qualifizierung",
+      "Informationen zu Anbieter und Umfang",
+      "Übersicht der erwarteten Kosten",
+      "Klärung der geltenden Förderrichtlinie"
+    ],
+    "id": "bildung-land",
+    "region": "land",
+    "projects": [
+      "bildung"
+    ],
+    "owner": "KJR München-Land",
+    "source": "kjrLand"
+  }
+]

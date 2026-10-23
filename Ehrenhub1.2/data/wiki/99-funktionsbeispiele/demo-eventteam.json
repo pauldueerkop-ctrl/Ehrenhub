@@ -1,0 +1,120 @@
+{
+  "id": "demo-eventteam",
+  "status": "example",
+  "title": "Ein Abend, viele Entscheidungen",
+  "summary": "Eine kleine Generalprobe fürs Team: Entscheidungen treffen und Stolperstellen im Ablauf entdecken.",
+  "intro": "Die Türen öffnen gleich, das Team ist da. Was hilft jetzt weiter? Probiere zwei Situationen aus einem erfundenen Konzertabend aus – ganz ohne Zeitdruck.",
+  "category": "werkstatt",
+  "icon": "calendar",
+  "color": "sage",
+  "minutes": 4,
+  "tags": [
+    "Demo",
+    "Was würdest du tun",
+    "Fehlerdetektiv",
+    "Konzert",
+    "Planung"
+  ],
+  "hubi": {
+    "intro": "Heute bin ich bei eurem Konzertteam. Schau mit mir hinter die Kulissen!",
+    "pet": [
+      "Ich übernehme die gute Laune beim Aufbau.",
+      "Meine Lieblingsschicht? Die Denkpause mit dir."
+    ],
+    "checklistComplete": "Team bereit? Dann kann der Abend kommen."
+  },
+  "sections": [
+    {
+      "id": "zusage",
+      "title": "Eine Aufgabe braucht eine Zusage",
+      "text": "Im Gruppenchat lesen viele mit. Damit daraus ein Plan wird, braucht es manchmal eine kurze, konkrete Rückfrage.",
+      "blocks": [
+        {
+          "id": "wer-holt-getraenke",
+          "type": "scenario",
+          "title": "Die Getränke stehen noch beim Händler",
+          "prompt": "Im Chat steht seit gestern: „Könnte jemand die Getränke holen?“ Der Aufbau beginnt in zwei Stunden. Was würdest du als Nächstes tun?",
+          "options": [
+            {
+              "id": "nachfragen",
+              "label": "Eine konkrete Person anfragen und Abholzeit sowie Fahrzeug klären.",
+              "result": "success",
+              "feedback": "Eine bestätigte Zuständigkeit macht den nächsten Schritt verlässlich. Klärt dabei auch, ob die Person Zeit und ein passendes Fahrzeug hat."
+            },
+            {
+              "id": "erinnern",
+              "label": "Die Nachricht noch einmal an alle schicken.",
+              "result": "reflect",
+              "feedback": "Eine Erinnerung kann helfen. Solange niemand zusagt, bleibt die Aufgabe aber offen. Ergänze eine klare Rückfrage nach einer bestätigten Übernahme."
+            },
+            {
+              "id": "selber",
+              "label": "Sofort selbst losfahren.",
+              "result": "reflect",
+              "feedback": "Das kann die Situation lösen. Prüfe vorher, ob dadurch deine eigene Aufgabe beim Aufbau liegen bleibt, und informiere das Team über die Übernahme."
+            }
+          ],
+          "hubi": {
+            "start": "Ich sehe eine Aufgabe, aber noch keine feste Zusage.",
+            "success": "Eine Zusage, eine Zeit, ein Fahrzeug – jetzt wird daraus ein Plan!",
+            "retry": "Schau in die Rückmeldung. Vielleicht fehlt nur noch eine klare Absprache."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ablauf",
+      "title": "Ein zweiter Blick auf den Abend",
+      "text": "Dieser Ablauf enthält zwei Stellen, an denen ihr vorab etwas klären solltet. Tippe die Karten an und entdecke die Erklärung.",
+      "blocks": [
+        {
+          "id": "ablauf-pruefen",
+          "type": "detective",
+          "title": "Wo braucht der Ablauf noch eine Absprache?",
+          "items": [
+            {
+              "id": "aufbau",
+              "label": "17:00 · Aufbau mit dem Technikteam",
+              "issue": false,
+              "feedback": "Für dieses Beispiel ist der Technikaufbau rechtzeitig angesetzt. Ob zwei Stunden reichen, hängt von eurem tatsächlichen Aufbau ab."
+            },
+            {
+              "id": "briefing",
+              "label": "19:00 · Helferbriefing für alle, gleichzeitig öffnet der Einlass",
+              "issue": true,
+              "feedback": "Wenn alle im Briefing sind, fehlt das Einlassteam an der Tür. Plant das Briefing früher oder in passenden Gruppen."
+            },
+            {
+              "id": "soundcheck",
+              "label": "19:30 · Soundcheck im Publikumsbereich, Einlass seit 19:00",
+              "issue": true,
+              "feedback": "Der Soundcheck liegt nach dem Einlass. Klärt mit der Technik, wie ihr ihn vor Öffnung abschließen oder vom Publikum trennen könnt."
+            },
+            {
+              "id": "konzert",
+              "label": "20:00 · Konzertbeginn, Team an den vereinbarten Positionen",
+              "issue": false,
+              "feedback": "Hier ist für dieses Beispiel keine weitere Stolperstelle versteckt. Die vereinbarten Positionen müssen natürlich vorher bekannt sein."
+            }
+          ],
+          "success": "Beide Stolperstellen entdeckt. Jetzt könnt ihr Einlass, Briefing und Technik gemeinsam abstimmen.",
+          "hubi": {
+            "start": "Meine Nase sagt: Zwei Zeiten verdienen einen zweiten Blick.",
+            "success": "Gesehen! Diese Absprache spart später Hektik.",
+            "retry": "Diese Stelle ist im Beispiel schon abgestimmt. Schau noch auf die anderen Karten.",
+            "complete": "Zwei Stolperstellen gefunden. Genau dafür lohnt sich die Generalprobe!"
+          }
+        }
+      ],
+      "action": {
+        "label": "Euer Team im Schichtplaner einteilen",
+        "href": "#/schichtplan"
+      }
+    }
+  ],
+  "related": [
+    "demo-perspektiven",
+    "demo-entscheidungsweg",
+    "teamaufgaben"
+  ]
+}

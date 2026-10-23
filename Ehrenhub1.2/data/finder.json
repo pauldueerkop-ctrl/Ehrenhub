@@ -1,0 +1,126 @@
+{
+  "courseTopics": {
+    "leitung": "Gruppenleitung",
+    "praevention": "Prävention",
+    "erstehilfe": "Erste Hilfe",
+    "organisation": "Organisation"
+  },
+  "regions": {
+    "stadt": "München-Stadt",
+    "land": "Landkreis München"
+  },
+  "projectTypes": {
+    "freizeit": "Freizeit & Fahrt",
+    "aktion": "Aktion & Projekt",
+    "material": "Material & Ausstattung",
+    "bildung": "Aus- & Weiterbildung"
+  },
+  "stages": {
+    "planung": "Wir planen noch",
+    "gestartet": "Es läuft bereits",
+    "abgeschlossen": "Schon abgeschlossen"
+  },
+  "courseDurations": {
+    "tag": "Ein Tag / Abend",
+    "wochenende": "Ein Wochenende",
+    "woche": "Eine Woche"
+  },
+  "courseFormats": {
+    "praesenz": "Vor Ort",
+    "online": "Online"
+  },
+  "grantQuestions": [
+    {
+      "key": "region",
+      "title": "Wo ist eure Gruppe zu Hause?",
+      "desc": "Stadt oder Landkreis? Damit beginnt die Suche nach der zuständigen Stelle.",
+      "options": [
+        [
+          "stadt",
+          "München-Stadt",
+          "Eure Jugendgruppe ist im Stadtgebiet aktiv.",
+          "pin"
+        ],
+        [
+          "land",
+          "Landkreis München",
+          "Eure Jugendgruppe ist im Landkreis aktiv.",
+          "leaf"
+        ]
+      ]
+    },
+    {
+      "key": "project",
+      "title": "Was habt ihr vor?",
+      "desc": "Wähle den Bereich, der am besten zu eurer Idee passt.",
+      "options": [
+        [
+          "freizeit",
+          "Freizeit & Fahrt",
+          "Zeltlager, Gruppenfahrt oder gemeinsame Freizeit.",
+          "tent"
+        ],
+        [
+          "aktion",
+          "Aktion & Projekt",
+          "Ein eigenes Jugendprojekt oder eine Veranstaltung.",
+          "flag"
+        ],
+        [
+          "material",
+          "Material & Ausstattung",
+          "Dinge, die ihr für eure Gruppenarbeit benötigt.",
+          "layers"
+        ],
+        [
+          "bildung",
+          "Aus- & Weiterbildung",
+          "Euer Team möchte sich weiterqualifizieren.",
+          "graduation"
+        ]
+      ]
+    },
+    {
+      "key": "stage",
+      "title": "Wo steht ihr mit eurer Idee?",
+      "desc": "Das hilft, die nächsten Fragen für euch einzuordnen.",
+      "options": [
+        [
+          "planung",
+          "Wir planen noch",
+          "Die Aktion oder Anschaffung hat noch nicht begonnen.",
+          "compass"
+        ],
+        [
+          "gestartet",
+          "Es läuft bereits",
+          "Das Vorhaben hat schon angefangen.",
+          "flag"
+        ],
+        [
+          "abgeschlossen",
+          "Schon abgeschlossen",
+          "Ihr schaut jetzt auf die Finanzierung und Abrechnung.",
+          "checkCircle"
+        ]
+      ]
+    }
+  ],
+  "stageHints": {
+    "planung": {
+      "before": "Klärt ",
+      "emphasis": "vor dem Start",
+      "after": ", welche Fristen, Voraussetzungen und Unterlagen für euch gelten."
+    },
+    "gestartet": {
+      "before": "Euer Vorhaben läuft schon. ",
+      "emphasis": "Fragt die Förderstelle direkt",
+      "after": ", ob und wie eine Förderung noch möglich ist."
+    },
+    "abgeschlossen": {
+      "before": "Euer Vorhaben ist abgeschlossen. ",
+      "emphasis": "Prüft mit der Förderstelle",
+      "after": ", ob eine nachträgliche Förderung oder Abrechnung möglich ist."
+    }
+  }
+}
