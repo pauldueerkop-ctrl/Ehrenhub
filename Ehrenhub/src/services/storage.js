@@ -8,7 +8,7 @@
 
   // Preserve existing browser data. The prefix is NOT the application version.
   const PREFIX = 'ehrenhub.v1.';
-  const KEYS = ['bookmarks', 'checks', 'feedback', 'hubiHidden', 'shiftPlan'];
+  const KEYS = ['bookmarks', 'checks', 'feedback', 'hubiHidden', 'shiftPlan', 'fundingPlan'];
 
   function createStore(getStorage, prefix = PREFIX) {
     let available = true;

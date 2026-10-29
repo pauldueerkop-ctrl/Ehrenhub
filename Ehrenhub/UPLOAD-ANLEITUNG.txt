@@ -5,7 +5,8 @@ der nur aus den geänderten Dateien besteht. Es wurde nichts automatisch
 auf GitHub oder eure öffentliche Website hochgeladen.
 
 1. ZIP entpacken. Zuerst Ehrenhub/Ehrenhub.html öffnen und ausprobieren.
-   Die Demos findet ihr unter Wiki & How-tos > Interaktive Beispiele.
+   Den neuen Beispielablauf findet ihr unter Antragsfinder > Mit Beispiel
+   ausprobieren. Wiki-Demos und Schichtplan bleiben zusätzlich erhalten.
 2. Euren bisherigen Stand sichern, insbesondere eigene neue Inhalte oder
    Änderungen seit dem letzten übergebenen Paket. Gleichnamige Dateien
    werden beim Hochladen ersetzt – GitHub führt sie nicht inhaltlich zusammen.
@@ -23,36 +24,42 @@ auf GitHub oder eure öffentliche Website hochgeladen.
    hochladen, ohne eine zusätzliche Ebene Ehrenhub anzulegen.
 
 4. Die Änderungen kontrollieren. Commit-Nachricht ist nur eine Beschreibung,
-   zum Beispiel: Wiki-Redaktion und interaktive Artikel ergänzen.
+   zum Beispiel: Interaktiven BDKJ-Förderassistenten ergänzen.
 5. Committen, den bestehenden Pages-Workflow abwarten und seinen grünen
    Abschluss prüfen. Der bekannte Build-Befehl bleibt npm run build.
    Das Ausgabeziel bleibt dist relativ zur package.json – in Fall A also
    Ehrenhub/dist. Keinen zweiten Workflow anlegen, Hosting nicht wechseln.
 6. Website neu laden. Wenn nötig mit Strg+Umschalt+R bzw. Cmd+Umschalt+R.
-   In den Wiki-Beispielen alle drei neuen Artikel kurz öffnen.
+   Antragsfinder > Mit Beispiel ausprobieren > Fördercheck berechnen testen.
+   Zusätzlich je einen eigenen Wiki-Artikel und euren Schichtplan öffnen.
 
 WICHTIG ZUM ERSETZEN
 
 - Dateien mit identischem Pfad werden aktualisiert; neue werden ergänzt.
 - Dateien, die im ZIP NICHT vorkommen, werden durch einen normalen Upload
-  nicht automatisch gelöscht. Dieses Update benötigt keine Löschaktion:
-  data/wiki.json wird bewusst durch die kleine Reihenfolgeliste ersetzt.
+  nicht automatisch gelöscht. Dieses Update benötigt keine Löschaktion.
 - Bereits selbst angelegte Artikel/Änderungen vorher vergleichen. Dieses
-  Paket basiert auf dem hier verfügbaren Stand mit dem Stundenplan-Export,
+  Paket basiert auf dem zuletzt übergebenen Wiki-Redaktions-Update,
   nicht auf einer live abgerufenen Kopie eures aktuellen GitHub-Repositorys.
 - .github/workflows und eigene Domain-/Hosting-Einstellungen außerhalb des
   Projektordners unverändert lassen. Bei abweichenden Pfaden nicht raten.
 - Niemals eure ausgefüllten Schichtplan-Projekte, Teilnehmerlisten oder
   Zugangsdaten ins öffentliche Repository hochladen.
+- public/formulare enthält ausschließlich die beiden LEEREN Original-PDFs.
+  Diesen neuen Ordner unbedingt mit hochladen: Der Build benötigt ihn.
+- Ehrenhub.html und dist/index.html sind erzeugte Vorschauen. Ihr dürft sie
+  für den Upload weglassen, sofern der vorhandene Workflow npm run build
+  ausführt und dist veröffentlicht. Nicht pauschal alle HTML-Dateien löschen:
+  src/template.html ist Quellcode und wird zwingend benötigt.
 - Für laufende Redaktionsarbeit genügt künftig meist die einzelne geänderte
   Artikeldatei. Ihr müsst nicht jedes Mal den ganzen Projektordner ersetzen.
 
 WO IHR LOSLEGT
 
-data/wiki/START-HIER.txt erklärt Schritt für Schritt alle Felder und Module.
-data/wiki/ARTIKEL-VORLAGE.json ist die Kopiervorlage (standardmäßig Entwurf).
-data/wiki/99-funktionsbeispiele/ enthält die drei vollständig klickbaren Demos.
-docs/WIKI-UPDATE-PRUEFUNG.md dokumentiert Tests und bekannte Grenzen.
+data/foerderung/START-HIER.txt erklärt die neuen Regeln und Formularquellen.
+docs/FOERDERASSISTENT.md erklärt Bedienung, Quellen und fachliche Grenzen.
+docs/FOERDER-UPDATE-PRUEFUNG.md dokumentiert Tests und offene Abnahmen.
+data/wiki/START-HIER.txt bleibt euer Einstieg in die Wiki-Redaktion.
 
 Falls der Browser den gesamten Ordner nicht auf einmal annimmt: nichts
 umstrukturieren. Dateien/Unterordner in mehreren Uploads an dieselben Pfade

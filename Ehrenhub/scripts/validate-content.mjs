@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import data from '../src/content.js';
 import wikiValidation from './validate-wiki.cjs';
+import fundingValidation from './validate-funding.cjs';
 
 export function validateContent(D) {
   const errors = [];
@@ -25,6 +26,7 @@ export function validateContent(D) {
     if (item.color !== undefined && !['sage', 'sand', 'lavender', 'rose'].includes(item.color)) fail(`${where}.color`, 'unbekannte Designfarbe');
   };
   if (!object(D)) return ['data: Objekt erwartet'];
+  fundingValidation.validateFunding(D,fail);
   if (!object(D.hubi)) fail('data/hubi.json', 'Objekt mit Standardnachrichten erwartet');
   else {
     const allowed=['intro','pet','checklistComplete','start','success','retry','complete','change','pages'];

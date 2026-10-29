@@ -1,0 +1,45 @@
+{
+  "id": "bdkj-muenchen-2026",
+  "version": "2026-02-09",
+  "checkedAt": "2026-10-28",
+  "owner": "BDKJ in der Region München e.V.",
+  "scope": "Maßnahmenförderung für selbstorganisierte katholische Jugendarbeit mit Bezug zu München-Stadt. Kein allgemeiner KJR-Rechner.",
+  "disclaimer": "Unverbindliche Planungshilfe, keine Förderzusage. Verfügbare Mittel, die Prüfung der Förderstelle, vollständige Nachweise sowie Form und Fristen entscheiden über die Auszahlung. Diese kann geringer ausfallen oder ganz entfallen.",
+  "sources": {
+    "guideline": "https://bdkj-muenchen.de/wp-content/uploads/2026/02/2026-Zuschussrichtlinien-Massnahmenfoerderung.pdf",
+    "overview": "https://bdkj-muenchen.de/zuschuesse/",
+    "portal": "https://www.kjr-zuschuss.de/login",
+    "land": "https://kjr-ml.de/jugendverbaende/zuschuss/",
+    "stadt": "https://www.kjr-m.de/der-kjr/jugendverbaende-im-kjr/jugendverbandsfoerderung/",
+    "education": "https://www.bdkj.org/aktuelles/zuschuesse-formulare/"
+  },
+  "trip": {"minPeople": 5, "minNights": 2, "maxNights": 21, "rate": 10, "enhancedCityRate": 20, "enhancedMinNights": 7, "minRatio": 15, "maxRatio": 5, "minStaffAllowance": 2, "deadlineDays": 28, "section": "1.1–1.5 und 2 · Seiten 5–9"},
+  "international": {"inlandRate": 15, "abroadRate": 25, "section": "3 · Seiten 10–11"},
+  "education": {"dayRate": 15, "sessionRate": 5, "section": "6 · Seiten 17–18"},
+  "room": {"cap": 3000, "periodYears": 3, "deadlineDays": 28, "section": "4 · Seiten 12–13"},
+  "special": {"cap": 4000, "beforeDays": 56, "deadlineDays": 28, "section": "5 · Seiten 14–16"},
+  "programs": [
+    {"id": "freizeit", "title": "Fahrten & Freizeiten", "description": "Zeltlager, Hüttenwochenende oder Jugendfahrt", "icon": "tent"},
+    {"id": "international", "title": "Internationale Begegnung", "description": "Austausch mit einer Jugendgruppe, nicht nur eine Auslandsreise", "icon": "compass"},
+    {"id": "bildung", "title": "Bildung & Qualifizierung", "description": "Selbst eine JBM- oder AEJ-Maßnahme veranstalten", "icon": "graduation"},
+    {"id": "raum", "title": "Unser Jugendraum", "description": "Schaffen, renovieren oder grundlegend ausstatten", "icon": "layers"},
+    {"id": "projekt", "title": "Ein besonderes Projekt", "description": "Ein neues, von jungen Menschen gestaltetes Vorhaben", "icon": "flag"}
+  ],
+  "organizations": [
+    ["bdkj", "Pfarrjugend / katholischer Jugendverband", "Wir rechnen unsere Maßnahmen über den BDKJ München ab."],
+    ["other", "Anderer Verband / andere Förderstelle", "Zum Beispiel Sportjugend, DPSG, PSG oder eine andere Zuständigkeit."],
+    ["unknown", "Das wissen wir noch nicht", "Zuerst den richtigen Antragsweg klären."]
+  ],
+  "regions": [["stadt", "München-Stadt"], ["mixed", "Stadt und Landkreis München"], ["land", "Nur Landkreis München"], ["other", "Andere Region"]],
+  "notes": [
+    "Anwendungsbereich zuerst prüfen. Die BDKJ-Regeln ersetzen weder KJR-Richtlinien noch Bescheide anderer Verbände.",
+    "Zwei Übernachtungen sind laut Detailrichtlinie ausreichend. Die Kurzbeschreibung auf der Website ist hier ungenau.",
+    "Juleica und gültige Einsichtnahmebestätigung werden für alle tatsächlich Betreuenden abgefragt; es gibt in Ehrenhub keinen Upload dieser Unterlagen.",
+    "Die Richtlinie nennt neben der diözesanen Stelle auch das JIZ als anerkannte Stelle für Einsichtnahmebestätigungen. Das Pfarrbüro ist der erste praktische Kontakt.",
+    "Bruchteile bei der 1:5-Obergrenze und anteiligen Betreuenden werden vorsichtig berechnet und ausdrücklich als Annahme gekennzeichnet. Keine unbestätigte Aufrundung.",
+    "Ein Gottesdienst innerhalb eines Zeltlagers wird nicht automatisch als Ablehnungsgrund behandelt. Rein religiöse Vorhaben und die Abgrenzung einzelner Kosten sind mit der Förderstelle zu klären.",
+    "Gemischte Stadt-/Landkreisfahrten: zwei Finanzierungsanteile, nicht zwei addierte Förderungen für dieselben Personen. Konkrete Einreichung und Weiterleitung vorab mit der Förderstelle abstimmen.",
+    "Die Vier-Wochen-Frist wird nur bei Fahrten, Räumen und besonderen Projekten als Regel hinterlegt. Für internationale Begegnungen und JBM/AEJ wird keine nicht belegte Frist erfunden.",
+    "Tablet-Unterschriften sind ein Praxistipp des Projektteams, keine hier bestätigte Anerkennungszusage der Förderstelle. Die Website des BDKJ beschreibt den Papierweg."
+  ]
+}

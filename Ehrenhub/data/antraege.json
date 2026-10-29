@@ -15,8 +15,8 @@
     "projects": [
       "freizeit"
     ],
-    "owner": "KJR München-Stadt",
-    "source": "kjrStadt"
+    "owner": "BDKJ in der Region München e.V.",
+    "source": "bdkjFoerderung"
   },
   {
     "type": "aktion",
@@ -34,13 +34,13 @@
     "projects": [
       "aktion"
     ],
-    "owner": "KJR München-Stadt",
-    "source": "kjrStadt"
+    "owner": "BDKJ in der Region München e.V.",
+    "source": "bdkjFoerderung"
   },
   {
     "type": "material",
-    "title": "Förderweg für Material & Ausstattung",
-    "summary": "Prüfen, welche Unterstützung für benötigtes Gruppenmaterial infrage kommen könnte.",
+    "title": "Förderweg für euren Jugendraum",
+    "summary": "Schaffung, grundlegende Ausstattung und Renovierung eines Jugendraums – keine allgemeine Materialpauschale.",
     "icon": "layers",
     "documents": [
       "Beschreibung der Anschaffung und ihres Zwecks",
@@ -53,8 +53,8 @@
     "projects": [
       "material"
     ],
-    "owner": "KJR München-Stadt",
-    "source": "kjrStadt"
+    "owner": "BDKJ in der Region München e.V.",
+    "source": "bdkjFoerderung"
   },
   {
     "type": "bildung",
@@ -72,8 +72,8 @@
     "projects": [
       "bildung"
     ],
-    "owner": "KJR München-Stadt",
-    "source": "kjrStadt"
+    "owner": "BDKJ in der Region München e.V.",
+    "source": "bdkjFoerderung"
   },
   {
     "type": "freizeit",

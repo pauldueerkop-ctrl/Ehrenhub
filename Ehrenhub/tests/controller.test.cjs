@@ -28,6 +28,7 @@ function boot({ hash = '#/', blocked = false, initial = {} } = {}) {
     closest(selector) { return this.selectors.has(selector) ? this : null; }
     matches(selector) { return this.selectors.has(selector); }
     setAttribute(name, value) { this.attributes[name] = value; }
+    hasAttribute(name) { return Object.hasOwn(this.attributes,name); }
     addEventListener() {}
     querySelectorAll() { return []; }
     focus() {}
@@ -70,6 +71,44 @@ function boot({ hash = '#/', blocked = false, initial = {} } = {}) {
   const flushTimers = () => { const pending = timers.splice(0); pending.forEach(fn => fn()); };
   return { ctx, nodes, values, send, click, navigate, Element, flushTimers };
 }
+
+test('funding controller persists demo, validates and restores a check without touching other data',()=>{
+  const app=boot({hash:'#/antraege',initial:{'ehrenhub.v1.bookmarks':'["wiki:juleica"]'}});
+  app.click('[data-fg-action]',{fgAction:'demo'});
+  app.click('[data-fg-action]',{fgAction:'next'});
+  const key='ehrenhub.v1.fundingPlan',read=()=>JSON.parse(app.values.get(key));
+  assert.equal(read().step,2);
+  const check=new app.Element();check.dataset={fgCheck:'forms'};check.checked=true;app.send('change',check);assert.equal(read().checks.forms,true);
+  assert.equal(app.values.get('ehrenhub.v1.bookmarks'),'["wiki:juleica"]');
+  const reloaded=boot({hash:'#/antraege',initial:Object.fromEntries(app.values)});
+  assert.match(reloaded.nodes.get('main').innerHTML,/720,00/);
+  const input=new app.Element();input.dataset={fgField:'city'};input.value='31';app.send('input',input);
+  assert.deepEqual(read().checks,{});
+  app.click('[data-fg-action]',{fgAction:'reset'});assert.equal(read().step,0);assert.equal(read().answers.name,'');
+});
+test('funding import requires valid data and confirmation; rejects oversized files',async()=>{
+  const app=boot({hash:'#/antraege'});app.click('[data-fg-action]',{fgAction:'demo'});
+  const p=app.ctx.EH.FundingModel.demo();p.answers.name='Importiertes Wochenende';
+  const field=new app.Element();field.dataset={fgImport:''};
+  const send=async(text,size=1000)=>{field.files=[{size,text:async()=>text}];app.send('change',field);await new Promise(resolve=>setImmediate(resolve));};
+  const read=()=>JSON.parse(app.values.get('ehrenhub.v1.fundingPlan'));
+  await send(JSON.stringify(p));assert.equal(read().answers.name,p.answers.name);
+  const saved=JSON.stringify(read());await send('invalid json');assert.equal(JSON.stringify(read()),saved);
+  p.answers.name='Must not replace';await send(JSON.stringify(p),100001);assert.equal(JSON.stringify(read()),saved);
+  app.ctx.window.confirm=()=>false;await send(JSON.stringify(p));assert.equal(JSON.stringify(read()),saved);
+});
+test('funding submit and print are delegated; storage denial never blocks calculation',()=>{
+  const app=boot({hash:'#/antraege',blocked:true});app.click('[data-fg-action]',{fgAction:'demo'});
+  const form=new app.Element();form.setAttribute('data-fg-form','');app.send('submit',form);app.navigate('#/antraege');
+  assert.match(app.nodes.get('main').innerHTML,/720,00/);assert.match(app.nodes.get('main').innerHTML,/Speichern im Browser ist blockiert/);
+  let prints=0;app.ctx.window.print=()=>prints++;app.click('[data-fg-action]',{fgAction:'print'});assert.equal(prints,1);
+  app.click('[data-action]',{action:'confirm-reset'});app.navigate('#/antraege');assert.match(app.nodes.get('main').innerHTML,/Was habt ihr vor/);
+});
+test('funding malformed saved data recovers without affecting existing bookmarks',()=>{
+  const app=boot({hash:'#/antraege',initial:{'ehrenhub.v1.fundingPlan':'{"wrong":true}','ehrenhub.v1.bookmarks':'["wiki:juleica"]'}});
+  assert.match(app.nodes.get('main').innerHTML,/nicht lesbar/);
+  assert.equal(app.values.get('ehrenhub.v1.bookmarks'),'["wiki:juleica"]');
+});
 
 test('actual HTML bundle boots with data and all presentation modules in order', () => {
   const { ctx, nodes } = boot();

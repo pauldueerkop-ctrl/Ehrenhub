@@ -29,6 +29,7 @@ for (const marker of ['/*__STYLE__*/','/*__APP__*/']) {
 // Function replacements preserve literal dollar signs in future content.
 const html=template.replace('/*__STYLE__*/',()=>css).replace('/*__APP__*/',()=>javascript);
 await fs.mkdir(path.join(root,'dist'),{recursive:true});
+await fs.cp(path.join(root,'public/formulare'),path.join(root,'dist/formulare'),{recursive:true});
 await fs.writeFile(path.join(root,'dist/index.html'),html);
 await fs.writeFile(path.join(root,'Ehrenhub.html'),html);
 console.log(`Built Ehrenhub.html and dist/index.html (${Math.round(Buffer.byteLength(html)/1024)} KB). No external dependencies.`);

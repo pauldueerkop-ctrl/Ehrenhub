@@ -22,18 +22,15 @@ test('user-provided search input never becomes executable markup',()=>{
   const query='<svg onload="alert(1)">';
   for(const base of ['suche','wiki','fortbildungen']){const html=render('#/'+base+'?q='+encodeURIComponent(query));assert.ok(!html.includes('<svg onload='));assert.ok(html.includes('&lt;svg'))}
 });
-test('wizard has three functional states with selection retained on back',()=>{
-  const s=makeState();assert.match(V.grantWizard(s),/id="wizard-next"[^>]*disabled/);
-  s.grantAnswers.region='land';assert.ok(!V.grantWizard(s).match(/id="wizard-next"[^>]*disabled/));
-  s.wizardStep=1;assert.equal((V.grantWizard(s).match(/type="radio"/g)||[]).length,4);
-  s.grantAnswers.project='freizeit';s.wizardStep=2;assert.equal((V.grantWizard(s).match(/type="radio"/g)||[]).length,3);
-  s.wizardStep=0;assert.match(V.grantWizard(s),/value="land"[^>]*checked/);
+test('funding assistant replaces the old stage questionnaire with five program choices',()=>{
+  const html=render('#/antraege');
+  assert.equal((html.match(/type="radio"/g)||[]).length,5);
+  assert.match(html,/data-fg-field="organization"/);
+  assert.doesNotMatch(html,/data-grant-answer|Demo-Zuordnung/);
 });
-test('grant stage changes the next-step message without inventing an entitlement',()=>{
-  assert.match(render('#/antraege?region=stadt&project=freizeit&stage=planung'),/vor dem Start/);
-  assert.match(render('#/antraege?region=land&project=aktion&stage=gestartet'),/läuft schon/);
-  assert.match(render('#/antraege?region=stadt&project=bildung&stage=abgeschlossen'),/nachträgliche/);
-  assert.match(render('#/antraege?region=invalid&project=freizeit&stage=planung'),/Schritt 1 von 3/);
+test('legacy query links stay usable without inventing results from old parameters',()=>{
+  for(const route of ['#/antraege?region=stadt&project=freizeit&stage=planung','#/antraege?region=invalid&project=bildung&stage=abgeschlossen'])assert.match(render(route),/Was habt ihr vor/);
+  assert.match(render('#/antraege/freizeit-stadt'),/Förderassistent öffnen/);
 });
 test('bookmarks, checklists and local feedback render their stored state',()=>{
   const s=makeState();s.bookmarks=['wiki:erste-gruppenstunde','kurs:erste-hilfe'];s.checks['erste-gruppenstunde:2:0']=true;s.feedback['erste-gruppenstunde']='yes';

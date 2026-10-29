@@ -1,5 +1,5 @@
 {
-  "version": "0.1",
+  "version": "0.4.0",
   "reviewed": "18.10.2026",
   "featuredArticles": [
     "erste-gruppenstunde",
@@ -32,9 +32,9 @@
       "color": "sand",
       "number": "02",
       "title": "Antragsfinder",
-      "description": "Den passenden Förderweg entdecken.",
+      "description": "Förderung prüfen. Zuschüsse vorsichtig kalkulieren.",
       "href": "#/antraege",
-      "meta": "In 3 kleinen Schritten"
+      "meta": "Fördercheck · Rechner · Checklisten"
     },
     {
       "icon": "graduation",

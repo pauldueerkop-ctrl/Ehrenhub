@@ -11,7 +11,7 @@ test('build works from another working directory and keeps GitHub Pages output l
   const before = fs.readFileSync(path.join(root, 'dist/index.html'), 'utf8');
   const isolated = fs.mkdtempSync(path.join(os.tmpdir(), 'ehrenhub-build-test-'));
   t.after(() => fs.rmSync(isolated, { recursive: true, force: true }));
-  for (const entry of ['scripts', 'src', 'data', 'package.json']) fs.cpSync(path.join(root, entry), path.join(isolated, entry), { recursive: true });
+  for (const entry of ['scripts', 'src', 'data', 'public', 'package.json']) fs.cpSync(path.join(root, entry), path.join(isolated, entry), { recursive: true });
   execFileSync(process.execPath, [path.join(isolated, 'scripts/build.mjs')], { cwd: os.tmpdir() });
   assert.equal(fs.readFileSync(path.join(isolated, 'dist/index.html'), 'utf8'), before);
   assert.equal(fs.readFileSync(path.join(isolated, 'Ehrenhub.html'), 'utf8'), before);

@@ -1,0 +1,103 @@
+EHRENHUB – FÖRDERREGELN UND FORMULARE PFLEGEN
+Version 0.4.0 · 28.10.2026
+
+WAS LIEGT HIER?
+
+bdkj-muenchen-2026.json: Fördersätze, Zuständigkeit, Quellen, Texte der fünf
+Auswahlkarten und dokumentierte Auslegungen der BDKJ-München-Richtlinie.
+formulare.json: Namen und Quellen der zwei leeren Originalformulare.
+Die PDFs selbst liegen zwei Ebenen höher unter public/formulare/.
+
+Das ist KEIN allgemeiner KJR-Rechner. Andere Verbände, andere Regionen und
+reine Landkreisgruppen werden zur passenden Beratung geleitet. Ihre Regeln
+dürfen nicht einfach durch Umbenennen dieses Datensatzes übernommen werden.
+
+WAS KANN MAN OHNE HTML ANPASSEN?
+
+- owner, scope, disclaimer: Herausgeber, Geltungsbereich und Einordnung.
+- sources: direkte HTTPS-Adressen zu Detailrichtlinie, Übersicht, Portal,
+  Stadt-/Landkreisberatung und BDKJ-Diözesanformularen.
+- programs: title und description der Auswahlkarten; icon muss eine Kennung
+  aus src/icons.js sein. IDs NICHT ändern: Sie verbinden Daten und Logik.
+- organizations und regions: verständliche Anzeigetexte; IDs beibehalten.
+- notes: dokumentierte fachliche Hinweise für Redaktion/Entwicklung.
+  Diese Liste ist nicht automatisch ein zusätzlicher Wiki-Artikel.
+
+RECHENWERTE
+
+trip:
+  minPeople           Mindestzahl Teilnehmende
+  minNights/maxNights  Mindestnächte / höchstens geförderte Nächte
+  rate                Grundsatz pro Person und Nacht
+  enhancedCityRate    erhöhter Stadt-Satz bei erfüllten Zusatzkriterien
+  enhancedMinNights   Mindestnächte für erhöhten Satz
+  minRatio            maximal Teilnehmende pro notwendiger Betreuung (15)
+  maxRatio            Teilnehmende pro maximal geförderter Betreuung (5)
+  minStaffAllowance   unabhängig davon bis zu zwei Betreuende anrechenbar
+  deadlineDays        reguläre Nachfrist nach Ende (28)
+international:
+  inlandRate/abroadRate: Satz pro Person und Nacht
+education:
+  dayRate/sessionRate: Satz pro Person und anerkanntem Tag/Einheit
+room:
+  cap/periodYears/deadlineDays: Budgetrahmen, Zeitraum, Nachfrist
+special:
+  cap/beforeDays/deadlineDays: Budgetrahmen, Vorlauf, Nachfrist
+section:
+  Fundstelle innerhalb der Detailrichtlinie, je Regelgruppe.
+
+WICHTIG: Ein neuer Geldbetrag lässt sich hier ändern. Eine neue fachliche
+Voraussetzung, andere Rundung oder Fristlogik ist jedoch eine Codeänderung.
+Auch erläuternde Texte in Modell und Oberfläche müssen dann überprüft werden.
+Nie neue Regeln nur durch Vermutung einsetzen. Änderung und Quelle gemeinsam
+prüfen; anschließend Tests anpassen und den vollständigen Build ausführen.
+
+version ist das Datum des verwendeten Regelstands, checkedAt das Datum der
+letzten Quellenprüfung (beide JJJJ-MM-TT). Wenn sich geltende Regeln ändern,
+auch version aktualisieren. Importierte alte Projektdateien werden dann auf
+Schritt 1 zurückgesetzt; ihre Checklisten müssen neu geprüft werden.
+
+ORIGINALFORMULARE AUSTAUSCHEN
+
+1. Aktuelles, leeres Original von der Förderstelle beziehen.
+2. Unter public/formulare/ ablegen, mit einfachem Dateinamen ohne Leerzeichen.
+3. file in formulare.json muss genau zum Dateinamen passen.
+4. title, version und url (offizielle HTTPS-Quelle) aktualisieren.
+5. IDs teilnehmende und betreuende beibehalten.
+6. Im Browser Download und alle Seiten des PDFs kontrollieren.
+
+Der Build bettet die PDFs in die eigenständige Ehrenhub.html ein und kopiert
+sie zusätzlich nach dist/formulare/. Sie funktionieren damit ohne externen
+Abruf. Die aktuelle Beschriftung nennt zwei Seiten: bei anderen Vorlagen
+auch die Oberfläche aktualisieren. Niemals ausgefüllte Listen committen!
+
+PROGRAMMIERDATEIEN (GETRENNT VON DIESEN INHALTEN)
+
+src/features/foerderung/model.js      Rechnen, Fristen, Import, Checklisten
+src/features/foerderung/view.js       HTML-Bausteine und Beschriftungen
+src/features/foerderung/controller.js Klicks, lokale Speicherung, Dateien
+src/features/foerderung/styles.css    Bereichsdesign, mobil und Druck
+scripts/validate-funding.cjs          Prüfung der Regel-/Formulardaten
+tests/foerderung.test.cjs             Rechen- und Grenzfalltests
+
+Alle Teilnehmerzahlen sind Anzahlen, keine einzelnen Personendatensätze.
+Originalnachweise werden ausschließlich beim offiziellen Antrag verarbeitet,
+nicht in Ehrenhub. Unterlagen oder Login-Daten gehören nie in diesen Ordner.
+
+PRÜFEN UND VERÖFFENTLICHEN
+
+Im Ehrenhub-Ordner (dort liegt package.json):
+  npm run validate  prüft die redaktionellen Daten
+  npm test          baut alles neu und führt sämtliche Tests aus
+
+Danach Ehrenhub.html öffnen > Antragsfinder > Mit Beispiel ausprobieren.
+Der bisherige GitHub-Pages-Build bleibt npm run build, Ausgabe dist.
+Kein Backend, API-Schlüssel oder kostenpflichtiger Dienst erforderlich.
+
+VOR DER ÖFFENTLICHEN NUTZUNG MIT ECHTEN FINANZPLANUNGEN
+
+Die Umsetzung fachlich mit BDKJ/Finanzbeauftragten abnehmen lassen,
+insbesondere Rundung beim Betreuungsschlüssel, gemischte Stadt-/Landgruppen,
+Begleitpersonen und internationale Begegnungen. Quellenstand überprüfen.
+Ein fehlerfreier Softwaretest ist keine Bestätigung einer Förderzusage.
+Ausführliche Grenzen: docs/FOERDERASSISTENT.md.

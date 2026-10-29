@@ -56,7 +56,7 @@
     return [
       ...data.articles.map(a => ({key:'wiki:'+a.id,kind:'wiki',label:'Wiki & How-tos',icon:a.icon,title:a.title,summary:a.summary,href:'#/wiki/'+a.id,text:[...a.tags,articleText(a)].join(' ')})),
       ...data.courses.map(c => ({key:'kurs:'+c.id,kind:'kurs',label:'Fortbildung · Beispiel',icon:'graduation',title:c.title,summary:c.provider+' · '+c.length,href:'#/fortbildungen/'+c.id,text:[c.summary,courseTopics[c.topic],...c.tags].join(' ')})),
-      ...data.grants.map(g => ({key:'antrag:'+g.id,kind:'antrag',label:'Antragsweg · Beispiel',icon:'coins',title:g.title,summary:g.owner,href:'#/antraege/'+g.id,text:[g.summary,'Zuschüsse Förderung KJR Geld Antrag Finanzantrag Bezuschussung',regions[g.region]].join(' ')})),
+      ...data.grants.map(g => ({key:'antrag:'+g.id,kind:'antrag',label:'Förderweg & Antragsvorbereitung',icon:'coins',title:g.title,summary:g.owner,href:'#/antraege/'+g.id,text:[g.summary,'Zuschüsse Förderung KJR Geld Antrag Finanzantrag Bezuschussung',regions[g.region]].join(' ')})),
       {key:'sos',kind:'sos',label:'PSG & SOS',icon:'shield',title:'Du musst das nicht allein klären.',summary:'Orientierung und Anlaufstellen bei sexualisierter Gewalt.',href:'#/sos',text:'Hilfe Notfall Schutz Prävention PSG Verdacht Beratungsstelle Sorge Gewalt Kinderschutz'},
       {key:'werkzeug:schichtplan',kind:'werkzeug',label:'Werkzeug · Schichtplaner',icon:'calendar',title:'Schichtplaner: euer Team fair einteilen',summary:'Bereiche, Verfügbarkeiten und Schichten lokal planen. Ohne Anmeldung.',href:'#/schichtplan',text:'Dienstplan Einsatzplan Helfer Team Veranstaltung Schichten Arbeit Plan Generator'}
     ];

@@ -46,5 +46,9 @@
   "police": {
     "label": "Polizei Bayern · Notrufnummern",
     "url": "https://www.polizei.bayern.de/schuetzen-und-vorbeugen/senioren/006701/index.html"
+  },
+  "bdkjFoerderung": {
+    "label": "BDKJ München · Zuschüsse & Formulare",
+    "url": "https://bdkj-muenchen.de/zuschuesse/"
   }
 }

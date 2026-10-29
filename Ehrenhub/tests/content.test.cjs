@@ -88,7 +88,7 @@ test('JSON editorial text is escaped and not treated as markup', () => {
   d.sos.situations.sorge.title = payload;
   d.sos.support[0].text = payload;
   d.sos.faq[0].question = payload;
-  d.finder.grantQuestions[0].title = payload;
+  d.funding.programs[0].title = payload;
   const V = loadViews(d).Views;
   for (const hash of ['#/wiki', '#/fortbildungen', '#/sos', '#/antraege']) {
     const html = V.main(C.parseRoute(hash), makeState(), C.makeSearchIndex(d));

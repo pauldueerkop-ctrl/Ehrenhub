@@ -1,6 +1,8 @@
 # Ehrenhub – modularer Web-Prototyp
 
-Wissen und Orientierung für die Kinder- und Jugendarbeit in München. Tiefgrünes Design, keine Anmeldung, keine externen Laufzeit-Abhängigkeiten. Diese Version räumt den vorhandenen Prototyp technisch auf, ohne seine Gestaltung und Beispielinhalte zu ersetzen.
+Wissen und Orientierung für die Kinder- und Jugendarbeit in München. Tiefgrünes Design, keine Anmeldung, keine externen Laufzeit-Abhängigkeiten.
+
+**Neu in 0.4.0: interaktiver Förderassistent.** Im **Antragsfinder → Mit Beispiel ausprobieren** gibt es einen vollständigen Beispielablauf. Der neue Bereich prüft zuerst die Zuständigkeit, rechnet eine unverbindliche Obergrenze nach den BDKJ-München-Regeln, erklärt Voraussetzungen und Fristen und erstellt einen Fahrplan mit Checklisten. Die beiden unveränderten Original-PDFs sind auch offline eingebettet. Projektdateien lassen sich lokal speichern und wieder öffnen; der Förderplan hat ein eigenes Drucklayout. [Bedienung & fachliche Grenzen](docs/FOERDERASSISTENT.md) · [Redaktion der Regeln](data/foerderung/START-HIER.txt) · [Prüfung dieses Updates](docs/FOERDER-UPDATE-PRUEFUNG.md).
 
 **Neu in 0.3.0: Wiki-Redaktion und interaktive Artikel.** Unter `data/wiki/` liegt jeder Artikel in einer eigenen Datei, thematisch sortiert. [START-HIER.txt](data/wiki/START-HIER.txt) erklärt alle Felder und Bausteine; die [Artikelvorlage](data/wiki/ARTIKEL-VORLAGE.json) lässt sich kopieren. In der Website: **Wiki & How-tos → Interaktive Beispiele**. Drei Demos zeigen Szenarien, Fehlerdetektiv, neutralen Vergleich, Perspektivenwechsel, Entscheidungsweg, Sortier-Challenge und passende Hubi-Reaktionen. [Upload-Anleitung](UPLOAD-ANLEITUNG.txt) · [Prüfung dieses Updates](docs/WIKI-UPDATE-PRUEFUNG.md).
 
@@ -40,8 +42,11 @@ npm test
 | Aufbau eines bestimmten Bereichs | `src/pages/` |
 | Schichtplan: Datenmodell, Berechnung, Oberfläche, Bedienung und eigenes CSS | `src/features/schichtplan/` |
 | Interaktive Wiki-Bausteine: Modell, Darstellung, Bedienung und ergänzendes CSS | `src/features/wiki/` |
+| Fördersätze, Quellen, Programmtexte und Formularverweise | `data/foerderung/` |
+| Förderassistent: Berechnung, Oberfläche, Bedienung und eigenes CSS | `src/features/foerderung/` |
+| Unausgefüllte Originalformulare | `public/formulare/` |
 | Farben, Schriften, Abstände, Hover- und Mobilverhalten | `src/styles.css` |
-| Suche, Filter und Förderzuordnung | `src/core.js` |
+| Suche, Filter und alte Förderweg-IDs für bestehende Links | `src/core.js` |
 | Klicks, Dialoge und Navigation | `src/app.js` |
 | Lokale Browser-Speicherung | `src/services/storage.js` |
 | Build und Inhaltsprüfung | `scripts/` |
@@ -69,7 +74,7 @@ Der neue Build enthält bereits die Inhaltsvalidierung. Optional kann später de
 ## Was bleibt erhalten?
 
 - Vier Hauptbereiche: Wiki & How-tos, Antragsfinder, Fortbildungen sowie PSG & SOS.
-- Bisherige Artikel-, Kurs- und Förderweg-IDs, Verknüpfungen und Beispielinhalte.
+- Bisherige Artikel- und Kurs-IDs, Verknüpfungen und Beispielinhalte. Alte Förderweg-IDs bleiben als erklärende Weiterleitung zum neuen Assistenten nutzbar.
 - Globale Suche, Filter, Merkliste, Checklisten, lokale Rückmeldung, Druckfunktion und Hubi.
 - Design, Icons, Responsive-Regeln und HTML-Grundgerüst.
 - Das Speicherpräfix `ehrenhub.v1.`; vorhandene lokale Daten bleiben unter derselben Website-Adresse nutzbar.
@@ -78,9 +83,11 @@ Es gibt weiterhin keine Benutzerkonten, keine zentrale Datenbank, keinen Crawler
 
 Der Schichtplan verwendet zusätzlich den lokalen Schlüssel `ehrenhub.v1.shiftPlan`. Das ist kein Online-Speicher: Nach Löschen der Browserdaten kann der Plan weg sein. Für Sicherung oder Gerätewechsel eine Projektdatei exportieren. Projekt- und CSV-Dateien enthalten die eingetragenen Namen; nicht ins öffentliche GitHub-Repository hochladen.
 
+Der Förderassistent verwendet getrennt davon `ehrenhub.v1.fundingPlan`. Er speichert einen aktuellen Entwurf mit Anzahlen, Projektdaten und Checklisten, keine Teilnehmerlisten oder Nachweis-Uploads. Bei Änderungen der Eckdaten werden die Häkchen bewusst zurückgesetzt. Auch Fördercheck-Projektdateien können interne Budgetinformationen enthalten und gehören nicht ins öffentliche Repository.
+
 ## Inhaltlicher Status
 
-Wiki-Texte sind nicht fachlich freigegeben. Kurstermine und Kursdetails sind Beispiele; der Antragsfinder zeigt illustrative Recherchewege, keine Förderberechtigungen. Die verlinkten Organisationen sind keine behaupteten Kooperationspartner.
+Wiki-Texte sind nicht fachlich freigegeben. Kurstermine und Kursdetails bleiben Beispiele. Der neue Förderassistent nutzt die öffentlich zugängliche BDKJ-München-Detailrichtlinie vom 09.02.2026 und die besprochenen Praxishinweise; er ist trotzdem keine fachlich freigegebene Förderprüfung. Andere KJR-/Verbandsregeln werden nicht gleichgesetzt. Die verlinkten Organisationen sind keine behaupteten Kooperationspartner.
 
 Das Aufräumen ist keine fachliche, datenschutzrechtliche oder rechtliche Freigabe für einen regulären öffentlichen Betrieb. Die alten lokalen Demo-Texte wurden bewusst nicht inhaltlich überarbeitet.
 
@@ -91,4 +98,4 @@ Das Aufräumen ist keine fachliche, datenschutzrechtliche oder rechtliche Freiga
 - [Prüfprotokoll und verbleibende manuelle Tests](docs/PRUEFPROTOKOLL.md)
 - [Bisherige externe Quellen](SOURCES.md)
 
-Aktueller Prüfstand: [Wiki-Update-Prüfung](docs/WIKI-UPDATE-PRUEFUNG.md). Die alten Refactoring- und Schichtplanprotokolle bleiben als historische Dokumentation enthalten. Neue redaktionelle Metadaten ersetzen keine fachliche Freigabe. Browserchecks dieses Updates sind keine vollständige Barrierefreiheits- oder geräteübergreifende Prüfung.
+Aktueller Prüfstand: [Förderassistent-Prüfung](docs/FOERDER-UPDATE-PRUEFUNG.md). Die alten Wiki-, Refactoring- und Schichtplanprotokolle bleiben als historische Dokumentation enthalten. Neue redaktionelle Metadaten ersetzen keine fachliche Freigabe. Browserchecks dieses Updates sind keine vollständige Barrierefreiheits- oder geräteübergreifende Prüfung.

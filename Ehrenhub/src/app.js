@@ -13,7 +13,7 @@
     checks:readObject('checks',checkKeys,v=>v===true),
     feedback:readObject('feedback',new Set(D.articles.map(a=>a.id)),v=>v==='yes'||v==='no'),
     hubiHidden:read('hubiHidden','false')==='true',
-    wizardStep:0,grantAnswers:{region:'',project:'',stage:''},sosTab:'sorge',petCount:0
+    sosTab:'sorge',petCount:0
   };
   const main=document.getElementById('main');
   const header=document.getElementById('header-root');
@@ -141,18 +141,6 @@
     const rect=body.getBoundingClientRect();const available=Math.max(1,rect.height-window.innerHeight+160);
     const progress=Math.min(100,Math.max(0,(100-rect.top)/available*100));bar.style.width=progress+'%';
   }
-  function renderWizard(focus=true){
-    const target=document.getElementById('wizard-container');if(!target)return;
-    target.classList.remove('show-results');target.innerHTML=V.grantWizard(state);
-    if(focus){const heading=document.getElementById('wizard-title');heading.focus({preventScroll:true});heading.scrollIntoView({block:'nearest',behavior:'smooth'});}
-  }
-  function nextWizard(){
-    const q=V.grantQuestions[state.wizardStep];if(!q.options.some(option=>option[0]===state.grantAnswers[q.key]))return;
-    if(state.wizardStep<2){state.wizardStep++;renderWizard();}
-    else if(C.validGrantAnswers(state.grantAnswers)){
-      const params=new URLSearchParams(state.grantAnswers);location.hash='/antraege?'+params.toString();
-    }
-  }
   function setSosTab(id,focus=false){
     if(!sosIds.includes(id))return;
     state.sosTab=id;
@@ -197,6 +185,7 @@
     const cleared=storage.clear();
     planner.reset();
     activities.reset();
+    funding.reset();
     state.bookmarks=[];state.checks={};state.feedback={};state.hubiHidden=false;state.petCount=0;
     closeDialog(infoDialog);render();toast(cleared?'Deine lokalen Ehrenhub-Daten wurden zurückgesetzt.':'Ansicht zurückgesetzt. Dein Browser erlaubt gerade keinen Zugriff auf gespeicherte Daten.');
   }
@@ -206,9 +195,6 @@
     menu:()=>{const menu=document.getElementById('mobile-nav');const btn=document.querySelector('[data-action="menu"]');menu.hidden=!menu.hidden;btn.setAttribute('aria-expanded',String(!menu.hidden));btn.setAttribute('aria-label',menu.hidden?'Menü öffnen':'Menü schließen');btn.innerHTML=I(menu.hidden?'menu':'close');},
     'wiki-reset':()=>{updateQuery({q:'',category:''});document.getElementById('wiki-search').value='';updateWiki();},
     'course-reset':()=>{updateQuery({q:'',topic:'',duration:'',format:'',sort:''});document.getElementById('course-search').value='';document.querySelectorAll('[data-course-filter]').forEach(el=>el.value=el.dataset.courseFilter==='sort'?'datum':'alle');updateCourses();},
-    'wizard-next':nextWizard,
-    'wizard-back':()=>{if(state.wizardStep>0){state.wizardStep--;renderWizard();}},
-    'wizard-reset':()=>{state.grantAnswers={region:route.query.get('region')||'',project:route.query.get('project')||'',stage:route.query.get('stage')||''};state.wizardStep=0;updateQuery({region:'',project:'',stage:''});renderWizard();},
     print:()=>window.print(),
     'export-saved':exportSaved,'clear-saved':()=>openInfo('clear-saved'),
     'confirm-clear':()=>{state.bookmarks=[];const stored=persist('bookmarks',[]);closeDialog(infoDialog);render();if(stored)toast('Deine Merkliste ist wieder leer.');},
@@ -220,9 +206,12 @@
   };
   const planner=globalThis.EH.ShiftController.create({storage,toast});
   const activities=globalThis.EH.WikiBlockController.create({react});
+  const funding=globalThis.EH.FundingController.create({storage,toast,speak:message=>bubble(message,5500)});
+  state.funding=funding;
   state.activities=activities;
   state.planner=planner;
   document.addEventListener('click',event=>{
+    if(funding.handleClick(event))return;
     if(planner.handleClick(event))return;
     if(activities.handleClick(event))return;
     const target=event.target instanceof Element?event.target:null;if(!target)return;
@@ -238,12 +227,14 @@
     const link=target.closest('a[href^="#/"]');if(link){closeDialog(searchDialog);closeDialog(infoDialog);const mobile=document.getElementById('mobile-nav');if(mobile)mobile.hidden=true;if(route.page==='sos')state.sosTab='sorge';}
   });
   document.addEventListener('submit',event=>{
+    if(funding.handleSubmit(event))return;
     if(planner.handleSubmit(event))return;
     const form=event.target;
     if(form.matches('[data-form="hero-search"]')){event.preventDefault();const q=new FormData(form).get('q').trim();if(q)location.hash='/suche?q='+encodeURIComponent(q);}
     else if(form.id==='quick-search-form'){event.preventDefault();const q=searchInput.value.trim();closeDialog(searchDialog);location.hash='/suche'+(q?'?q='+encodeURIComponent(q):'');}
   });
   document.addEventListener('input',event=>{
+    if(funding.handleInput(event))return;
     if(planner.handleInput(event))return;
     const el=event.target;
     if(el===searchInput){updateQuickSearch();return;}
@@ -252,6 +243,7 @@
     if(el.dataset.search==='global'){updateQuery({q:el.value});updateSearchPage();}
   });
   document.addEventListener('change',event=>{
+    if(funding.handleChange(event))return;
     if(planner.handleChange(event))return;
     const el=event.target;
     if(el.dataset.check&&checkKeys.has(el.dataset.check)){
@@ -260,7 +252,6 @@
       const complete=el.checked&&[...checkKeys].filter(k=>k.startsWith(prefix)).every(k=>state.checks[k]);
       if(complete&&article)react(article.hubi?.checklistComplete||D.hubi.checklistComplete,article.category!=='schutz',null,article.hubi?.enabled!==false);
     }
-    if(el.dataset.grantAnswer){const question=V.grantQuestions[state.wizardStep];if(el.dataset.grantAnswer===question.key&&question.options.some(o=>o[0]===el.value)){state.grantAnswers[question.key]=el.value;document.querySelectorAll('.wizard-option').forEach(label=>label.classList.toggle('selected',label.querySelector('input').checked));document.getElementById('wizard-next').disabled=false;}}
     if(el.dataset.courseFilter){updateQuery({[el.dataset.courseFilter]:el.value});updateCourses();if(el.dataset.courseFilter==='sort')document.getElementById('course-sort').focus();}
   });
   document.addEventListener('keydown',event=>{
