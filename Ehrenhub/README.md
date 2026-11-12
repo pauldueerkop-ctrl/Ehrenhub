@@ -2,6 +2,8 @@
 
 Wissen und Orientierung für die Kinder- und Jugendarbeit in München. Tiefgrünes Design, keine Anmeldung, keine externen Laufzeit-Abhängigkeiten.
 
+**Neu in 0.5.0: persönlicher Fortbildungsweg.** Vier Ziele (erste Juleica, Verlängerung, Prävention, Erste Hilfe), eine Selbsteinschätzung und ein Lernweg führen zu passenden Angeboten. Fünf recherchierte Termine ersetzen die Demo-Kurse; keine behaupteten freien Plätze. Jede Veranstaltung besitzt eine Originalquelle und ein Prüfdatum. Redaktion: [START-HIER.txt](data/fortbildungen/START-HIER.txt), eine JSON-Datei pro Kurs. Optionaler lokaler Fortschritt, Lernweg-Dateien, Kalendermerker und Druckansicht – ohne Konto oder Backend. [Details und Quellen](docs/FORTBILDUNGEN.md) · [Prüfstand](docs/FORTBILDUNGEN-PRUEFUNG.md).
+
 **Neu in 0.4.0: interaktiver Förderassistent.** Im **Antragsfinder → Mit Beispiel ausprobieren** gibt es einen vollständigen Beispielablauf. Der neue Bereich prüft zuerst die Zuständigkeit, rechnet eine unverbindliche Obergrenze nach den BDKJ-München-Regeln, erklärt Voraussetzungen und Fristen und erstellt einen Fahrplan mit Checklisten. Die beiden unveränderten Original-PDFs sind auch offline eingebettet. Projektdateien lassen sich lokal speichern und wieder öffnen; der Förderplan hat ein eigenes Drucklayout. [Bedienung & fachliche Grenzen](docs/FOERDERASSISTENT.md) · [Redaktion der Regeln](data/foerderung/START-HIER.txt) · [Prüfung dieses Updates](docs/FOERDER-UPDATE-PRUEFUNG.md).
 
 **Neu in 0.3.0: Wiki-Redaktion und interaktive Artikel.** Unter `data/wiki/` liegt jeder Artikel in einer eigenen Datei, thematisch sortiert. [START-HIER.txt](data/wiki/START-HIER.txt) erklärt alle Felder und Bausteine; die [Artikelvorlage](data/wiki/ARTIKEL-VORLAGE.json) lässt sich kopieren. In der Website: **Wiki & How-tos → Interaktive Beispiele**. Drei Demos zeigen Szenarien, Fehlerdetektiv, neutralen Vergleich, Perspektivenwechsel, Entscheidungsweg, Sortier-Challenge und passende Hubi-Reaktionen. [Upload-Anleitung](UPLOAD-ANLEITUNG.txt) · [Prüfung dieses Updates](docs/WIKI-UPDATE-PRUEFUNG.md).
@@ -35,7 +37,9 @@ npm test
 | Gewünschte Änderung | Zuständiger Ort |
 | --- | --- |
 | Wiki-Artikel, Vorlage, Anleitung und Demos | `data/wiki/` mit Themenunterordnern |
-| Kurse, Antragswege, Quellen oder SOS-Inhalte | `data/` |
+| Kursredaktion mit Themenordnern, Vorlage und Anleitung | `data/fortbildungen/` |
+| Fortbildungsweg: Fachlogik, Darstellung, Bedienung und eigenes CSS | `src/features/fortbildungen/` |
+| Antragswege, Quellen oder SOS-Inhalte | `data/` |
 | Allgemeine Hubi-Texte | `data/hubi.json`; eigene Sätze im Artikel |
 | Auswahl hervorgehobener Startseiten-Einträge | `data/site.json` |
 | Gemeinsame Karten, Navigation, Dialoge | `src/components/` |
@@ -74,7 +78,7 @@ Der neue Build enthält bereits die Inhaltsvalidierung. Optional kann später de
 ## Was bleibt erhalten?
 
 - Vier Hauptbereiche: Wiki & How-tos, Antragsfinder, Fortbildungen sowie PSG & SOS.
-- Bisherige Artikel- und Kurs-IDs, Verknüpfungen und Beispielinhalte. Alte Förderweg-IDs bleiben als erklärende Weiterleitung zum neuen Assistenten nutzbar.
+- Bisherige Artikel-IDs und Verknüpfungen. Alte Demo-Kurs-IDs bleiben als erklärender Wegweiser nutzbar; auch gespeicherte Demo-Lesezeichen bleiben auffindbar. Alte Förderweg-IDs bleiben als erklärende Weiterleitung zum neuen Assistenten nutzbar.
 - Globale Suche, Filter, Merkliste, Checklisten, lokale Rückmeldung, Druckfunktion und Hubi.
 - Design, Icons, Responsive-Regeln und HTML-Grundgerüst.
 - Das Speicherpräfix `ehrenhub.v1.`; vorhandene lokale Daten bleiben unter derselben Website-Adresse nutzbar.
@@ -87,7 +91,7 @@ Der Förderassistent verwendet getrennt davon `ehrenhub.v1.fundingPlan`. Er spei
 
 ## Inhaltlicher Status
 
-Wiki-Texte sind nicht fachlich freigegeben. Kurstermine und Kursdetails bleiben Beispiele. Der neue Förderassistent nutzt die öffentlich zugängliche BDKJ-München-Detailrichtlinie vom 09.02.2026 und die besprochenen Praxishinweise; er ist trotzdem keine fachlich freigegebene Förderprüfung. Andere KJR-/Verbandsregeln werden nicht gleichgesetzt. Die verlinkten Organisationen sind keine behaupteten Kooperationspartner.
+Wiki-Texte sind nicht fachlich freigegeben. Die Kursdateien enthalten dagegen am 29.10.2026 recherchierte Originalangebote. Sie sind nicht live synchronisiert; Plätze, Preise und Anerkennung beim Anbieter bestätigen. Der neue Förderassistent nutzt die öffentlich zugängliche BDKJ-München-Detailrichtlinie vom 09.02.2026 und die besprochenen Praxishinweise; er ist trotzdem keine fachlich freigegebene Förderprüfung. Andere KJR-/Verbandsregeln werden nicht gleichgesetzt. Die verlinkten Organisationen sind keine behaupteten Kooperationspartner.
 
 Das Aufräumen ist keine fachliche, datenschutzrechtliche oder rechtliche Freigabe für einen regulären öffentlichen Betrieb. Die alten lokalen Demo-Texte wurden bewusst nicht inhaltlich überarbeitet.
 
@@ -98,4 +102,4 @@ Das Aufräumen ist keine fachliche, datenschutzrechtliche oder rechtliche Freiga
 - [Prüfprotokoll und verbleibende manuelle Tests](docs/PRUEFPROTOKOLL.md)
 - [Bisherige externe Quellen](SOURCES.md)
 
-Aktueller Prüfstand: [Förderassistent-Prüfung](docs/FOERDER-UPDATE-PRUEFUNG.md). Die alten Wiki-, Refactoring- und Schichtplanprotokolle bleiben als historische Dokumentation enthalten. Neue redaktionelle Metadaten ersetzen keine fachliche Freigabe. Browserchecks dieses Updates sind keine vollständige Barrierefreiheits- oder geräteübergreifende Prüfung.
+Aktueller Prüfstand: [Fortbildungsweg-Prüfung](docs/FORTBILDUNGEN-PRUEFUNG.md). Der frühere Stand ist unter [Förderassistent-Prüfung](docs/FOERDER-UPDATE-PRUEFUNG.md) dokumentiert. Die alten Wiki-, Refactoring- und Schichtplanprotokolle bleiben als historische Dokumentation enthalten. Neue redaktionelle Metadaten ersetzen keine fachliche Freigabe. Browserchecks dieses Updates sind keine vollständige Barrierefreiheits- oder geräteübergreifende Prüfung.

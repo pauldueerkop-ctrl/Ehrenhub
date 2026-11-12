@@ -55,7 +55,8 @@
   function makeSearchIndex(data) {
     return [
       ...data.articles.map(a => ({key:'wiki:'+a.id,kind:'wiki',label:'Wiki & How-tos',icon:a.icon,title:a.title,summary:a.summary,href:'#/wiki/'+a.id,text:[...a.tags,articleText(a)].join(' ')})),
-      ...data.courses.map(c => ({key:'kurs:'+c.id,kind:'kurs',label:'Fortbildung · Beispiel',icon:'graduation',title:c.title,summary:c.provider+' · '+c.length,href:'#/fortbildungen/'+c.id,text:[c.summary,courseTopics[c.topic],...c.tags].join(' ')})),
+      ...data.courses.map(c => ({key:'kurs:'+c.id,kind:'kurs',label:'Fortbildung · Originalquelle',icon:'graduation',title:c.title,summary:c.provider+' · '+c.length,href:'#/fortbildungen/'+c.id,text:[c.summary,courseTopics[c.topic],...c.tags].join(' ')})),
+      ...Object.entries(data.training?.legacy||{}).map(([id,topic])=>({key:'kurs:'+id,kind:'kurs',legacy:true,label:'Früherer Demo-Kurs',icon:'graduation',title:'Aktuelles Angebot: '+courseTopics[topic],summary:'Dieser gemerkte Link stammt aus dem Prototyp. Hier geht es zu recherchierten Angeboten.',href:'#/fortbildungen/'+id,text:''})),
       ...data.grants.map(g => ({key:'antrag:'+g.id,kind:'antrag',label:'Förderweg & Antragsvorbereitung',icon:'coins',title:g.title,summary:g.owner,href:'#/antraege/'+g.id,text:[g.summary,'Zuschüsse Förderung KJR Geld Antrag Finanzantrag Bezuschussung',regions[g.region]].join(' ')})),
       {key:'sos',kind:'sos',label:'PSG & SOS',icon:'shield',title:'Du musst das nicht allein klären.',summary:'Orientierung und Anlaufstellen bei sexualisierter Gewalt.',href:'#/sos',text:'Hilfe Notfall Schutz Prävention PSG Verdacht Beratungsstelle Sorge Gewalt Kinderschutz'},
       {key:'werkzeug:schichtplan',kind:'werkzeug',label:'Werkzeug · Schichtplaner',icon:'calendar',title:'Schichtplaner: euer Team fair einteilen',summary:'Bereiche, Verfügbarkeiten und Schichten lokal planen. Ohne Anmeldung.',href:'#/schichtplan',text:'Dienstplan Einsatzplan Helfer Team Veranstaltung Schichten Arbeit Plan Generator'}
@@ -63,7 +64,7 @@
   }
   function search(index, query, kind='alle') {
     const words = tokens(query);
-    return index.filter(item => (kind==='alle' || item.kind===kind) && words.every(word=>normalize(item.title+' '+item.summary+' '+item.text).includes(word)))
+    return index.filter(item => !item.legacy && (kind==='alle' || item.kind===kind) && words.every(word=>normalize(item.title+' '+item.summary+' '+item.text).includes(word)))
       .map(item=>({...item,score:words.reduce((sum,word)=>sum+(normalize(item.title).includes(word)?5:1),0)}))
       .sort((a,b)=>b.score-a.score || a.title.localeCompare(b.title,'de'));
   }

@@ -41,6 +41,7 @@
   }
   function titleFor(r){
     if(r.page==='schichtplan'&&!r.id)return 'Schichtplaner';
+    if(r.page==='fortbildungen'&&r.id&&Object.hasOwn(D.training.legacy,r.id))return 'Aktualisiertes Kursangebot';
     if(r.id){const collection=r.page==='wiki'?D.articles:r.page==='fortbildungen'?D.courses:r.page==='antraege'?D.grants:[];return collection.find(x=>x.id===r.id)?.title||'Seite nicht gefunden';}
     return {home:'Weniger suchen. Mehr bewegen.',wiki:'Wiki & How-tos',antraege:'Antragsfinder',fortbildungen:'Fortbildungsfinder',sos:'PSG & SOS – Unterstützung finden',merkliste:'Deine Merkliste',suche:'Suche'}[r.page]||'Seite nicht gefunden';
   }
@@ -186,6 +187,7 @@
     planner.reset();
     activities.reset();
     funding.reset();
+    training.reset();
     state.bookmarks=[];state.checks={};state.feedback={};state.hubiHidden=false;state.petCount=0;
     closeDialog(infoDialog);render();toast(cleared?'Deine lokalen Ehrenhub-Daten wurden zurückgesetzt.':'Ansicht zurückgesetzt. Dein Browser erlaubt gerade keinen Zugriff auf gespeicherte Daten.');
   }
@@ -207,10 +209,13 @@
   const planner=globalThis.EH.ShiftController.create({storage,toast});
   const activities=globalThis.EH.WikiBlockController.create({react});
   const funding=globalThis.EH.FundingController.create({storage,toast,speak:message=>bubble(message,5500)});
+  const training=globalThis.EH.TrainingController.create({storage,toast,speak:message=>bubble(message,5500),state});
+  state.training=training;
   state.funding=funding;
   state.activities=activities;
   state.planner=planner;
   document.addEventListener('click',event=>{
+    if(training.handleClick(event))return;
     if(funding.handleClick(event))return;
     if(planner.handleClick(event))return;
     if(activities.handleClick(event))return;
@@ -227,6 +232,7 @@
     const link=target.closest('a[href^="#/"]');if(link){closeDialog(searchDialog);closeDialog(infoDialog);const mobile=document.getElementById('mobile-nav');if(mobile)mobile.hidden=true;if(route.page==='sos')state.sosTab='sorge';}
   });
   document.addEventListener('submit',event=>{
+    if(training.handleSubmit(event))return;
     if(funding.handleSubmit(event))return;
     if(planner.handleSubmit(event))return;
     const form=event.target;
@@ -234,6 +240,7 @@
     else if(form.id==='quick-search-form'){event.preventDefault();const q=searchInput.value.trim();closeDialog(searchDialog);location.hash='/suche'+(q?'?q='+encodeURIComponent(q):'');}
   });
   document.addEventListener('input',event=>{
+    if(training.handleInput(event))return;
     if(funding.handleInput(event))return;
     if(planner.handleInput(event))return;
     const el=event.target;
@@ -243,6 +250,7 @@
     if(el.dataset.search==='global'){updateQuery({q:el.value});updateSearchPage();}
   });
   document.addEventListener('change',event=>{
+    if(training.handleChange(event))return;
     if(funding.handleChange(event))return;
     if(planner.handleChange(event))return;
     const el=event.target;

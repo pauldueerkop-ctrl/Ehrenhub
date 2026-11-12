@@ -13,7 +13,7 @@
     if (route.page === 'fortbildungen') {
       if (!route.id) return P.Training.training(route, state);
       const item = D.courses.find(item => item.id === route.id);
-      return item ? P.Training.courseDetail(item, state) : P.NotFound.notFound();
+      return item ? P.Training.courseDetail(item, state) : Object.hasOwn(D.training.legacy,route.id) ? P.Training.legacy(route.id) : P.NotFound.notFound();
     }
     if (route.page === 'antraege') {
       if (!route.id) return P.Grants.grants(route, state);

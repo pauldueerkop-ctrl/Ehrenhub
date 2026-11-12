@@ -4,6 +4,7 @@ import path from 'node:path';
 import data from '../src/content.js';
 import wikiValidation from './validate-wiki.cjs';
 import fundingValidation from './validate-funding.cjs';
+import trainingValidation from './validate-training.cjs';
 
 export function validateContent(D) {
   const errors = [];
@@ -27,6 +28,7 @@ export function validateContent(D) {
   };
   if (!object(D)) return ['data: Objekt erwartet'];
   fundingValidation.validateFunding(D,fail);
+  trainingValidation.validateTraining(D,fail);
   if (!object(D.hubi)) fail('data/hubi.json', 'Objekt mit Standardnachrichten erwartet');
   else {
     const allowed=['intro','pet','checklistComplete','start','success','retry','complete','change','pages'];
@@ -77,6 +79,7 @@ export function validateContent(D) {
     const pages = { wiki: 'articles', fortbildungen: 'courses', antraege: 'grants' };
     if (parts.length > 2 || (parts[0] && !['wiki', 'fortbildungen', 'antraege', 'sos', 'merkliste', 'suche', 'schichtplan'].includes(parts[0]))) fail(where, 'unbekannte Unterseite');
     else if (parts[1]) {
+      if (parts[0]==='fortbildungen'&&Object.hasOwn(D.training?.legacy||{},parts[1])) return;
       if (Object.hasOwn(pages, parts[0])) reference(parts[1], pages[parts[0]], where);
       else fail(where, 'diese Seite hat keine Detailansicht');
     }

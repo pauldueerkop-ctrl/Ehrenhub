@@ -8,6 +8,8 @@ const { loadWiki } = require('../scripts/load-wiki.cjs');
 const path = require('node:path');
 const fs = require('node:fs');
 const wiki = loadWiki(path.join(__dirname,'../data/wiki'), require('../data/wiki.json').order);
+const training = require('../data/fortbildungen/wegweiser.json');
+const courseData = require('../scripts/load-courses.cjs').loadCourses(path.join(__dirname,'../data/fortbildungen'), training);
 
 module.exports = {
   funding: require('../data/foerderung/bdkj-muenchen-2026.json'),
@@ -19,9 +21,10 @@ module.exports = {
   }),
   articles: wiki.articles,
   hubi: require('../data/hubi.json'),
-  courses: require('../data/fortbildungen.json'),
+  courses: courseData.courses,
+  training,
   grants: require('../data/antraege.json'),
-  sources: require('../data/quellen.json'),
+  sources: {...require('../data/quellen.json'), ...courseData.sources},
   categories: require('../data/kategorien.json'),
   finder: require('../data/finder.json'),
   sos: require('../data/sos.json'),
@@ -30,3 +33,4 @@ module.exports = {
   version: site.version,
 };
 Object.defineProperty(module.exports,'articleFiles',{value:wiki.files,enumerable:false});
+Object.defineProperty(module.exports,'courseFiles',{value:courseData.files,enumerable:false});
