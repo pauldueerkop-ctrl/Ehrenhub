@@ -1,0 +1,4 @@
+Hier passen praxisbezogene Tages-/Wochenendkurse zu Organisation und Team.
+KURS-VORLAGE.json kopieren; START-HIER.txt im übergeordneten Ordner lesen.
+Aktuell kein zusätzlicher Termin bestätigt; keine Platzhalter veröffentlicht.
+Anbieterübersicht: https://bdkj-muenchen.de/fortbildungen/

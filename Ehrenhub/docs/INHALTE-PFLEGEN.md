@@ -21,13 +21,18 @@ Listen, Suchindex und Unterseiten finden neue aktive Artikel automatisch. Kein C
 
 Ein Entwurf in einem öffentlichen Repository ist trotzdem öffentlich einsehbar. Keine vertraulichen Daten darin ablegen.
 
+## Fortbildungen: ebenfalls ein Redaktionsbereich
+
+Eine JSON-Datei pro Kurs unter `data/fortbildungen/`, thematisch sortiert. [Vollständige Anleitung](../data/fortbildungen/START-HIER.txt) und [Kursvorlage](../data/fortbildungen/KURS-VORLAGE.json) liegen direkt dort. `draft` bleibt aus der Website, `published` erscheint automatisch. Neue Termine müssen nicht in JavaScript registriert werden. Die alte Datei `data/fortbildungen.json` ist nur noch ein Hinweis.
+
 ## Andere Inhalte bleiben am bekannten Ort
 
 | Ort | Inhalt |
 | --- | --- |
 | `data/wiki/**/*.json` | Einzelne Wiki-Artikel |
 | `data/hubi.json` | Allgemeine Hubi- und Seitennachrichten |
-| `data/fortbildungen.json` | Beispielangebote, Anbieter und Filtermerkmale |
+| `data/fortbildungen/**/*.json` | Einzelne recherchierte Kurse |
+| `data/fortbildungen/wegweiser.json` | Anbieter, Ziele, Regelwerte und offizielle Quellen |
 | `data/antraege.json` | Beispielhafte Förderwege |
 | `data/quellen.json` | Externe Quellen mit Kennung, Bezeichnung und HTTPS-URL |
 | `data/kategorien.json` | Sichtbare Wiki-Kategorien, Farben und Icons |

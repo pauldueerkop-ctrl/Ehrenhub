@@ -23,7 +23,8 @@
   "courseDurations": {
     "tag": "Ein Tag / Abend",
     "wochenende": "Ein Wochenende",
-    "woche": "Eine Woche"
+    "woche": "Eine Woche",
+    "mehrteilig": "Mehrere Kursteile"
   },
   "courseFormats": {
     "praesenz": "Vor Ort",

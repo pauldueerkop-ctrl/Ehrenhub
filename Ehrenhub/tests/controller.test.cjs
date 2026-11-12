@@ -49,7 +49,7 @@ function boot({ hash = '#/', blocked = false, initial = {} } = {}) {
     scrollTo() {}, print() {}, confirm() { return true; },
   };
   const ctx = {
-    document, location, window, Element, URLSearchParams, URL, Blob,
+    document, location, window, Element, URLSearchParams, URL, Blob, TextEncoder,
     history: { replaceState(_state, _unused, hash) { location.hash = hash; } },
     setTimeout: fn => { timers.push(fn); return timers.length; }, clearTimeout() {}, requestAnimationFrame: () => 1,
     FormData: class { constructor(form) { this.data = form.fields || {}; } entries() { return Object.entries(this.data); } },
@@ -110,6 +110,39 @@ test('funding malformed saved data recovers without affecting existing bookmarks
   assert.equal(app.values.get('ehrenhub.v1.bookmarks'),'["wiki:juleica"]');
 });
 
+test('training controller keeps a session without saving, supports opt-in and restoration',()=>{
+  const app=boot({hash:'#/fortbildungen',initial:{'ehrenhub.v1.bookmarks':'["wiki:juleica"]'}}),key='ehrenhub.v1.learningPath';
+  app.click('[data-tf-goal]',{tfGoal:'start'});assert.equal(app.values.has(key),false);
+  const f=new app.Element();f.dataset={tfField:'basic'};f.value='yes';app.send('change',f);assert.equal(app.values.has(key),false);
+  const save=new app.Element();save.setAttribute('data-tf-save','');save.checked=true;app.send('change',save);assert.equal(JSON.parse(app.values.get(key)).answers.basic,'yes');
+  app.click('[data-tf-action]',{tfAction:'next'});assert.equal(JSON.parse(app.values.get(key)).step,2);
+  const reload=boot({hash:'#/fortbildungen',initial:Object.fromEntries(app.values)});assert.match(reload.nodes.get('main').innerHTML,/Dein nächster Schritt/);assert.match(reload.nodes.get('main').innerHTML,/Nach eigener Angabe erledigt/);
+  save.checked=false;app.send('change',save);assert.equal(app.values.get(key),'null');assert.equal(app.values.get('ehrenhub.v1.bookmarks'),'["wiki:juleica"]');
+});
+test('training changes clear irrelevant dates, bad dates do not advance, reset keeps other data',()=>{
+  const app=boot({hash:'#/fortbildungen?goal=start'}),key='ehrenhub.v1.learningPath';const save=new app.Element();save.setAttribute('data-tf-save','');save.checked=true;app.send('change',save);
+  const field=new app.Element();field.dataset={tfField:'firstAid'};field.value='yes';app.send('change',field);field.dataset={tfField:'firstAidDate'};field.value='2099-01-01';app.send('input',field);app.click('[data-tf-action]',{tfAction:'next'});assert.equal(JSON.parse(app.values.get(key)).step,1);
+  field.dataset={tfField:'firstAid'};field.value='no';app.send('change',field);assert.equal(JSON.parse(app.values.get(key)).answers.firstAidDate,'');
+  app.click('[data-tf-action]',{tfAction:'next'});assert.equal(JSON.parse(app.values.get(key)).step,2);
+  let printed=0;app.ctx.window.print=()=>printed++;app.click('[data-tf-action]',{tfAction:'print'});assert.equal(printed,1);
+  app.ctx.window.confirm=()=>false;app.click('[data-tf-action]',{tfAction:'reset'});assert.equal(JSON.parse(app.values.get(key)).step,2);
+  app.ctx.window.confirm=()=>true;app.click('[data-tf-action]',{tfAction:'reset'});assert.equal(app.values.get(key),'null');
+});
+test('training import is schema-checked, bounded, confirmed and never enables storage by itself',async()=>{
+  const app=boot({hash:'#/fortbildungen'});const p=app.ctx.EH.TrainingModel.project();p.answers.goal='renew';p.step=2;
+  const file=new app.Element();file.setAttribute('data-tf-import','');const send=async(text,size=1000)=>{file.files=[{size,text:async()=>text}];app.send('change',file);await new Promise(r=>setImmediate(r));};
+  await send(JSON.stringify(p));assert.equal(app.values.has('ehrenhub.v1.learningPath'),false);
+  app.navigate('#/fortbildungen');assert.match(app.nodes.get('main').innerHTML,/Juleica verlängern/);
+  p.answers.goal='aid';app.ctx.window.confirm=()=>false;await send(JSON.stringify(p));app.navigate('#/fortbildungen');assert.match(app.nodes.get('main').innerHTML,/Juleica verlängern/);
+  app.ctx.window.confirm=()=>true;await send(JSON.stringify(p),20001);app.navigate('#/fortbildungen');assert.match(app.nodes.get('main').innerHTML,/Juleica verlängern/);
+  await send('bad');app.navigate('#/fortbildungen');assert.match(app.nodes.get('main').innerHTML,/Juleica verlängern/);
+  await send(JSON.stringify(p));app.navigate('#/fortbildungen');assert.match(app.nodes.get('main').innerHTML,/Erste Hilfe praktisch lernen/);
+});
+test('training blocked or corrupt storage never blocks use or damages existing projects',()=>{
+  const app=boot({hash:'#/fortbildungen?goal=aid',blocked:true});const save=new app.Element();save.setAttribute('data-tf-save','');save.checked=true;app.send('change',save);app.click('[data-tf-action]',{tfAction:'next'});app.navigate('#/fortbildungen');
+  assert.match(app.nodes.get('main').innerHTML,/Speichern im Browser ist blockiert/);assert.match(app.nodes.get('main').innerHTML,/Erste Hilfe praktisch lernen/);
+  const bad=boot({hash:'#/fortbildungen',initial:{'ehrenhub.v1.learningPath':'bad','ehrenhub.v1.bookmarks':'["wiki:juleica"]'}});assert.match(bad.nodes.get('main').innerHTML,/nicht lesbar/);assert.equal(bad.values.get('ehrenhub.v1.bookmarks'),'["wiki:juleica"]');
+});
 test('actual HTML bundle boots with data and all presentation modules in order', () => {
   const { ctx, nodes } = boot();
   assert.ok(nodes.get('main').innerHTML.includes('Weniger suchen.'));

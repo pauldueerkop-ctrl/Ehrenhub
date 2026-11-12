@@ -26,12 +26,12 @@ test('search finds terms with umlauts, ASCII alternatives, punctuation and any c
   assert.ok(C.search(index,'jUlEiCa').some(x=>x.key==='wiki:juleica'));
   assert.ok(C.search(index,'FÖRDERUNG').some(x=>x.kind==='antrag'));
   assert.deepEqual(C.search(index,'foerderung').map(x=>x.key),C.search(index,'Förderung').map(x=>x.key));
-  assert.ok(C.search(index,'Erste-Hilfe-Kurs').some(x=>x.key==='kurs:erste-hilfe'));
+  assert.ok(C.search(index,'Erste-Hilfe-Ausbildung').some(x=>x.key==='kurs:brk-eh-pasing-2026-11-06'));
   assert.equal(C.search(index,'ZZZ-no-such-content').length,0);
 });
 test('search combines words, ranks title matches and respects type filters',()=>{
   assert.equal(C.search(index,'erste gruppenstunde')[0].key,'wiki:erste-gruppenstunde');
-  assert.ok(C.search(index,'KjG Kurswoche').some(x=>x.kind==='kurs'));
+  assert.ok(C.search(index,'KjG Prävention').some(x=>x.kind==='kurs'));
   assert.ok(C.search(index,'','sos').every(x=>x.kind==='sos'));
   assert.ok(C.search(index,'Juleica','wiki').every(x=>x.kind==='wiki'));
   assert.equal(C.search(index,'', 'antrag').length,8);
@@ -45,13 +45,16 @@ test('wiki topic and full-text search can be combined and reset',()=>{
 test('course filters combine without mutating source data',()=>{
   const before=JSON.stringify(D.courses);
   const onlinePSG=C.filterCourses(D.courses,{topic:'praevention',format:'online',duration:'tag'});
-  assert.deepEqual(onlinePSG.map(c=>c.id),['psg-vertiefung']);
+  assert.deepEqual(onlinePSG.map(c=>c.id),[]);
   const weeks=C.filterCourses(D.courses,{duration:'woche'});
-  assert.deepEqual(weeks.map(c=>c.id),['kjg-kurswoche']);
+  assert.deepEqual(weeks.map(c=>c.id),[]);
+  const sample=[{...D.courses[0],id:'test-online',topic:'praevention',format:'online',duration:'tag'}, {...D.courses[0],id:'test-week',duration:'woche'}];
+  assert.deepEqual(C.filterCourses(sample,{topic:'praevention',format:'online',duration:'tag'}).map(c=>c.id),['test-online']);
+  assert.deepEqual(C.filterCourses(sample,{duration:'woche'}).map(c=>c.id),['test-week']);
   assert.equal(C.filterCourses(D.courses,{topic:'erstehilfe',format:'online'}).length,0);
-  assert.equal(C.filterCourses(D.courses,{q:'BRK'}).length,1);
+  assert.equal(C.filterCourses(D.courses,{q:'BRK'}).length,4);
   const sorted=C.filterCourses(D.courses,{});
-  assert.equal(sorted[0].id,'bdkj-praevention');
+  assert.equal(sorted[0].id,'brk-eh-pasing-2026-11-06');
   assert.equal(JSON.stringify(D.courses),before);
 });
 test('every supported grant path returns only the matching region and project',()=>{

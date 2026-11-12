@@ -1,14 +1,14 @@
 {
-  "version": "0.4.0",
+  "version": "0.5.0",
   "reviewed": "18.10.2026",
   "featuredArticles": [
     "erste-gruppenstunde",
     "foerderantrag-vorbereiten"
   ],
   "featuredCourses": [
-    "kjg-kurswoche",
-    "bdkj-praevention",
-    "erste-hilfe"
+    "kjg-praevention-2026-11-18",
+    "brk-eh-pasing-2026-11-06",
+    "brk-eh-sendling-2026-11-07"
   ],
   "quickSearch": [
     "wiki:erste-gruppenstunde",
@@ -44,7 +44,7 @@
       "description": "Neues lernen. Sicherer werden.",
       "href": "#/fortbildungen",
       "count": "courses",
-      "label": "Beispielangebote"
+      "label": "recherchierte Termine"
     },
     {
       "icon": "shield",

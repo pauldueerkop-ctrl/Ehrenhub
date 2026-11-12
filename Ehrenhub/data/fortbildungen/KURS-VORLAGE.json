@@ -1,0 +1,47 @@
+{
+  "status": "draft",
+  "providerId": "kjg",
+  "topic": "leitung",
+  "levelCode": "basic",
+  "duration": "woche",
+  "format": "praesenz",
+  "endDate": "2027-04-07",
+  "deadline": null,
+  "booking": "unknown",
+  "checkedAt": "2026-10-29",
+  "price": {
+    "amount": null,
+    "currency": "EUR",
+    "note": "Preis beim Anbieter prüfen."
+  },
+  "recognition": {
+    "basic": "clarify",
+    "renewal": "clarify",
+    "firstAid": "clarify",
+    "prevention": "clarify",
+    "hours": null,
+    "teachingUnits": null,
+    "note": "Anerkennung und bescheinigten Umfang vorab mit dem Träger klären; belegte Anbieterangaben hier zusammenfassen."
+  },
+  "tags": [
+    "Gruppenleitung",
+    "Juleica"
+  ],
+  "contents": [
+    "Eigene kurze Zusammenfassung, keine langen Originaltexte kopieren."
+  ],
+  "level": "Zielgruppe / Voraussetzungen eintragen",
+  "summary": "Hier eine eigene kurze Beschreibung eintragen.",
+  "note": "DIES IST EINE VORLAGE. Daten und Anerkennung prüfen, bevor status auf published gesetzt wird.",
+  "sessions": [],
+  "id": "mein-neuer-kurs",
+  "title": "Kurstitel eintragen",
+  "originalTitle": "Originaltitel auf der Anbieter-Webseite",
+  "region": "umland",
+  "date": "2027-04-01",
+  "startTime": null,
+  "endTime": null,
+  "length": "Zeitumfang laut Original eintragen",
+  "location": "Ort und Adresse eintragen",
+  "url": "https://muenchen.kjg.de/kurswoche/"
+}

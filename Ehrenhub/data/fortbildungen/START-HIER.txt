@@ -1,0 +1,232 @@
+EHRENHUB – EURE FORTBILDUNGS-REDAKTION
+Version 0.5.0 · 29.10.2026
+
+KURZ GESAGT
+
+Ein Kurs = eine JSON-Datei in einem Themenordner. Ihr ändert hier die Inhalte,
+nicht die HTML-Datei. Beim nächsten erfolgreichen GitHub-Build wird der Kurs
+automatisch in Katalog, Suche, Detailseite und passenden Lernwegen angezeigt.
+Es gibt kein Formular mit Redaktionslogin und noch keinen laufenden Crawler.
+Die jetzigen fünf Termine wurden einmalig aus offiziellen Quellen recherchiert.
+
+DIE ORDNER
+
+01-gruppenleitung/  Gruppenleiter-Ausbildung, KjG-Kurswochen
+02-praevention/     Präventionsgrundlagen und Vertiefungen
+03-erste-hilfe/     Erste-Hilfe-Kurse, einzelne Termine getrennt
+04-organisation/    Weitere praxisbezogene Fortbildungen, z.B. Team/Organisation
+
+Leere Themenordner sind Absicht: Lieber eine Anbieterkarte als ein erfundener
+Termin. Die Textdateien in den Ordnern bleiben unsichtbar auf der Website.
+Ihr könnt weitere Unterordner anlegen. Für den Filter zählt aber "topic" in
+der Datei, nicht der Ordnername. Neue THEMEN brauchen eine Code-Erweiterung.
+
+EINEN KURS ANLEGEN – OHNE PROGRAMMIEREN
+
+1. KURS-VORLAGE.json kopieren, NICHT die Vorlage selbst veröffentlichen.
+2. Kopie im passenden Themenordner speichern, z.B.:
+   01-gruppenleitung/kjg-grundkurs-2027-04-01.json
+3. "id" identisch zum Dateinamen ohne .json setzen.
+   Nur kleine Buchstaben, Zahlen, Bindestriche; mit Buchstaben beginnen.
+   Jede ID darf nur einmal vorkommen. Eine veröffentlichte ID beibehalten,
+   damit Merkliste und Links weiterhin funktionieren.
+4. Alle Angaben anhand der offiziellen Detailseite prüfen und ersetzen.
+   Die Vorlagendaten sind Platzhalter, keine bestätigte Veranstaltung!
+5. Bis zur Freigabe "status": "draft" lassen. Zum Anzeigen:
+   "status": "published"
+6. Datei im richtigen GitHub-Ordner hochladen / bearbeiten und committen.
+   Der bestehende Pages-Workflow bleibt gleich: npm run build, Ausgabe dist.
+7. Grünen Build abwarten, Website neu laden, Kurs und Original-Link testen.
+
+Wenn ihr lokal arbeitet: npm run validate prüft Inhalte, npm test prüft
+zusätzlich das ganze Projekt und baut Ehrenhub.html / dist/index.html neu.
+Die mitgelieferte Ehrenhub.html ist eine Momentaufnahme und aktualisiert
+sich nicht selbst, wenn ihr JSON-Dateien daneben ändert.
+
+JSON-GRUNDREGELN
+
+- Text steht in doppelten Anführungszeichen: "Mein Kurs".
+- Kommas zwischen Feldern, KEIN Komma nach dem letzten Feld eines Objekts.
+- Keine Kommentare in JSON. Hinweise gehören in note oder diese TXT-Datei.
+- Unbekannte Datumswerte / Zahlen als null, ohne Anführungszeichen.
+- Keine HTML-Tags einsetzen: Texte werden absichtlich als Text dargestellt.
+- Anführungszeichen im Text mit \" schreiben, neue Zeile bei Bedarf mit \n.
+- Nur öffentliche Kursinformationen. Keine Teilnehmernamen, E-Mails von
+  Anmeldenden, Bescheinigungen, Zugangsdaten oder ausgefüllten Lernweg-Dateien.
+  Alles mit status published wird in der öffentlichen HTML-Datei eingebettet.
+  Auch draft/archived ist in einem ÖFFENTLICHEN GITHUB-REPOSITORY einsehbar!
+
+ALLE KURSFELDER
+
+id             Eindeutige stabile ID, gleich dem Dateinamen ohne .json.
+status         draft = nicht auf der Website; published = anzeigen;
+               archived = nicht mehr einbinden. Vergangene published-Termine
+               bleiben über direkte Links erreichbar; siehe Datumslogik unten.
+title          Kurzer verständlicher Titel für Karten und Detailseite.
+originalTitle  Optionaler genauer Titel des Anbieters, zum Wiederfinden.
+summary        Eigene kurze Zusammenfassung in 1–2 Sätzen.
+providerId     brk, kjg oder bdkj. Neuer Anbieter: unten beschrieben.
+topic          leitung | praevention | erstehilfe | organisation
+levelCode      basic = Grundlagen; advanced = Vertiefung;
+               all = für unterschiedliche Vorkenntnisse.
+               Eine Vertiefung wird NICHT als Grundlagenschulung empfohlen.
+duration       tag | wochenende | woche | mehrteilig
+format         praesenz | online
+region         muenchen | umland | online
+date           Haupttermin / Beginn der Hauptveranstaltung: "2027-04-01".
+               Muss für einen veröffentlichten Kurs feststehen!
+endDate        Letzter Tag der Hauptveranstaltung; Einzeltermin: null.
+startTime      "09:00" oder null, wenn unbekannt.
+endTime        "17:00" oder null. Entweder beide Uhrzeiten oder beide null.
+               Bei Ende am Folgetag muss endDate gesetzt sein.
+length         Lesbare Dauer, z.B. "09:00–17:00 Uhr, inkl. Pausen".
+               Das Zeitfenster ist NICHT automatisch die anrechenbare Zeit.
+location       Ort / Adresse, bei Onlinekursen ein verständlicher Hinweis.
+deadline       Anmeldeschluss "2027-03-15"; wenn nicht bekannt: null.
+booking        unknown = Plätze nicht live bekannt (sicherer Standard);
+               open = Anmeldung laut Quelle möglich; waitlist = Warteliste;
+               closed = geschlossen; cancelled = abgesagt.
+               Auch open ist KEINE Live-Verfügbarkeitsgarantie.
+checkedAt      Datum eures tatsächlichen Quellenchecks, z.B. "2026-10-29".
+               Nicht automatisch auf heute ändern, ohne die Quelle zu prüfen.
+url            Direkter HTTPS-Link zur Originalveranstaltung / Anmeldung.
+               Keine allgemeine Homepage, wenn eine Detailseite verfügbar ist.
+               Keine Login-Tokens, privaten Einladungs- oder Sitzungslinks.
+level          Zielgruppe / Vorkenntnisse als verständlicher Satz.
+contents       Liste kurzer eigener Zusammenfassungen: ["Punkt 1", "Punkt 2"].
+tags           Suchbegriffe als Liste, z.B. ["Juleica", "Gruppenleitung"].
+note           Weitere wichtige Hinweise, offene Fragen, Besonderheiten.
+sessions       [] bei Einzeltermin; bei mehreren Kursteilen siehe unten.
+
+PREIS (price)
+
+"price": {
+  "amount": 25,
+  "currency": "EUR",
+  "note": "Für Mitglieder ermäßigt; Bedingungen beim Anbieter."
+}
+
+amount: 0 bedeutet wirklich kostenlos. Unbekannt ist null, NICHT 0.
+Rabatte / mehrere Preisstufen in note erklären. Keine stillen Annahmen.
+
+ANERKENNUNG (recognition)
+
+"recognition": {
+  "basic": "clarify",
+  "renewal": "clarify",
+  "firstAid": "clarify",
+  "prevention": "clarify",
+  "hours": null,
+  "teachingUnits": null,
+  "note": "Anerkennung und bescheinigten Umfang vorab mit dem Träger klären."
+}
+
+basic      Volle Grundausbildung / entsprechender Baustein nach Anbieterinfo.
+renewal    Für Juleica-Verlängerung anrechenbar laut Anbieter.
+firstAid   Passender Erste-Hilfe-Nachweis laut Anbieter.
+prevention Anerkennung als Präventionsschulung laut Anbieter.
+
+Werte für diese vier Felder:
+provider = ausdrücklich vom Anbieter angegeben; ist keine Zusage für jeden
+           Einzelfall / jeden Träger. In note genau erklären, worauf bezogen.
+clarify  = noch nicht bestätigt / muss geklärt werden (Standard).
+no       = ausdrücklich nicht dafür vorgesehen.
+
+hours = NUR bestätigte anrechenbare ZEITSTUNDEN. Nicht aus Anfang/Ende rechnen!
+teachingUnits = NUR bestätigte UNTERRICHTSEINHEITEN. Nicht mit Stunden gleichsetzen.
+Eine Unterrichtseinheit ist im Juleica-Erste-Hilfe-Kontext 45 Minuten.
+Unbekannten Umfang null lassen. Die aktuelle KjG-Vertiefung ist laut Anbieter
+zur Verlängerung anrechenbar, nennt aber keine anrechenbare Stundenanzahl.
+
+MEHRTEILIGE KURSWOCHEN
+
+Verpflichtende Vor-/Nachtreffen in sessions aufnehmen, zum Beispiel:
+
+"sessions": [
+  {"label":"Vorwochenende", "date":"2027-03-20", "endDate":"2027-03-21",
+   "startTime":null, "endTime":null},
+  {"label":"Kurswoche", "date":"2027-04-01", "endDate":"2027-04-07",
+   "startTime":null, "endTime":null}
+]
+
+Das ist nur ein Formatbeispiel, KEIN echtes Kursangebot. Wenn sessions
+gefüllt ist, dort ALLE Termine einschließlich Hauptkurs aufführen. Der
+Kalenderexport verwendet dann genau diese Liste. Ort ist vorerst für alle
+Kursteile gleich; abweichende Orte in note nennen und beim Anbieter prüfen.
+Ist ein verpflichtender Kursteil schon begonnen, empfiehlt Ehrenhub den
+Kurs nicht mehr als neuen Einstieg, selbst wenn die Kurswoche erst später ist.
+
+WAS AUTOMATISCH PASSIERT
+
+- Ohne Änderung an Quellcode oder Registrierung wird jede published-Datei
+  in allen Unterordnern eingelesen. Reihenfolge: Datum, dann ID.
+- Icon und Farbe folgen dem Thema; Anbietername kommt aus wegweiser.json.
+- Eigene Detailseite: #/fortbildungen/DEINE-ID.
+- Suche, Themen, Anbieter, Ort, Zeitraum, Dauer, Format und Niveau funktionieren.
+- Abgesagte, geschlossene, vergangene oder bereits gestartete Kurse werden
+  standardmäßig ausgeblendet. Im Katalog kann man sie zusätzlich anzeigen.
+- Der Anmeldeschluss gilt einschließlich des angegebenen Tages. Es gibt
+  keine Uhrzeit-genaue Buchungslogik. Verbindlich ist immer die Originalseite.
+- Mehr als 60 Tage nach checkedAt erscheint ein Hinweis zum alten Prüfstand.
+  Es findet dadurch KEIN neuer Quellenabruf statt.
+- Ein Kalenderexport (.ics) merkt Tage ganztägig vor. Bekannte Uhrzeiten
+  stehen in der Beschreibung. Kein Ticket, keine Buchung, kein Nachweis.
+- Der Juleica-Verlängerungsweg zeigt nur renewal: provider als passende
+  bestätigte Möglichkeit. Unbekannte Stunden werden nicht aufsummiert.
+- Alte Demo-Kurslinks bleiben als Wegweiser zu aktuellen Angeboten erhalten.
+
+NEUEN ANBIETER HINZUFÜGEN
+
+In wegweiser.json unter providers einen neuen Eintrag mit eindeutiger ID
+ergänzen. Beispielstruktur (nicht ohne echte Quellen veröffentlichen):
+
+"neuer-anbieter": {
+  "name": "Öffentlicher Name des Anbieters",
+  "url": "https://example.org/kurse",
+  "topics": ["leitung"],
+  "note": "Welche Angebote hier zu finden sind."
+}
+
+Optional preventionUrl als besonderen Link zu Präventionsschulungen ergänzen.
+In Kursdateien dann "providerId": "neuer-anbieter" verwenden. Anbieter-Filter
+und Verweise übernehmen den neuen Anbieter automatisch.
+
+wegweiser.json enthält außerdem Ziele, BJR-Quellen und fachliche Basisregeln.
+Diese Regeln NICHT wie einen Termin beiläufig ändern. Neue Anforderungen
+mit verlässlicher Quelle prüfen; bei Regeländerung version und checkedAt
+aktualisieren. Die Ziele / Regel-Feldnamen sind mit dem Programm verbunden.
+
+STARTSEITE UND ALTE DATEI
+
+data/site.json > featuredCourses wählt drei bevorzugte Kurs-IDs für die
+Startseite. Keine alten IDs löschen, solange sie dort noch referenziert sind.
+Der Fortbildungsbereich selbst zeigt kommende Termine automatisch.
+data/fortbildungen.json ist nur noch eine Hinweisdatei und kein Kursbestand.
+Sie wird mitgeliefert, damit das alte Demo-Array beim Ordner-Upload ersetzt wird.
+
+VOR JEDER VERÖFFENTLICHUNG
+
+Original-Link öffnen; Ort / Zeiten / Frist / Preis prüfen; Pflichtvorwochenende
+beachten; keine Verfügbarkeit behaupten; Anerkennung nicht schätzen;
+checkedAt setzen; npm test bzw. GitHub-Build prüfen; Website ansehen.
+Eigene knappe Beschreibungen verwenden, keine Anbieterbilder / langen Texte
+ungefragt übernehmen. Es wird keine Kooperation behauptet.
+
+WENN ETWAS SCHIEFGEHT
+
+Ein roter Build nennt möglichst Datei und Feld. Häufig sind ein fehlendes
+Komma, unterschiedliche id / Dateiname, doppelte IDs, falsche providerId,
+ein unmögliches Datum oder eine Zeichenkette statt einer Zahl die Ursache.
+Ein fehlgeschlagener neuer Build aktualisiert die bisherige Pages-Version
+nicht. Nicht den Workflow umbauen, sondern zuerst den Inhaltsfehler beheben.
+
+Ein ausgeblendeter Kurs kann absichtlich draft / archived sein, eine
+abgelaufene Frist haben oder schon begonnen haben. Im Katalog "Auch
+vergangene / geschlossene Termine" testen. Filter ggf. zurücksetzen.
+
+ZUKÜNFTIGER CRAWLER
+
+Die Datenstruktur ist schon vorbereitet. Ein späterer Crawler kann neue
+Dateien mit status draft anlegen oder Änderungen vorschlagen. Vor der
+Veröffentlichung soll ein Mensch Zeiten, Anerkennung, Fristen und Dubletten
+prüfen. Dieses Paket aktiviert keine geplanten Abfragen und keine Dienste.

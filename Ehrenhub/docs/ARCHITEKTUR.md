@@ -1,6 +1,6 @@
 # Ehrenhub: Wo gehört welche Änderung hin?
 
-Technischer Stand: 22. Oktober 2026, Wiki-Update 0.3.0. Das sichtbare Design und der bisherige Demo-Datenbestand bleiben erhalten. Es gibt weiterhin keine Anmeldung, kein Backend und keine zusätzlichen npm-Abhängigkeiten.
+Technischer Stand: 29. Oktober 2026, Fortbildungsweg 0.5.0. Das sichtbare Design bleibt erhalten; die früheren Demo-Kurse sind durch recherchierte Termine ersetzt. Es gibt weiterhin keine Anmeldung, kein Backend und keine zusätzlichen npm-Abhängigkeiten.
 
 Ergänzung: Der Schichtplaner ist ein eigenständiges Feature unter `src/features/schichtplan/`. Die bestehende Aufteilung bleibt erhalten; komplexere Werkzeuge können ihre eigene Fachlogik, Darstellung, Bedienung und CSS zusammenhalten. Details stehen in [SCHICHTPLAN.md](SCHICHTPLAN.md).
 
@@ -8,7 +8,7 @@ Ergänzung: Der Schichtplaner ist ein eigenständiges Feature unter `src/feature
 
 | Zuständigkeit | Ort | Beispiele |
 | --- | --- | --- |
-| Redaktionelle Inhalte und Kataloge | `data/wiki/**/*.json`, `data/*.json` | Einzelartikel, Kursdetails, Förderwege, Quellen, SOS-Texte |
+| Redaktionelle Inhalte und Kataloge | `data/wiki/**/*.json`, `data/fortbildungen/**/*.json`, `data/foerderung/`, `data/*.json` | Einzelartikel, Kursdetails, Förderwege, Quellen, SOS-Texte |
 | Gemeinsame Darstellung | `src/components/` | Karten, Quellenlinks, Lesezeichen, Navigation, Dialoge |
 | Darstellung eines Bereichs | `src/pages/` | Wiki, Antragsfinder, Fortbildungen, SOS, Suche, Merkliste |
 | Verhalten und Fachlogik | `src/core.js`, `src/app.js`, `src/services/` | Suche, Filter, Routing, Klicks, lokale Speicherung |
@@ -18,7 +18,7 @@ Ergänzung: Der Schichtplaner ist ein eigenständiges Feature unter `src/feature
 
 ## Was passiert bei einem Build?
 
-1. `src/content.js` liest die JSON-Dateien und setzt daraus ein gemeinsames Datenobjekt zusammen. `scripts/load-wiki.cjs` findet die Einzelartikel rekursiv in `data/wiki/`, lässt Vorlage und Entwürfe aus und berücksichtigt die Reihenfolge aus `data/wiki.json`.
+1. `src/content.js` liest die JSON-Dateien und setzt daraus ein gemeinsames Datenobjekt zusammen. `scripts/load-wiki.cjs` findet die Einzelartikel rekursiv in `data/wiki/`, lässt Vorlage und Entwürfe aus und berücksichtigt die Reihenfolge aus `data/wiki.json`. `scripts/load-courses.cjs` findet veröffentlichte Kurse in den Themenordnern und erzeugt die Quellenreferenzen. `scripts/validate-training.cjs` prüft den fachlichen Datenrahmen.
 2. `scripts/validate-content.mjs` und `scripts/validate-wiki.cjs` prüfen Pflichtfelder, IDs, Verweise, Datumswerte, Quellen, Finder-Konfiguration, Hubi-Nachrichten und alle interaktiven Bausteine. Fehler stoppen den Build mit Datei/Feld als Hinweis.
 3. `scripts/build.mjs` bettet dieses Objekt und die in `scripts/modules.json` aufgelisteten Module in die HTML-Vorlage ein.
    Die CSS-Dateien aus `scripts/styles.json` werden ebenfalls in dieser Reihenfolge eingebettet.
@@ -43,8 +43,9 @@ Die getrennten Quelldateien sind für die Menschen, die an Ehrenhub arbeiten. Da
 | `src/features/wiki/view.js` | Maskierte HTML-Ausgaben der Bausteine |
 | `src/features/wiki/controller.js` | Delegierte Klicks, Fokus und Zustand im aktuellen Tab |
 | `src/features/wiki/styles.css` | Ergänzungen im bisherigen Design, Mobil-, Druck- und Reduced-Motion-Regeln |
-| `src/pages/training.js` | Fortbildungsfinder und Kursdetails |
-| `src/pages/grants.js` | Dreistufiger Antragsfinder und Förderwegdetails |
+| `src/pages/training.js` | Stabile Routenschnittstelle zum neuen Feature |
+| `src/features/fortbildungen/` | Modell, Wegweiser, Katalog, Detailansichten, lokale Speicherung, ICS und CSS |
+| `src/pages/grants.js` | Schnittstelle zum Förderassistenten unter `src/features/foerderung/` |
 | `src/pages/sos.js` | Darstellung der SOS-Daten und Situationsauswahl |
 | `src/pages/search.js` | Gemeinsame Suchergebnisdarstellung und Suchseite |
 | `src/pages/saved.js` | Merkliste |
@@ -57,7 +58,7 @@ Die Module sind bewusst einfache JavaScript-Dateien statt eines neuen Frameworks
 
 ## Erweiterungen ohne Umweg
 
-**Weiteren Artikel aufnehmen:** Vorlage aus `data/wiki/` in einen Themenordner kopieren und anpassen. Aktive Artikel werden automatisch gefunden. **Weiteren Kurs aufnehmen:** den bisherigen Kurskatalog ergänzen. Listen, Suche, Details und Zähler nutzen die Daten automatisch. Ausgewählte Startseitenkarten werden ausdrücklich über IDs in `data/site.json` bestimmt, nicht über eine zufällige Position im Array.
+**Weiteren Artikel aufnehmen:** Vorlage aus `data/wiki/` in einen Themenordner kopieren und anpassen. Aktive Artikel werden automatisch gefunden. **Weiteren Kurs aufnehmen:** Vorlage aus `data/fortbildungen/` kopieren und im passenden Themenordner veröffentlichen. Listen, Suche, Details und Zähler nutzen die Daten automatisch. Ausgewählte Startseitenkarten werden ausdrücklich über IDs in `data/site.json` bestimmt, nicht über eine zufällige Position im Array.
 
 **Eine Kartenart anders gestalten:** Die entsprechende Funktion in `src/components/cards.js` und gegebenenfalls CSS anpassen. Alle Verwendungen teilen diese Komponente.
 
@@ -74,8 +75,8 @@ Wiki-Aufgaben haben nur flüchtigen Tab-Zustand. Checklisten behalten die bisher
 - Der Repository-Unterordner `Ehrenhub/` bleibt bestehen. Die lokale Arbeitskopie kann anders heißen; entscheidend ist der bestehende GitHub-Pfad.
 - Build-Befehl: `npm run build`; Pages-Uploadpfad: `Ehrenhub/dist`.
 - Hash-Links wie `#/wiki/juleica` benötigen keine neue Server-Konfiguration.
-- Artikel- und Kurs-IDs sowie das Speicherpräfix `ehrenhub.v1.` bleiben gleich. Auf derselben Website-Adresse bleiben vorhandene Browser-Daten nutzbar.
-- Alle bisherigen Beispielinhalte und Demo-Hinweise bleiben erhalten. Das Refactoring stellt keine fachliche Freigabe dar.
+- Artikel-IDs und das Speicherpräfix `ehrenhub.v1.` bleiben gleich. Alte Demo-Kurs-IDs führen zu einer erklärenden Brückenseite. Auf derselben Website-Adresse bleiben vorhandene Browser-Daten nutzbar.
+- Wiki-Beispiele bleiben erhalten. Im Kursbereich ersetzen Originalangebote die früheren fiktiven Termine. Das Refactoring stellt keine fachliche Freigabe dar.
 
 ## Kleine Änderungen sicher machen
 

@@ -1,0 +1,50 @@
+{
+  "status": "published",
+  "providerId": "brk",
+  "topic": "erstehilfe",
+  "levelCode": "basic",
+  "duration": "tag",
+  "format": "praesenz",
+  "endDate": null,
+  "deadline": null,
+  "booking": "unknown",
+  "checkedAt": "2026-10-29",
+  "price": {
+    "amount": 65,
+    "currency": "EUR",
+    "note": "Preis laut Kursseite; Sonderregelungen direkt beim Anbieter klären."
+  },
+  "recognition": {
+    "basic": "clarify",
+    "renewal": "clarify",
+    "firstAid": "clarify",
+    "prevention": "clarify",
+    "hours": null,
+    "teachingUnits": null,
+    "note": "Die Detailseite nennt keine UE-Zahl. Vor Buchung Umfang und Eignung für deinen Juleica-Nachweis beim Anbieter / Träger bestätigen lassen."
+  },
+  "tags": [
+    "Erste Hilfe",
+    "BRK",
+    "München",
+    "Juleica"
+  ],
+  "contents": [
+    "Erste-Hilfe-Ausbildung; das konkrete Programm steht beim Anbieter.",
+    "Persönliche Anmeldung ist im Originalformular vorgesehen, auch wenn der Kurstitel „BG“ enthält."
+  ],
+  "level": "Erste-Hilfe-Ausbildung; Voraussetzungen beim Anbieter prüfen",
+  "summary": "Erste-Hilfe-Ausbildung des BRK mit direktem Link zur Anmeldung. Prüfe vor der Buchung den benötigten Nachweisumfang.",
+  "note": "Kein Live-Buchungssystem: freie Plätze und Änderungen bitte im Original prüfen. Für Juleica nicht allein aus der Kursdauer auf die Anerkennung schließen.",
+  "sessions": [],
+  "id": "brk-eh-sendling-2026-11-14",
+  "title": "Rotkreuzkurs EH-Ausbildung · Sendling",
+  "originalTitle": "Rotkreuzkurs EH-Ausbildung (BG)",
+  "date": "2026-11-14",
+  "startTime": "08:30",
+  "endTime": "16:15",
+  "location": "Lehrsaal 2, BRK, Perchtinger Straße 5, 81379 München",
+  "region": "muenchen",
+  "length": "08:30–16:15 Uhr, inkl. Pausen",
+  "url": "https://www.erste-hilfe.brk-muenchen.de/kursanmeldung-bg/kurs/18305005"
+}

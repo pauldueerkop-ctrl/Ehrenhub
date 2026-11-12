@@ -1,0 +1,51 @@
+{
+  "id": "kjg-praevention-2026-11-18",
+  "status": "published",
+  "title": "Weiterführende Präventionsschulung",
+  "originalTitle": "Weiterführende Präventionsschulung 18.11.2026",
+  "summary": "Präventionswissen vertiefen und den Umgang mit Mitteilungen und Verdachtsfällen üben. Laut KjG zur Juleica-Verlängerung anrechenbar.",
+  "providerId": "kjg",
+  "topic": "praevention",
+  "levelCode": "advanced",
+  "duration": "tag",
+  "format": "praesenz",
+  "region": "muenchen",
+  "date": "2026-11-18",
+  "endDate": null,
+  "startTime": "17:00",
+  "endTime": "21:30",
+  "length": "17:00–21:30 Uhr, inkl. Pause / Abendessen",
+  "location": "Base PaLaFo, Zillertalstraße 47, 81373 München",
+  "deadline": "2026-11-10",
+  "booking": "unknown",
+  "checkedAt": "2026-10-29",
+  "price": {
+    "amount": 5,
+    "currency": "EUR",
+    "note": "Für KjG-Mitglieder kostenlos."
+  },
+  "recognition": {
+    "basic": "clarify",
+    "renewal": "provider",
+    "firstAid": "clarify",
+    "prevention": "provider",
+    "hours": null,
+    "teachingUnits": null,
+    "note": "Anrechenbarkeit zur Juleica-Verlängerung laut KjG. Die Zahl der anrechenbaren Stunden ist nicht genannt; vorab klären. Weiterführend, kein automatisch gleichwertiger Ersatz für eine Grundlagenschulung."
+  },
+  "level": "Weiterführende Schulung; benötigte Vorkenntnisse beim Anbieter klären",
+  "note": "Begrenzte Gruppengröße, gegebenenfalls Warteliste. Freie Plätze nicht live geprüft. Anmeldung nur beim Anbieter.",
+  "tags": [
+    "Prävention",
+    "PSG",
+    "KjG",
+    "Juleica",
+    "Verlängerung"
+  ],
+  "contents": [
+    "Mitteilungen und Verdachtsfälle einordnen.",
+    "Schutzfaktoren erkennen und Kinder und Jugendliche stärken."
+  ],
+  "url": "https://mida.kjg.de/DVMuenchenundFreising/?dialog=2&veranstaltung=10783",
+  "sessions": []
+}

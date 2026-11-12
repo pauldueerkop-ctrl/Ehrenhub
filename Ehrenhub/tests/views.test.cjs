@@ -33,12 +33,12 @@ test('legacy query links stay usable without inventing results from old paramete
   assert.match(render('#/antraege/freizeit-stadt'),/Förderassistent öffnen/);
 });
 test('bookmarks, checklists and local feedback render their stored state',()=>{
-  const s=makeState();s.bookmarks=['wiki:erste-gruppenstunde','kurs:erste-hilfe'];s.checks['erste-gruppenstunde:2:0']=true;s.feedback['erste-gruppenstunde']='yes';
+  const s=makeState();s.bookmarks=['wiki:erste-gruppenstunde','kurs:brk-eh-pasing-2026-11-06'];s.checks['erste-gruppenstunde:2:0']=true;s.feedback['erste-gruppenstunde']='yes';
   const article=render('#/wiki/erste-gruppenstunde',s);
   assert.match(article,/data-check="erste-gruppenstunde:2:0" checked/);
   assert.match(article,/data-feedback="yes" data-article="erste-gruppenstunde" aria-pressed="true"/);
   assert.match(article,/class="button secondary bookmark-full is-saved"/);
-  const saved=render('#/merkliste',s);assert.match(saved,/2<\/strong> gemerkte Inhalte/);assert.match(saved,/Erste Hilfe für deinen Ehrenamtsalltag/);
+  const saved=render('#/merkliste',s);assert.match(saved,/2<\/strong> gemerkte Inhalte/);assert.match(saved,/Rotkreuzkurs EH-Ausbildung/);
   assert.match(render('#/merkliste'),/Hier ist Platz für gute Fundstücke/);
 });
 test('PSG/SOS offers real links and no personal-data input field',()=>{

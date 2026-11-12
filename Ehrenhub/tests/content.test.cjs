@@ -65,7 +65,7 @@ test('new content is picked up by counts, search and detail pages without editin
   const index = C.makeSearchIndex(d);
   const render = hash => V.main(C.parseRoute(hash), makeState(), index);
   assert.ok(render('#/').includes(`${d.articles.length} Beispielartikel`));
-  assert.ok(render('#/').includes(`${d.courses.length} Beispielangebote`));
+  assert.ok(render('#/').includes(`${d.courses.length} recherchierte Termine`));
   assert.ok(render('#/wiki').includes(`${d.articles.length} How-tos`));
   assert.ok(render('#/wiki/neuer-artikel').includes(article.title));
   assert.ok(render('#/fortbildungen/neuer-kurs').includes(course.title));

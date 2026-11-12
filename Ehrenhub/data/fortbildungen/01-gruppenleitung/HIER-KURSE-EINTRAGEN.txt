@@ -1,0 +1,6 @@
+Hier passen veröffentlichte KjG-Kurswochen und andere Gruppenleitungskurse.
+KURS-VORLAGE.json aus dem übergeordneten Ordner kopieren; START-HIER.txt lesen.
+Am 29.10.2026 wurden keine noch regulär neu anmeldbaren Kurswochen sicher
+bestätigt. Die bekannten Herbsttermine hatten abgelaufene Fristen und teilweise
+bereits absolvierte Pflichtvorwochenenden. Deshalb keine Fantasietermine.
+Anbieter: https://muenchen.kjg.de/kurswoche/

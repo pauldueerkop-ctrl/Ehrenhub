@@ -1,0 +1,87 @@
+{
+  "version": "2026-10-29",
+  "checkedAt": "2026-10-29",
+  "scope": "Orientierung für die Jugendarbeit in München und Umgebung, Juleica-Basisregeln Bayern. Die Anerkennung bestätigt dein Träger.",
+  "staleAfterDays": 60,
+  "rules": {
+    "basicHours": 34,
+    "inPersonHours": 15,
+    "firstAidUnits": 9,
+    "firstAidUnitMinutes": 45,
+    "firstAidMaxYears": 3,
+    "renewalHours": 8
+  },
+  "sources": {
+    "standards": "https://www.bjr.de/ueber-uns/gremien/beschluesse/bayerische-juleica-standards-ab-2024",
+    "juleica": "https://www.bjr.de/handlungsfelder/ehrenamt/juleica"
+  },
+  "goals": [
+    {
+      "id": "start",
+      "title": "Meine erste Juleica",
+      "description": "Was brauche ich – und was bringe ich schon mit?",
+      "icon": "graduation",
+      "color": "sage"
+    },
+    {
+      "id": "renew",
+      "title": "Juleica verlängern",
+      "description": "Fortbildungsbedarf klären und Nachweise sammeln.",
+      "icon": "refresh",
+      "color": "lavender"
+    },
+    {
+      "id": "prevention",
+      "title": "Sicher hinschauen & handeln",
+      "description": "Die passende Präventionsschulung finden.",
+      "icon": "shield",
+      "color": "rose"
+    },
+    {
+      "id": "aid",
+      "title": "Erste Hilfe lernen",
+      "description": "Einen passenden Kurs in deiner Nähe finden.",
+      "icon": "heart",
+      "color": "sand"
+    }
+  ],
+  "providers": {
+    "brk": {
+      "name": "BRK Kreisverband München",
+      "url": "https://www.erste-hilfe.brk-muenchen.de/erste-hilfe-kurse/rotkreuzkurs-erste-hilfe.html",
+      "topics": [
+        "erstehilfe"
+      ],
+      "note": "Weitere Termine und Kursumfang direkt beim BRK prüfen."
+    },
+    "kjg": {
+      "name": "KjG München und Freising",
+      "url": "https://muenchen.kjg.de/kurswoche/",
+      "topics": [
+        "leitung",
+        "praevention"
+      ],
+      "note": "Grundkurse, Kurswochen und Aufbauangebote. Verbindliche Termine und Voraussetzungen beim Anbieter.",
+      "preventionUrl": "https://muenchen.kjg.de/praeventions-schulungen/"
+    },
+    "bdkj": {
+      "name": "BDKJ in der Region München",
+      "url": "https://bdkj-muenchen.de/fortbildungen/",
+      "topics": [
+        "leitung",
+        "praevention",
+        "organisation"
+      ],
+      "note": "Regionale Fortbildungen und Präventionsangebote. Nicht jede Übersicht enthält bereits neue Termine."
+    }
+  },
+  "legacy": {
+    "kjg-kurswoche": "leitung",
+    "kjg-aufbau": "leitung",
+    "bdkj-praevention": "praevention",
+    "psg-vertiefung": "praevention",
+    "erste-hilfe": "erstehilfe",
+    "foerdermittel-workshop": "organisation",
+    "teamwochenende": "organisation"
+  }
+}
